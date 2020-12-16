@@ -1,0 +1,25 @@
+ul {
+    list-style: none;
+    background-color: #E51B23;
+    border-radius: 1em;
+}
+
+li {
+    display: inline-block;
+    color: #ffffff;
+    padding: 1% 6%;
+}
+
+.flex-container {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: space-around;
+}
+
+.flex-itens{
+    margin-top: 5%;
+}
+
+
+
+
