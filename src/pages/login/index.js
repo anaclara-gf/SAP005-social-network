@@ -2,7 +2,7 @@ export const Login = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
       <div class="flex-container">
-        <img class="flex-itens" src="../images/logo.png">
+        <img class="flex-itens" src="../images/logo.jpg">
         <form class="flex-container">
 
           <label class="flex-itens" for="email">E-mail:</label>
@@ -21,5 +21,5 @@ export const Login = () => {
   `;
   return rootElement;
 
-  
+
 };

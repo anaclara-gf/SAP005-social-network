@@ -1,8 +1,10 @@
+import { SignUp } from "../../services/index.js";
+
 export const Register = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
         <div class="flex-container">
-            <img class="flex-itens" src="../images/logo.png">
+            <img class="flex-itens logo-image" src="../images/logo.jpg">
             <form class="flex-container">
 
                 <label class="flex-itens" for="name">Name:</label>
@@ -32,20 +34,10 @@ export const Register = () => {
     let password = rootElement.querySelector("#password");
     let signUpButton = rootElement.querySelector("#signup-button");
 
-    signUpButton.addEventListener('click', () => {
-        firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-            .then(() => {
-                alert("Welcome")
-            })
-            .catch((error) => {
-                alert("Ooops, something went wrong!")
-                let errorCode = error.code;
-                let errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            })
+    signUpButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        SignUp(email.value, password.value, name.value, username.value);
     })
 
     return rootElement;
-  };
-  
+};
