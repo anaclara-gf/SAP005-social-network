@@ -1,17 +1,19 @@
-export const SignUp = (email, password, name, username) => {
+export const SignUp = (email, password, name, username, bio, favGenres) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((res) => {
-        const user = firebase.auth().currentUser;
-        return user.updateProfile({
-            displayName: name,
-            uid: username
-        })
+    .then((cred) => {
+        return firebase.firestore().collection('users').doc(cred.user.uid).set({
+            name: name,
+            username: username,
+            bio: bio,
+            favGenres: favGenres
+        });
+    })
+    .then(() => {
+        alert("Welcome to 'Should I Watch?'")
     })
     .catch((error) => {
         alert("Ooops, something went wrong!")
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
+        console.log(error.code);
+        console.log(error.message);
     })
 }
