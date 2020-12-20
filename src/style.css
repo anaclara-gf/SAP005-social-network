@@ -1,25 +1,67 @@
+.backgroundImage {
+    background-image: linear-gradient(to bottom, transparent 0%, black 75%), url("images/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 ul {
     list-style: none;
     background-color: #E51B23;
     border-radius: 1em;
 }
 
+nav {
+    text-align: center;
+    font-family: Arial;
+}
+
 li {
     display: inline-block;
     color: #ffffff;
     padding: 1% 6%;
+    line-height: 35px;
+    margin: 0 5px;
+}
+
+.logo-image {
+    max-width: 100%;
+    height: auto;
+    width: 830px;
+    margin: 2%;
+}
+
+.registerText {
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
 }
 
 .flex-container {
     display: flex;
-    flex-flow: column wrap;
+    flex-direction: column;
+    align-items: center;
     align-content: space-around;
+    color: #ffffff;
+    font-family: Arial;
 }
 
-.flex-itens{
+.flex-itens {
     margin-top: 5%;
 }
-
-
-
-
+ input {
+     border-radius: 5px;
+     height: 35px;
+     border: white;
+ }
+ label {
+     width: 100%;
+ }
+ button {
+     background-color:  #E51B23;
+     color: white;
+     border-radius: 8px;
+     height: 26px;
+     border: #E51B23;
+ }
