@@ -5,7 +5,9 @@ export const Register = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
         <div class="flex-container">
-            <img class="flex-itens logo-image" src="../images/logo.jpg">
+            <section class="registerText">
+                 <h1>Register: join our community!</h1>
+                 </section>
             <form class="flex-container">
 
                 <label class="flex-itens" for="email">E-mail:</label>

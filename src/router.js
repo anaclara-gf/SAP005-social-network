@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
       e.preventDefault();
       onNavigate('/login')
     });
-    document
+  document
     .getElementById('register')
     .addEventListener('click', (e) => {
       e.preventDefault();
