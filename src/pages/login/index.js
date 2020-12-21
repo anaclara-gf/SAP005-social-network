@@ -1,3 +1,5 @@
+import {onNavigate} from "../../utils/history.js"
+
 export const Login = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
@@ -11,15 +13,32 @@ export const Login = () => {
           <label class="flex-itens" for="password">Password:</label>
           <input class="flex-itens" id="password" type="password" placeholder="Password" required>
 
-          <button class="flex-itens">Sign in</button>
-          <button class="flex-itens">Sign in with Google</button>
+          <button id="signin-button" class="flex-itens">Sign in</button>
+          <button id="signingoogle-button" class="flex-itens">Sign in with Google</button>
         </form>
 
         <p class="flex-itens">Don't have an account yet?</p>
-        <button class="flex-itens">Sign up</button>
+        <button id="signup-button" class="flex-itens">Sign up</button>
       </div>
   `;
+  
+  const signInButton = rootElement.querySelector("#signin-button");
+  const signInGoogleButton = rootElement.querySelector("#signingoogle-button");
+  const signUpButton = rootElement.querySelector("#signup-button");
+
+  signInButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    onNavigate("/");
+  })
+
+  signInGoogleButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    onNavigate("/");
+  })
+
+  signUpButton.addEventListener('click', () => {
+    onNavigate("/register");
+  })
+
   return rootElement;
-
-
 };
