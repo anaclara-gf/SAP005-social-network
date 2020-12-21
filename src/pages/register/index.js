@@ -4,7 +4,7 @@ export const Register = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
         <div class="flex-container">
-            <img class="flex-itens logo-image" src="../images/should-I-watch--logo.jpg">
+
             <section class="registerText">
                 <h1>Register: join our community!</h1>
             </section>

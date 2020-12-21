@@ -2,7 +2,6 @@ export const Home = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
   <div class="flex-container">
-    <img class="flex-itens logo-image" src="../images/should-I-watch--logo-transparente.png">  
     <article class="introText">
       <h1>Welcome to our community!</h1>
       <p>Tired of spend hours looking at streaming service catalogs to find something interesting to watch? We have the

@@ -2,7 +2,6 @@ export const Login = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
       <div class="flex-container">
-        <img class="flex-itens logo-image" src="../images/should-I-watch--logo.jpg">
         <form class="flex-container">
 
           <label class="flex-itens" for="email">E-mail:</label>
