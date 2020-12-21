@@ -1,6 +1,9 @@
+import {onNavigate} from "../../utils/history.js"
+
 export const Home = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
+      <button id="logout-button"> Log Out</button>
   <div class="flex-container">
     <article class="introText">
       <h1>Welcome to our community!</h1>
@@ -11,5 +14,14 @@ export const Home = () => {
     </article>
   </div>
   `;
+
+  const logOutButton = rootElement.querySelector("#logout-button");
+
+  logOutButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    onNavigate("/");
+  })
   return rootElement;
 };
+
+
