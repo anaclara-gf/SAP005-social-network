@@ -1,4 +1,4 @@
-import { SignUp, searchUsername } from "../../services/index.js";
+import { SignUp } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
@@ -29,19 +29,17 @@ export const Register = () => {
         </div>
     `;
 
-    let name = rootElement.querySelector("#name");
-    let username = rootElement.querySelector("#username");
-    let usernameError = rootElement.querySelector('#username-error');
-    let email = rootElement.querySelector("#email");
-    let password = rootElement.querySelector("#password");
-    let passwordRules = rootElement.querySelector('#password-rules');
-    let confirmPassword = rootElement.querySelector("#confirm-password");
-    let passwordError = rootElement.querySelector("#password-error")
-    let bio = rootElement.querySelector("#bio");
-    let favGenres = rootElement.querySelector("#fav-genres");
-    let signUpButton = rootElement.querySelector("#signup-button");
-
-    let usernameAvailable = false;
+    const name = rootElement.querySelector("#name");
+    const username = rootElement.querySelector("#username");
+    const email = rootElement.querySelector("#email");
+    const password = rootElement.querySelector("#password");
+    const passwordRules = rootElement.querySelector('#password-rules');
+    const confirmPassword = rootElement.querySelector("#confirm-password");
+    const passwordError = rootElement.querySelector("#password-error")
+    const bio = rootElement.querySelector("#bio");
+    const favGenres = rootElement.querySelector("#fav-genres");
+    const signUpButton = rootElement.querySelector("#signup-button");
+    const signInButton = rootElement.querySelector("#signin-button");
 
     const verifyPasswordLength = () => {
         if(password.value.length < 6){
@@ -64,38 +62,13 @@ export const Register = () => {
         }
     }
  
-    const verifyUsername = () => {
-        if(username.value !== "" && username.value !== undefined){
-            usernameError.innerHTML = '';
-            usernameError.classList.add('loader');
-            searchUsername(username.value)
-                .then((snapshot) => {
-                    if(!snapshot.empty){
-                        usernameError.classList.remove('loader');
-                        usernameError.style.color = 'red';
-                        usernameError.innerHTML = 'Username already exists';
-                        usernameAvailable = false;
-                    }else{
-                        usernameError.classList.remove('loader');
-                        usernameError.style.color = 'green';
-                        usernameError.innerHTML = 'Username available';
-                        usernameAvailable = true;
-                    }
-                })
-        }else{
-            usernameError.innerHTML = '';
-        }
-    }
-
     confirmPassword.addEventListener('input', verifyConfirmPassword);
     password.addEventListener('change', verifyPasswordLength);
-    username.addEventListener('change', verifyUsername);
-
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
-        if(verifyConfirmPassword() && usernameAvailable){
-            SignUp(email.value, password.value, name.value, username.value, bio.value, favGenres.value);
+        if(verifyConfirmPassword()){
+            SignUp(email.value, password.value);
         }else{
             console.log("Ooops, something went wrong!")
         }
