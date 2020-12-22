@@ -55,9 +55,13 @@ export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     return firebase.auth().signInWithPopup(provider)
     .then((result) => {
+        if(){
         onNavigate("/home")
         /*const token = result.credential.accessToken;
         const user = result.user;*/
+        }else{
+        onNavigate("/profile")
+        }
     })
     .catch((error) => {
         alert("Ooops, something went wrong!")

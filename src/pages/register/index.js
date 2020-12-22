@@ -22,7 +22,6 @@ export const Register = () => {
                 <p class="flex-itens" id="password-error"></p>
 
                 <button id="signup-button" class="flex-itens">Sign up</button>
-                <button id="signupgoogle-button" class="flex-itens">Sign up with Google</button>
             </form>
 
             <p class="flex-itens">Already have an account?</p>
@@ -36,7 +35,6 @@ export const Register = () => {
     const confirmPassword = rootElement.querySelector("#confirm-password");
     const passwordError = rootElement.querySelector("#password-error");
     const signUpButton = rootElement.querySelector("#signup-button");
-    const signUpGoogleButton = rootElement.querySelector("#signupgoogle-button");
     const signInButton = rootElement.querySelector("#signin-button");
 
     const verifyPasswordLength = () => {
@@ -68,11 +66,6 @@ export const Register = () => {
         if(verifyConfirmPassword()){
             SignUp(email.value, password.value, name.value);
         }
-    })
-
-    signUpGoogleButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        onNavigate("/profile")
     })
 
     signInButton.addEventListener('click', () => {
