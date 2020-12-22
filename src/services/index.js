@@ -48,11 +48,24 @@ export const SignUp = (email, password) => {
         onNavigate("/profile");
     })
     .catch((error) => {
-        alert("Ooops, something went wrong!")
-        console.log(error.code);
-        console.log(error.message);
+        if(error.code === "auth/email-already-in-use"){
+            alert("There is already an account with this e-mail!")
+        }else{
+            alert("Ooops, something went wrong!")
+            console.log(error.code);
+            console.log(error.message);
+        }
     })
-};
+}
+
+export const SignOut = () => {
+    auth.signOut();
+}
+
+export const searchUsername = (username) => { 
+    let usersRef = firebase.firestore().collection('users');
+    return usersRef.where('username', '==', username).get();
+}
 
 export const InfoProfile = (name, username, bio, favGenres) => {
     const user = String(firebase.auth().currentUser.uid);
