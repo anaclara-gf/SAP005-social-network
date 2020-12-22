@@ -1,46 +1,5 @@
 import { onNavigate } from "../utils/history.js";
 
-// export const SignUp = (email, password, name, username) => firebase.auth().createUserWithEmailAndPassword(email, password)
-//   .then((res) => {
-    // const user = firebase.auth().currentUser;
-    // user.sendEmailVerification().then(() => {
-    //   alert('Email sent. Please check your inbox.');
-    //   // Email sent.
-    // }).catch((error) => {
-    //   alert('Ooops, something went wrong!');
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   console.log(errorCode);
-    //   console.log(errorMessage);
-    //   // An error happened.
-    // });
-//     // user.sendEmailVerification()
-//     //   .then(() => {
-//     //     if (!firebase.auth().currentUser.emailVerified) {
-//     //       return alert('Invalid email');
-//     //     }
-//     //     alert('Email sent! Please check your inbox');
-//     //   })
-//     //   .catch((error) => {
-//     //     alert('Ooops, something went wrong!');
-//     //     const errorCode = error.code;
-//     //     const errorMessage = error.message;
-//     //     console.log(errorCode);
-//     //     console.log(errorMessage);
-//     //   });
-//     return user.updateProfile({
-//       displayName: name,
-//       uid: username,
-//     });
-//   })
-//   .catch((error) => {
-//     alert('Ooops, something went wrong!');
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     console.log(errorCode);
-//     console.log(errorMessage);
-//   });
-
 export const SignUp = (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(() => {
@@ -61,9 +20,50 @@ export const InfoProfile = (name, username, bio, favGenres) => {
         username: username,
         bio: bio,
         favGenres: favGenres
-    })   
+    })
     .then(() => {
         alert("Welcome to 'Should I Watch?'");
         onNavigate("/home");
+    })
+};
+
+export const signIn = (email, password) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => {
+        onNavigate("/home")
+    })
+    .catch((error) => {
+        alert("Ooops, something went wrong!")
+        console.log(error.code);
+        console.log(error.message);
+    })
+};
+
+export const signOut = (email, password) => {
+    return firebase.auth().signOut()
+    .then(() => {
+        onNavigate("/");
+    })
+    .catch((error) => {
+        alert("Ooops, something went wrong!")
+        console.log(error.code);
+        console.log(error.message);
+    })
+};
+
+export const signInGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+        onNavigate("/home")
+        /*const token = result.credential.accessToken;
+        const user = result.user;*/
+    })
+    .catch((error) => {
+        alert("Ooops, something went wrong!")
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = error.credential;
     })
 };

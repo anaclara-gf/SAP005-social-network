@@ -5,7 +5,6 @@ export const Profile = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
         <div class="flex-container">
-            <img class="flex-itens logo-image" src="../images/logo.jpg">
             <form class="flex-container">
 
             <label class="flex-itens" for="name">Full name:</label>
@@ -33,8 +32,7 @@ export const Profile = () => {
 
     saveProfileButton.addEventListener('click', (e) => {
         e.preventDefault();
-        InfoProfile(name.value, username.value, bio.value, favGenres.value)
-        onNavigate("/home")
+        InfoProfile(name.value, username.value, bio.value, favGenres.value);
     })
 
     return rootElement;
