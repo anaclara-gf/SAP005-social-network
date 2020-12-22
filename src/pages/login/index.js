@@ -27,12 +27,12 @@ export const Login = () => {
 
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
-    onNavigate("/");
+    onNavigate("/home");
   })
 
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
-    onNavigate("/");
+    onNavigate("/profile");
   })
 
   signUpButton.addEventListener('click', () => {
