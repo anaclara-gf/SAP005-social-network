@@ -1,4 +1,4 @@
-import { SignUp } from "../../services/index.js";
+import { SignUp, searchUsername } from "../../services/index.js";
 
 export const Register = () => {
     const rootElement = document.createElement('div');
@@ -12,7 +12,8 @@ export const Register = () => {
 
                 <label class="flex-itens" for="username">Username:</label>
                 <input class="flex-itens" id="username" type="text" placeholder="" required>
-            
+                <p class="flex-itens" id="username-error"></p> 
+
                 <label class="flex-itens" for="email">E-mail:</label>
                 <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
 
@@ -41,6 +42,7 @@ export const Register = () => {
 
     let name = rootElement.querySelector("#name");
     let username = rootElement.querySelector("#username");
+    let usernameError = rootElement.querySelector('#username-error');
     let email = rootElement.querySelector("#email");
     let password = rootElement.querySelector("#password");
     let passwordRules = rootElement.querySelector('#password-rules');
@@ -49,6 +51,8 @@ export const Register = () => {
     let bio = rootElement.querySelector("#bio");
     let favGenres = rootElement.querySelector("#fav-genres");
     let signUpButton = rootElement.querySelector("#signup-button");
+
+    let usernameAvailable = false;
 
     const verifyPasswordLength = () => {
         if(password.value.length < 6){
@@ -70,14 +74,41 @@ export const Register = () => {
             return true
         }
     }
+ 
+    const verifyUsername = () => {
+        if(username.value !== "" && username.value !== undefined){
+            usernameError.innerHTML = '';
+            usernameError.classList.add('loader');
+            searchUsername(username.value)
+                .then((snapshot) => {
+                    if(!snapshot.empty){
+                        usernameError.classList.remove('loader');
+                        usernameError.style.color = 'red';
+                        usernameError.innerHTML = 'Username already exists';
+                        usernameAvailable = false;
+                    }else{
+                        usernameError.classList.remove('loader');
+                        usernameError.style.color = 'green';
+                        usernameError.innerHTML = 'Username available';
+                        usernameAvailable = true;
+                    }
+                })
+        }else{
+            usernameError.innerHTML = '';
+        }
+    }
 
     confirmPassword.addEventListener('input', verifyConfirmPassword);
     password.addEventListener('change', verifyPasswordLength);
+    username.addEventListener('change', verifyUsername);
+
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
-        if(verifyConfirmPassword()){
+        if(verifyConfirmPassword() && usernameAvailable){
             SignUp(email.value, password.value, name.value, username.value, bio.value, favGenres.value);
+        }else{
+            console.log("Ooops, something went wrong!")
         }
     })
 
