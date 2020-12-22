@@ -7,21 +7,25 @@
     <link rel="stylesheet" href="./style.css">
     <title>Document</title>
   </head>
-  <body>
+  <body class="backgroundImage">
+    <header>
+      <img class="logo-image" src="../images/should-I-watch--logo2.jpg">
+    </header>
     <nav>
       <ul>
         <li id='home'>Home</li>
         <li id='login'>Login</li>
         <li id='register'>Register</li>
+        <li id='profile'>Profile</li>
       </ul>
     </nav>
     <div id="root"></div>
+    <!-- <img class="backgroundImage" alt="background image"> -->
     <script type="module" src="router.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
     <script type="module" src="services\firebaseConfig.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-firestore.js"></script>
   </body>

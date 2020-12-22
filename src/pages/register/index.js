@@ -1,18 +1,14 @@
 import { SignUp, searchUsername } from "../../services/index.js";
+import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
         <div class="flex-container">
-            <img class="flex-itens logo-image" src="../images/logo.jpg">
+            <section class="registerText">
+                 <h1>Register: join our community!</h1>
+                 </section>
             <form class="flex-container">
-
-                <label class="flex-itens" for="name">Full name:</label>
-                <input class="flex-itens" id="name" type="text" placeholder="" required>
-
-                <label class="flex-itens" for="username">Username:</label>
-                <input class="flex-itens" id="username" type="text" placeholder="" required>
-                <p class="flex-itens" id="username-error"></p> 
 
                 <label class="flex-itens" for="email">E-mail:</label>
                 <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
@@ -25,18 +21,11 @@ export const Register = () => {
                 <input class="flex-itens" id="confirm-password" type="password" placeholder="Password" required>
                 <p class="flex-itens" id="password-error"></p>
 
-                <label class="flex-itens" for="bio">Short description of yourself:</label>
-                <input class="flex-itens" id="bio" type="text" placeholder="" maxLength="500" required>
-
-                <label class="flex-itens" for="fav-genres">Favorites movie/series genres:</label>
-                <input class="flex-itens" id="fav-genres" type="text" placeholder="" maxLength="200" required>
-
-                <button class="flex-itens" id="signup-button">Sign up</button>
-                <button class="flex-itens">Sign up with Google</button>
+                <button id="signup-button" class="flex-itens">Sign up</button>
             </form>
 
             <p class="flex-itens">Already have an account?</p>
-            <button class="flex-itens">Sign in</button>
+            <button id ="signin-button" class="flex-itens">Sign in</button>
         </div>
     `;
 
@@ -110,6 +99,10 @@ export const Register = () => {
         }else{
             console.log("Ooops, something went wrong!")
         }
+    })
+
+    signInButton.addEventListener('click', () => {
+        onNavigate("/login")
     })
 
     return rootElement;
