@@ -29,11 +29,15 @@ export const Register = () => {
         </div>
     `;
 
+    const name = rootElement.querySelector("#name");
+    const username = rootElement.querySelector("#username");
     const email = rootElement.querySelector("#email");
     const password = rootElement.querySelector("#password");
     const passwordRules = rootElement.querySelector('#password-rules');
     const confirmPassword = rootElement.querySelector("#confirm-password");
-    const passwordError = rootElement.querySelector("#password-error");
+    const passwordError = rootElement.querySelector("#password-error")
+    const bio = rootElement.querySelector("#bio");
+    const favGenres = rootElement.querySelector("#fav-genres");
     const signUpButton = rootElement.querySelector("#signup-button");
     const signInButton = rootElement.querySelector("#signin-button");
 
@@ -57,14 +61,16 @@ export const Register = () => {
             return true
         }
     }
-
+ 
     confirmPassword.addEventListener('input', verifyConfirmPassword);
-    password.addEventListener('input', verifyPasswordLength);
+    password.addEventListener('change', verifyPasswordLength);
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
         if(verifyConfirmPassword()){
-            SignUp(email.value, password.value, name.value);
+            SignUp(email.value, password.value);
+        }else{
+            console.log("Ooops, something went wrong!")
         }
     })
 
