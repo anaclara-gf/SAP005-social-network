@@ -1,6 +1,4 @@
 import { onNavigate } from "../../utils/history.js";
-import { signIn } from "../../services/index.js";
-import { signInGoogle } from "../../services/index.js";
 
 export const Login = () => {
   const rootElement = document.createElement('div');
@@ -31,24 +29,12 @@ export const Login = () => {
 
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
-    signIn(email.value, password.value)
-    .then(() => {
-      onNavigate("/home");
-    })
-    .catch((error) => {
-      alert(error.code + error.message)
-    })
+    onNavigate("/home");
   })
 
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
-    signInGoogle()
-    .then(() => {
-      onNavigate("/profile");
-    })
-    .catch((error) => {
-      alert(error.code + error.message)
-    })
+    onNavigate("/profile");
   })
 
   signUpButton.addEventListener('click', () => {

@@ -2,9 +2,8 @@ export const signUp = (email, password) => {
     return  firebase.auth().createUserWithEmailAndPassword(email, password)    
 };
 
-export const verifyEmail = (user) => { 
-    const user =firebase.auth().currentUser;
-    return user.sendEmailVerification()
+export const verifyEmail = () => { 
+    return firebase.auth().currentUser.sendEmailVerification()
 };
 
 export const signOut = () => {
@@ -25,13 +24,3 @@ export const infoProfile = (name, username, bio, favGenres) => {
         favGenres: favGenres
     })   
 };
-
-export const signIn = (email, password) => {
-    return firebase.auth().signInWithEmailAndPassword(email, password)
-};
-
-export const signInGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithRedirect(provider)
-};
-
