@@ -33,7 +33,7 @@ export const Register = () => {
     const password = rootElement.querySelector("#password");
     const passwordRules = rootElement.querySelector('#password-rules');
     const confirmPassword = rootElement.querySelector("#confirm-password");
-    const passwordError = rootElement.querySelector("#password-error");
+    const passwordError = rootElement.querySelector("#password-error")
     const signUpButton = rootElement.querySelector("#signup-button");
     const signInButton = rootElement.querySelector("#signin-button");
 
@@ -57,9 +57,9 @@ export const Register = () => {
             return true
         }
     }
-
+ 
     confirmPassword.addEventListener('input', verifyConfirmPassword);
-    password.addEventListener('input', verifyPasswordLength);
+    password.addEventListener('change', verifyPasswordLength);
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
