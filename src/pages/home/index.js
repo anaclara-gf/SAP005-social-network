@@ -1,4 +1,5 @@
 import { signOut } from "../../services/index.js";
+import { onNavigate } from "../utils/history.js";
 
 export const Home = () => {
   const rootElement = document.createElement('div');
@@ -18,7 +19,13 @@ export const Home = () => {
   const logOutButton = rootElement.querySelector("#logout-button");
 
   logOutButton.addEventListener('click', () => {
-    signOut();
+    signOut()
+    .then(() => {
+      onNavigate("/");
+    })
+    .catch((error) => {
+      alert(error.code + error.message)
+    })
   })
   
   return rootElement;
