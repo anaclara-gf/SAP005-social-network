@@ -1,4 +1,6 @@
-import {onNavigate} from "../../utils/history.js"
+import { onNavigate } from "../../utils/history.js";
+import { signIn } from "../../services/index.js";
+import { signInGoogle } from "../../services/index.js";
 
 export const Login = () => {
   const rootElement = document.createElement('div');
@@ -21,18 +23,32 @@ export const Login = () => {
       </div>
   `;
   
+  const email = rootElement.querySelector("#email");
+  const password = rootElement.querySelector("#password");
   const signInButton = rootElement.querySelector("#signin-button");
   const signInGoogleButton = rootElement.querySelector("#signingoogle-button");
   const signUpButton = rootElement.querySelector("#signup-button");
 
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
-    onNavigate("/home");
+    signIn(email.value, password.value)
+    .then(() => {
+      onNavigate("/home");
+    })
+    .catch((error) => {
+      alert(error.code + error.message)
+    })
   })
 
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
-    onNavigate("/profile");
+    signInGoogle()
+    .then(() => {
+      onNavigate("/profile");
+    })
+    .catch((error) => {
+      alert(error.code + error.message)
+    })
   })
 
   signUpButton.addEventListener('click', () => {
@@ -41,3 +57,4 @@ export const Login = () => {
 
   return rootElement;
 };
+
