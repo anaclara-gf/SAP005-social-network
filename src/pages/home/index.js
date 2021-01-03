@@ -1,10 +1,9 @@
 import { signOut } from "../../services/index.js";
-import { onNavigate } from "../utils/history.js";
+import {onNavigate} from "../../utils/history.js"
 
 export const Home = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
-      <button id="logout-button"> Log Out</button>
   <div class="flex-container">
     <article class="introText">
       <h1>Welcome to our community!</h1>
@@ -14,20 +13,18 @@ export const Home = () => {
       all you need to do is create an account or login.</p>
     </article>
   </div>
+  <div class="flex-container">
+    <button class="flex-itens" id="signout-button">Sign out</button>
+  </div>
   `;
 
-  const logOutButton = rootElement.querySelector("#logout-button");
+  let signOutButton = rootElement.querySelector('#signout-button');
 
-  logOutButton.addEventListener('click', () => {
-    signOut()
-    .then(() => {
-      onNavigate("/");
-    })
-    .catch((error) => {
-      alert(error.code + error.message)
-    })
+  signOutButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    signOut();
+    onNavigate("/");
   })
-  
   return rootElement;
 };
 
