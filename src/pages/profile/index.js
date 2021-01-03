@@ -13,7 +13,6 @@ export const Profile = () => {
 
             <label class="flex-itens" for="username">Username:</label>
             <input class="flex-itens" id="username" type="text" placeholder="" required>
-            <p class="flex-itens" id="username-error"></p> 
             
             <label class="flex-itens" for="bio">Short description of yourself:</label>
             <input class="flex-itens" id="bio" type="text" placeholder="" maxLength="500" rows="5" cols="33"required>
@@ -32,7 +31,6 @@ export const Profile = () => {
     const bio = rootElement.querySelector("#bio");
     const favGenres = rootElement.querySelector("#fav-genres");
     const saveProfileButton = rootElement.querySelector("#saveprofile-button");
-    const signUpButton = rootElement.querySelector("#signup-button");
 
     let usernameAvailable = false;
 
@@ -64,12 +62,17 @@ export const Profile = () => {
     saveProfileButton.addEventListener('click', (e) => {
         if(usernameAvailable){
             e.preventDefault();
-            infoProfile(name.value, username.value, bio.value, favGenres.value);
-            onNavigate("/home");
+            infoProfile(name.value, username.value, bio.value, favGenres.value)
+            .then(() => {
+                alert("Welcome to 'Should I Watch?'");
+                onNavigate("/home");
+            })
+            .catch((error) => {
+                alert(error.code + error.message)
+            })
         }else {
             alert("Username already in use!")
         }
-        
     })
 
     return rootElement;
