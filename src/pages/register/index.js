@@ -1,4 +1,4 @@
-import { SignUp } from "../../services/index.js";
+import { signUp } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
@@ -68,7 +68,7 @@ export const Register = () => {
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
         if(verifyConfirmPassword()){
-            SignUp(email.value, password.value);
+            signUp(email.value, password.value);
         }else{
             console.log("Ooops, something went wrong!")
         }

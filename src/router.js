@@ -45,5 +45,5 @@ window.addEventListener('load', () => {
       onNavigate('/profile')
     });
   routeRender();
-  ;
 });
+

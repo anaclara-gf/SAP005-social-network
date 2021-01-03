@@ -1,4 +1,4 @@
-import { SignOut } from "../../services/index.js";
+import { signOut } from "../../services/index.js";
 import {onNavigate} from "../../utils/history.js"
 
 export const Home = () => {
@@ -22,7 +22,7 @@ export const Home = () => {
 
   signOutButton.addEventListener('click', (e) => {
     e.preventDefault();
-    SignOut();
+    signOut();
     onNavigate("/");
   })
   return rootElement;
