@@ -1,7 +1,8 @@
-import { Login } from './index.js';
+import { Profile } from './index.js';
 
-describe('Login', () => {
+describe('Profile', () => {
   it('should be a function', () => {
-    expect(typeof Login).toBe('function');
+    expect(typeof Profile).toBe('function');
   });
 });
+

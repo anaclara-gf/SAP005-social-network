@@ -1,6 +1,6 @@
 import { searchUsername } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
-import { InfoProfile } from "../../services/index.js";
+import { infoProfile } from "../../services/index.js";
 
 export const Profile = () => {
     const rootElement = document.createElement('div');
@@ -32,7 +32,6 @@ export const Profile = () => {
     const bio = rootElement.querySelector("#bio");
     const favGenres = rootElement.querySelector("#fav-genres");
     const saveProfileButton = rootElement.querySelector("#saveprofile-button");
-    const signUpButton = rootElement.querySelector("#signup-button");
 
     let usernameAvailable = false;
 
@@ -62,14 +61,20 @@ export const Profile = () => {
     username.addEventListener('change', verifyUsername);
 
     saveProfileButton.addEventListener('click', (e) => {
+        e.preventDefault();       
         if(usernameAvailable){
             e.preventDefault();
-            InfoProfile(name.value, username.value, bio.value, favGenres.value);
-            onNavigate("/home");
+            InfoProfile(name.value, username.value, bio.value, favGenres.value)
+            .then(() => {
+                alert("Welcome to 'Should I Watch?'");
+                onNavigate("/home");
+            })
+            .catch((error) => {
+                alert(error.code + error.message)
+            })
         }else {
             alert("Username already in use!")
-        }
-        
+        }    
     })
 
     return rootElement;
