@@ -2,6 +2,7 @@ import { Home } from './pages/home/index.js';
 import { Login } from './pages/login/index.js';
 import { Register } from './pages/register/index.js';
 import { Profile } from './pages/profile/index.js';
+import { Timeline } from './pages/timeline/index.js';
 import { onNavigate } from './utils/history.js';
 
 const routeRender = () => {
@@ -10,7 +11,8 @@ const routeRender = () => {
     '/home' : Home,
     '/': Login,
     '/register' : Register,
-    '/profile' : Profile
+    '/profile' : Profile,
+    '/timeline': Timeline
   };
 
   rootDiv.innerHTML = '';
@@ -38,12 +40,18 @@ window.addEventListener('load', () => {
       e.preventDefault();
       onNavigate('/register')
     });
-    document
-    .getElementById('profile')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-      onNavigate('/profile')
-    });
+  document
+  .getElementById('profile')
+  .addEventListener('click', (e) => {
+    e.preventDefault();
+    onNavigate('/profile')
+  });
+  document
+  .getElementById('timeline')
+  .addEventListener('click', (e) => {
+    e.preventDefault();
+    onNavigate('/timeline')
+  });
+
   routeRender();
-  ;
 });
