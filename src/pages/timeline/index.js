@@ -60,6 +60,14 @@ export const Timeline = () => {
         formReview.reset();
     })
 
+    const deleteReviews = () => {
+        ReviewsData().then(doc => {
+            doc.forEach(post => {
+                ReviewPost(post.uid).delete().then(res => {onNavigate('/timeline')})
+                })
+            })
+    }
+
     const addPost = (doc) => {
         doc.forEach(post => {
             const postTemplate = `
@@ -77,6 +85,11 @@ export const Timeline = () => {
             `;
             recentReviews.innerHTML += postTemplate
         })
+
+        const deleteButton = recentReviews.querySelectorAll(".delete-button");
+        console.log(deleteButton)
+
+        deleteButton.addEventListener('click', deleteReviews);
     }
 
     const loadReviews = () => {
@@ -91,7 +104,15 @@ export const Timeline = () => {
             }) 
     }
 
+    // const agreeButton = postTemplate.querySelector("#agree-button");
+    // const disagreeButton = postTemplate.querySelector("#disagree-button");
+
+    // agreeButton.addEventListener('click', (e) => {
+    // e.preventDefault();
+
+    // })
+
     loadReviews();
-    
+
     return rootElement
 }
