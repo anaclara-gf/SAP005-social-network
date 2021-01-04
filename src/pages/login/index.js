@@ -1,4 +1,6 @@
 import {onNavigate} from "../../utils/history.js"
+import { SignIn } from "../../services/index.js"
+//import { verifyUser } from "../../services/index.js"
 
 export const Login = () => {
   const rootElement = document.createElement('div');
@@ -21,14 +23,26 @@ export const Login = () => {
       </div>
   `;
   
+  const email = rootElement.querySelector("#email");
+  const password = rootElement.querySelector("#password");
   const signInButton = rootElement.querySelector("#signin-button");
   const signInGoogleButton = rootElement.querySelector("#signingoogle-button");
   const signUpButton = rootElement.querySelector("#signup-button");
 
+  // signInButton.addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   if (verifyUser()) {
+  //     SignIn(email.value, password.value);
+  //     onNavigate("/home");
+  //   } else {
+  //     //onNavigate("/register");
+  //   }
+  // })
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
-    onNavigate("/home");
+    SignIn(email.value, password.value);
   })
+
 
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();

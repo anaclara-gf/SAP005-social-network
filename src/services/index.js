@@ -44,3 +44,36 @@ export const InfoProfile = (name, username, bio, favGenres) => {
         onNavigate("/home");
     })
 };
+
+
+// export const verifyUser = () => {
+//    // const uid = null;
+//     firebase.auth().onAuthStateChanged(function(user) {
+//         if (user) {
+//           // User is signed in.
+//           console.log("hello there");
+//         } else {
+//           // No user is signed in.
+//         //  uid = null;
+//           onNavigate("/")
+//           console.log("general kenobi");
+//         }
+//       });
+// } 
+
+export const SignIn = (email, password) => {
+    console.log("hey");
+   return firebase.auth().signInWithEmailAndPassword(email, password)
+  .then((user) => {
+    // Signed in
+    // ...
+    onNavigate("/home")
+    alert("Welcome to 'Should I Watch?'");
+
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    alert("Error "+ errorMessage);
+  });
+};
