@@ -5,6 +5,7 @@ export const Timeline = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
     <div class="flex-container">
+        <button class="flex-itens" id="signout-button">Sign Out</button> 
         <p class="flex-itens" id="hello-name"></p>
         <p class="flex-itens">Would you like to write a review?</p>
 

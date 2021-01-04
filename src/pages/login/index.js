@@ -1,9 +1,5 @@
 import { onNavigate } from "../../utils/history.js";
-<<<<<<< HEAD
-import { signIn } from "../../services/index.js";
-import { signInGoogle } from "../../services/index.js";
-=======
->>>>>>> master
+import { signInGoogle, signIn, InfoProfileEmail, verifyUser } from "../../services/index.js";
 
 export const Login = () => {
   const rootElement = document.createElement('div');
@@ -31,7 +27,7 @@ export const Login = () => {
         <button id="signup-button" class="flex-itens">Sign up</button>
       </div>
   `;
-  
+
   const email = rootElement.querySelector("#email");
   const password = rootElement.querySelector("#password");
   const signInButton = rootElement.querySelector("#signin-button");
@@ -41,27 +37,34 @@ export const Login = () => {
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
     signIn(email.value, password.value)
-    .then(() => {
-      onNavigate("/timeline");
-    })
-    .catch((error) => {
-      alert(error.message)
-    })
+      .then(() => {
+        onNavigate("/timeline");
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
   })
 
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
     signInGoogle()
-    .then(() => {
-      if(sads){
-        onNavigate("/profile");
-      }else{
-        onNavigate("/home");
-      }
-    })
-    .catch((error) => {
-      alert(error.message)
-    })
+      .then(() => {
+        verifyUser()
+          .then((result) => {
+            if (result.size < 1) {
+              InfoProfileEmail();
+              onNavigate("/profile")
+            } else {
+              onNavigate("/timeline")
+            }
+          })
+          .catch((error) => {
+            alert(error.message);
+          })
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
   })
 
   signUpButton.addEventListener('click', () => {

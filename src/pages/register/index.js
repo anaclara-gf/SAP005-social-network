@@ -1,4 +1,4 @@
-import { signUp } from "../../services/index.js";
+import { signUp, InfoProfileEmail } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
@@ -73,6 +73,7 @@ export const Register = () => {
                     .catch((error) => {
                         alert(error.message)
                       })
+                InfoProfileEmail();
                 onNavigate("/profile");
             })
             .catch((error) => {
