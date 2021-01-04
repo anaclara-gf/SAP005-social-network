@@ -31,7 +31,6 @@ export const Profile = () => {
     const bio = rootElement.querySelector("#bio");
     const favGenres = rootElement.querySelector("#fav-genres");
     const saveProfileButton = rootElement.querySelector("#saveprofile-button");
-
     let usernameAvailable = false;
 
     const verifyUsername = () => {
@@ -68,7 +67,7 @@ export const Profile = () => {
                 onNavigate("/home");
             })
             .catch((error) => {
-                alert(error.code + error.message)
+                alert(error.message)
             })
         }else {
             alert("Username already in use!")

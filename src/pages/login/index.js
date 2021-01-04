@@ -36,7 +36,7 @@ export const Login = () => {
       onNavigate("/home");
     })
     .catch((error) => {
-      alert(error.code + error.message)
+      alert(error.message)
     })
   })
 
@@ -44,10 +44,14 @@ export const Login = () => {
     e.preventDefault();
     signInGoogle()
     .then(() => {
-      onNavigate("/profile");
+      if(sads){
+        onNavigate("/profile");
+      }else{
+        onNavigate("/home");
+      }
     })
     .catch((error) => {
-      alert(error.code + error.message)
+      alert(error.message)
     })
   })
 

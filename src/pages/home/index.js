@@ -26,7 +26,7 @@ export const Home = () => {
       onNavigate("/");
     })
     .catch((error) => {
-      alert(error.code + error.message)
+      alert(error.message)
     })
   })
   return rootElement;
