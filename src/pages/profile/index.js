@@ -59,18 +59,16 @@ export const Profile = () => {
     username.addEventListener('change', verifyUsername);
 
     saveProfileButton.addEventListener('click', (e) => {
+        e.preventDefault();       
         if(usernameAvailable){
             e.preventDefault();
             infoProfile(name.value, username.value, bio.value, favGenres.value)
             .then(() => {
-                alert("Welcome to 'Should I Watch?'");
-                onNavigate("/home");
+                onNavigate("/timeline");
             })
             .catch((error) => {
                 alert(error.message)
             })
-        }else {
-            alert("Username already in use!")
         }
     })
 

@@ -33,7 +33,7 @@ export const Register = () => {
     const password = rootElement.querySelector("#password");
     const passwordRules = rootElement.querySelector('#password-rules');
     const confirmPassword = rootElement.querySelector("#confirm-password");
-    const passwordError = rootElement.querySelector("#password-error");
+    const passwordError = rootElement.querySelector("#password-error")
     const signUpButton = rootElement.querySelector("#signup-button");
     const signInButton = rootElement.querySelector("#signin-button");
 
@@ -66,22 +66,17 @@ export const Register = () => {
         if(verifyConfirmPassword()){
             signUp(email.value, password.value)
             .then(() => {
-                verifyEmail(user)
+                verifyEmail()
                     .then(() => {
                         alert('Email sent. Please check your inbox.')
                     })
                     .catch((error) => {
-                        alert(error.code + error.message)
+                        alert(error.message)
                       })
-                alert("Congrats! Now, tell us about you!");
                 onNavigate("/profile");
             })
             .catch((error) => {
-                if(error.code === "auth/email-already-in-use"){
-                    alert("There is already an account with this e-mail!")
-                }else{
-                    alert(error.code + error.message)  
-                }
+                alert(error.message)  
             })
         }
     })
