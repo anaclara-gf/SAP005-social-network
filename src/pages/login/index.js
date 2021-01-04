@@ -1,6 +1,5 @@
-import {onNavigate} from "../../utils/history.js"
+import { onNavigate } from "../../utils/history.js"
 import { SignIn } from "../../services/index.js"
-//import { verifyUser } from "../../services/index.js"
 
 export const Login = () => {
   const rootElement = document.createElement('div');
