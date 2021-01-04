@@ -1,5 +1,5 @@
 import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, SignOut, ReviewPost, } from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, ReviewPost, } from "../../services/index.js";
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');

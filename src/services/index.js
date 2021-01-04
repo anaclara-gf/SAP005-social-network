@@ -39,6 +39,19 @@ export const InfoProfile = (name, username, bio, favGenres) => {
     })   
 };
 
+export const SignIn = (email, password) => {
+   return firebase.auth().signInWithEmailAndPassword(email, password)
+//   .then((user) => {
+//     onNavigate("/home")
+//     alert("Welcome to 'Should I Watch?'");
+
+//   })
+//   .catch((error) => {
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     alert("Error "+ errorMessage);
+//   });
+};
 export const Review = (movieName, review, plataform, rating) => {
     firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
