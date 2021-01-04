@@ -40,20 +40,17 @@ export const InfoProfile = (name, username, bio, favGenres) => {
 };
 
 export const SignIn = (email, password) => {
-    console.log("hey");
    return firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((user) => {
-    // Signed in
-    // ...
-    onNavigate("/home")
-    alert("Welcome to 'Should I Watch?'");
+//   .then((user) => {
+//     onNavigate("/home")
+//     alert("Welcome to 'Should I Watch?'");
 
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    alert("Error "+ errorMessage);
-  });
+//   })
+//   .catch((error) => {
+//     var errorCode = error.code;
+//     var errorMessage = error.message;
+//     alert("Error "+ errorMessage);
+//   });
 };
 export const Review = (movieName, review, plataform, rating) => {
     firebase.firestore().collection('users').doc(UserInfoUid()).get()
