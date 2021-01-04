@@ -49,13 +49,13 @@ export const searchUsername = (username) => {
     return usersRef.where('username', '==', username).get();
 };
 
-export const signIn = (email, password) => {
-    return firebase.auth().signInWithEmailAndPassword(email, password)
-};
-
 export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     return firebase.auth().signInWithPopup(provider)
+};
+
+export const SignIn = (email, password) => {
+   return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
 export const Review = (movieName, review, plataform, rating) => {
