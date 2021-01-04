@@ -1,4 +1,4 @@
-import {onNavigate} from "../../utils/history.js"
+import { onNavigate } from "../../utils/history.js";
 
 export const Login = () => {
   const rootElement = document.createElement('div');
@@ -21,6 +21,8 @@ export const Login = () => {
       </div>
   `;
   
+  const email = rootElement.querySelector("#email");
+  const password = rootElement.querySelector("#password");
   const signInButton = rootElement.querySelector("#signin-button");
   const signInGoogleButton = rootElement.querySelector("#signingoogle-button");
   const signUpButton = rootElement.querySelector("#signup-button");

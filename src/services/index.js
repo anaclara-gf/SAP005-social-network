@@ -1,4 +1,6 @@
-import { onNavigate } from "../utils/history.js";
+export const signUp = (email, password) => {
+    return  firebase.auth().createUserWithEmailAndPassword(email, password)    
+};
 
 // export const UserStatus = () => {
 //     firebase.auth().onAuthStateChanged(user => {
@@ -6,31 +8,13 @@ import { onNavigate } from "../utils/history.js";
 //     })
 // }
 
-export const SignUp = (email, password) => {
-  return firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => {
-        const user =firebase.auth().currentUser;
-        user.sendEmailVerification()
-        .then(() => {
-            alert('Email sent. Please check your inbox.')
-        });
-        alert("Congrats! Now, tell us about you!");
-        onNavigate("/profile");
-    })
-    .catch((error) => {
-        if(error.code === "auth/email-already-in-use"){
-            alert("There is already an account with this e-mail!")
-        }else{
-            alert("Ooops, something went wrong!")
-            console.log(error.code);
-            console.log(error.message);
-        }
-    })
-}
+export const verifyEmail = () => { 
+    return firebase.auth().currentUser.sendEmailVerification()
+};
 
-export const SignOut = () => {
-    firebase.auth().signOut();
-}
+export const signOut = () => {
+    return firebase.auth().signOut()
+};
 
 export const UserInfoUid = () => {
     let uid;
@@ -44,7 +28,7 @@ export const UserInfoUid = () => {
 export const searchUsername = (username) => { 
     let usersRef = firebase.firestore().collection('users');
     return usersRef.where('username', '==', username).get();
-}
+};
 
 export const InfoProfile = (name, username, bio, favGenres) => {
     firebase.firestore().collection('users').doc(UserInfoUid()).set({
@@ -53,10 +37,6 @@ export const InfoProfile = (name, username, bio, favGenres) => {
         bio: bio,
         favGenres: favGenres
     })   
-    .then(() => {
-        alert("Welcome to 'Should I Watch?'");
-        onNavigate("/home");
-    })
 };
 
 export const Review = (movieName, review, plataform, rating) => {

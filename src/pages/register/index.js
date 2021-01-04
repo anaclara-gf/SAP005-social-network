@@ -1,4 +1,4 @@
-import { SignUp } from "../../services/index.js";
+import { signUp } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
@@ -29,15 +29,11 @@ export const Register = () => {
         </div>
     `;
 
-    const name = rootElement.querySelector("#name");
-    const username = rootElement.querySelector("#username");
     const email = rootElement.querySelector("#email");
     const password = rootElement.querySelector("#password");
     const passwordRules = rootElement.querySelector('#password-rules');
     const confirmPassword = rootElement.querySelector("#confirm-password");
     const passwordError = rootElement.querySelector("#password-error")
-    const bio = rootElement.querySelector("#bio");
-    const favGenres = rootElement.querySelector("#fav-genres");
     const signUpButton = rootElement.querySelector("#signup-button");
     const signInButton = rootElement.querySelector("#signin-button");
 
@@ -68,14 +64,30 @@ export const Register = () => {
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
         if(verifyConfirmPassword()){
-            SignUp(email.value, password.value);
-        }else{
-            console.log("Ooops, something went wrong!")
+            signUp(email.value, password.value)
+            .then(() => {
+                verifyEmail(user)
+                    .then(() => {
+                        alert('Email sent. Please check your inbox.')
+                    })
+                    .catch((error) => {
+                        alert(error.code + error.message)
+                      })
+                alert("Congrats! Now, tell us about you!");
+                onNavigate("/profile");
+            })
+            .catch((error) => {
+                if(error.code === "auth/email-already-in-use"){
+                    alert("There is already an account with this e-mail!")
+                }else{
+                    alert(error.code + error.message)  
+                }
+            })
         }
     })
 
     signInButton.addEventListener('click', () => {
-        onNavigate("/login")
+        onNavigate("/")
     })
 
     return rootElement;
