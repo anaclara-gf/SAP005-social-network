@@ -49,15 +49,6 @@ export const searchUsername = (username) => {
     return usersRef.where('username', '==', username).get();
 };
 
-export const InfoProfile = (name, username, bio, favGenres) => {
-    firebase.firestore().collection('users').doc(UserInfoUid()).update({
-        name: name,
-        username: username,
-        bio: bio,
-        favGenres: favGenres
-    })   
-};
-
 export const signIn = (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
 };
