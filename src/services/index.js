@@ -6,10 +6,29 @@ export const signUp = (email, password) => {
 //     firebase.auth().onAuthStateChanged(user => {
 //         console.log(user)
 //     })
-// }
+// 
 
 export const verifyEmail = () => { 
     return firebase.auth().currentUser.sendEmailVerification()
+};
+
+export const InfoProfileEmail = () => {
+    firebase.firestore().collection('users').doc(UserInfoUid()).set({
+        email: firebase.auth().currentUser.email
+    })   
+};
+
+export const verifyUser = () => {
+    return firebase.firestore().collection('users').where("email", "==", firebase.auth().currentUser.email).get()
+} 
+
+export const InfoProfile = (name, username, bio, favGenres) => {
+    firebase.firestore().collection('users').doc(UserInfoUid()).update({
+        name: name,
+        username: username,
+        bio: bio,
+        favGenres: favGenres
+    })   
 };
 
 export const signOut = () => {
@@ -30,28 +49,15 @@ export const searchUsername = (username) => {
     return usersRef.where('username', '==', username).get();
 };
 
-export const InfoProfile = (name, username, bio, favGenres) => {
-    firebase.firestore().collection('users').doc(UserInfoUid()).set({
-        name: name,
-        username: username,
-        bio: bio,
-        favGenres: favGenres
-    })   
+export const signInGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return firebase.auth().signInWithPopup(provider)
 };
 
 export const SignIn = (email, password) => {
    return firebase.auth().signInWithEmailAndPassword(email, password)
-//   .then((user) => {
-//     onNavigate("/home")
-//     alert("Welcome to 'Should I Watch?'");
-
-//   })
-//   .catch((error) => {
-//     var errorCode = error.code;
-//     var errorMessage = error.message;
-//     alert("Error "+ errorMessage);
-//   });
 };
+
 export const Review = (movieName, review, plataform, rating) => {
     firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
@@ -83,3 +89,5 @@ export const UserProfileInfo = (userUid) => {
 export const ReviewPost = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId);
 }
+
+

@@ -1,4 +1,4 @@
-import { signUp } from "../../services/index.js";
+import { signUp, InfoProfileEmail } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
@@ -57,31 +57,27 @@ export const Register = () => {
             return true
         }
     }
- 
+
     confirmPassword.addEventListener('input', verifyConfirmPassword);
-    password.addEventListener('change', verifyPasswordLength);
+    password.addEventListener('input', verifyPasswordLength);
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
         if(verifyConfirmPassword()){
             signUp(email.value, password.value)
             .then(() => {
-                verifyEmail(user)
+                verifyEmail()
                     .then(() => {
                         alert('Email sent. Please check your inbox.')
                     })
                     .catch((error) => {
-                        alert(error.code + error.message)
+                        alert(error.message)
                       })
-                alert("Congrats! Now, tell us about you!");
+                InfoProfileEmail();
                 onNavigate("/profile");
             })
             .catch((error) => {
-                if(error.code === "auth/email-already-in-use"){
-                    alert("There is already an account with this e-mail!")
-                }else{
-                    alert(error.code + error.message)  
-                }
+                alert(error.message)  
             })
         }
     })

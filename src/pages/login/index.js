@@ -1,10 +1,16 @@
-import { onNavigate } from "../../utils/history.js"
-import { SignIn } from "../../services/index.js"
+import { onNavigate } from "../../utils/history.js";
+import { signInGoogle, SignIn, InfoProfileEmail, verifyUser } from "../../services/index.js";
 
 export const Login = () => {
   const rootElement = document.createElement('div');
   rootElement.innerHTML = `
       <div class="flex-container">
+
+        <article class="introText">
+          <h1>Welcome to our community!</h1>
+          <p>Tired of spend hours looking at streaming service catalogs to find something interesting to watch? We have the perfect solution for you! Join our community <strong><i>SHOULD I WATCH?</i></strong> and see what your friends are watching and their opinions about series, movies, documentaries and more! You can also write your own reviews and post it for your friends, all you need to do is create an account or login.</p>
+        </article>
+
         <form class="flex-container">
 
           <label class="flex-itens" for="email">E-mail:</label>
@@ -22,7 +28,7 @@ export const Login = () => {
         <button id="signup-button" class="flex-itens">Sign up</button>
       </div>
   `;
-  
+
   const email = rootElement.querySelector("#email");
   const password = rootElement.querySelector("#password");
   const newUser = rootElement.querySelector("#nonUser")
@@ -35,21 +41,33 @@ export const Login = () => {
     SignIn(email.value, password.value)
     .then(() => {
         onNavigate("/timeline");
-        alert("Welcome to 'Should I Watch?'");
     })
     .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      alert("Error "+ errorMessage)
+      alert("Error "+ error.message)
       newUser.innerHTML = "Email and password not found."
     })
   });
      
-
-
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
-    onNavigate("/profile");
+    signInGoogle()
+      .then(() => {
+        verifyUser()
+          .then((result) => {
+            if (result.size < 1) {
+              InfoProfileEmail();
+              onNavigate("/profile")
+            } else {
+              onNavigate("/timeline")
+            }
+          })
+          .catch((error) => {
+            alert(error.message);
+          })
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
   })
 
   signUpButton.addEventListener('click', () => {
@@ -58,3 +76,4 @@ export const Login = () => {
 
   return rootElement;
 };
+
