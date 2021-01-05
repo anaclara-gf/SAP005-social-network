@@ -51,7 +51,9 @@ export const searchUsername = (username) => {
 
 export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provider)
+    return firebase.auth().signInWithPopup(provider);
+    //firebase.auth().signInWithRedirect(provider);
+
 };
 
 export const SignIn = (email, password) => {
