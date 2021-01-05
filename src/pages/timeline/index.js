@@ -64,9 +64,9 @@ export const Timeline = () => {
         formReview.reset();
     })
 
-    const deleteReviews = (x) => {
-        ReviewPost(x).delete().then(res => {onNavigate('/timeline')})
-    }
+    // const deleteReviews = (x) => {
+    //     ReviewPost(x).delete().then(res => {onNavigate('/timeline')})
+    // }
 
     const addPost = (doc) => {
         doc.forEach(post => {
@@ -86,13 +86,13 @@ export const Timeline = () => {
             recentReviews.innerHTML += postTemplate
         })
 
-        const deleteButton = recentReviews.querySelectorAll(".delete-button");
+    //     const deleteButton = recentReviews.querySelectorAll(".delete-button");
         
-        deleteButton.forEach(button => {
-            button.addEventListener('click', (event) => {
-                deleteReviews(event.currentTarget);
-            })
-        })
+    //     deleteButton.forEach(button => {
+    //         button.addEventListener('click', (event) => {
+    //             deleteReviews(event.currentTarget);
+    //         })
+    //     })
     }
 
     const loadReviews = () => {
@@ -104,9 +104,13 @@ export const Timeline = () => {
             }) 
     }
 
-    // const headerName = () => {
-    //     UserProfileInfo(post.data().userUid)
-    // }
+    const headerName = () => {
+        console.log(UserInfoUid())
+        UserProfileInfo(UserInfoUid())
+            .then(user => {
+                titleHello.innerHTML = `Hello, ${user.data()}`
+            })
+    }
 
     // const agreeButton = postTemplate.querySelector("#agree-button");
     // const disagreeButton = postTemplate.querySelector("#disagree-button");
@@ -117,7 +121,7 @@ export const Timeline = () => {
     // })
 
     loadReviews();
-    // headerName();
+    headerName();
 
     return rootElement
 }
