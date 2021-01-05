@@ -84,6 +84,7 @@ export const Timeline = () => {
                 <button id="agree-button">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</button>
                 <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
                 <button id="${post.id}" class="delete-button">&#128465;</button>
+                <hr>
             </li>
             `;
             recentReviews.innerHTML += postTemplate
