@@ -1,6 +1,6 @@
 import { searchUsername } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
-import { infoProfile } from "../../services/index.js";
+import { InfoProfile } from "../../services/index.js";
 
 export const Profile = () => {
     const rootElement = document.createElement('div');
@@ -65,13 +65,13 @@ export const Profile = () => {
         if(usernameAvailable){
             e.preventDefault();
             InfoProfile(name.value, username.value, bio.value, favGenres.value)
-            .then(() => {
-                alert("Welcome to 'Should I Watch?'");
-                onNavigate("/home");
-            })
-            .catch((error) => {
-                alert(error.code + error.message)
-            })
+                .then(() => {
+                    alert("Welcome to 'Should I Watch?'");
+                    onNavigate("/home");
+                })
+                .catch((error) => {
+                    alert(error.code + error.message)
+                })
         }else {
             alert("Username already in use!")
         }    

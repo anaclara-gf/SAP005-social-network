@@ -1,10 +1,11 @@
 import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, SignOut, ReviewPost, } from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, ReviewPost, UserInfoUid, signOut} from "../../services/index.js";
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
     <div class="flex-container">
+        <button class="flex-itens" id="logout-button">Logout</button>
         <p class="flex-itens" id="hello-name"></p>
         <p class="flex-itens">Would you like to write a review?</p>
 
@@ -45,6 +46,7 @@ export const Timeline = () => {
     </div>
     `;
 
+    const logOutButton = rootElement.querySelector("#logout-button");
     const titleHello = rootElement.querySelector("#hello-name");
     const formReview = rootElement.querySelector("#form-add-review");
     const movieName = rootElement.querySelector("#movie-serie-name");
@@ -54,18 +56,16 @@ export const Timeline = () => {
     const publish = rootElement.querySelector("#publish-review");
     const recentReviews = rootElement.querySelector("#recent-reviews");
 
+    logOutButton.addEventListener('click', signOut());
+
     publish.addEventListener('click', (e) => {
         e.preventDefault();
         Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text);
         formReview.reset();
     })
 
-    const deleteReviews = () => {
-        ReviewsData().then(doc => {
-            doc.forEach(post => {
-                ReviewPost(post.uid).delete().then(res => {onNavigate('/timeline')})
-                })
-            })
+    const deleteReviews = (x) => {
+        ReviewPost(x).delete().then(res => {onNavigate('/timeline')})
     }
 
     const addPost = (doc) => {
@@ -87,9 +87,12 @@ export const Timeline = () => {
         })
 
         const deleteButton = recentReviews.querySelectorAll(".delete-button");
-        console.log(deleteButton)
-
-        deleteButton.addEventListener('click', deleteReviews);
+        
+        deleteButton.forEach(button => {
+            button.addEventListener('click', (event) => {
+                deleteReviews(event.currentTarget);
+            })
+        })
     }
 
     const loadReviews = () => {
@@ -98,11 +101,12 @@ export const Timeline = () => {
             .then(doc => {
                 recentReviews.innerHTML = '';
                 addPost(doc);
-                doc.forEach(post => {
-                    titleHello.innerHTML = `Hello, ${post.data().name}`;
-                })
             }) 
     }
+
+    // const headerName = () => {
+    //     UserProfileInfo(post.data().userUid)
+    // }
 
     // const agreeButton = postTemplate.querySelector("#agree-button");
     // const disagreeButton = postTemplate.querySelector("#disagree-button");
@@ -113,6 +117,7 @@ export const Timeline = () => {
     // })
 
     loadReviews();
+    // headerName();
 
     return rootElement
 }
