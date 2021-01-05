@@ -18,7 +18,7 @@ export const Timeline = () => {
             <input class="flex-itens" id="review" type="text" placeholder="" maxLength="500" required>
             
             <label class="flex-itens">I saw it on:</label>
-            <select class="flex-itens" id="platform-choices">
+            <select class="select" id="platform-choices">
               <option value="netflix">Netflix</option>
               <option value="prime-video">Prime Video</option>
               <option value="hbo-go">HBO Go</option>
@@ -28,7 +28,7 @@ export const Timeline = () => {
             </select>
 
             <label class="flex-itens">Rating:</label>
-            <select class="flex-itens" id="rating-stars">
+            <select class="select" id="rating-stars">
               <option value="zero">0 stars</option>
               <option value="one">1 star</option>
               <option value="two">2 stars</option>
@@ -40,9 +40,9 @@ export const Timeline = () => {
             <button class="flex-itens" id="publish-review">Publish</button>
         
         </form>
-
+        <hr>
         <h2 class="flex-itens">Recents reviews</h2>
-        <ul class="flex-itens" id="recent-reviews"></ul>
+        <ul class="feed" id="recent-reviews"></ul>
     </div>
     `;
 
@@ -75,15 +75,15 @@ export const Timeline = () => {
         doc.forEach(post => {
             const postTemplate = `
             <li>
-                <p>${post.data().name}</p>
+                <p><strong>${post.data().name}</strong></p>
                 <p>${post.data().username}</p>
-                <button id="${post.id}" class="delete-button">&#128465;</button>
                 <p>${post.data().movieName}</p>
                 <p>Rating: ${post.data().rating}</p>
                 <p>Watched on: ${post.data().plataform}</p>
                 <p>${post.data().review}</p>
                 <button id="agree-button">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</button>
                 <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
+                <button id="${post.id}" class="delete-button">&#128465;</button>
             </li>
             `;
             recentReviews.innerHTML += postTemplate

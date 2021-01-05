@@ -108,3 +108,79 @@ button {
     font-size: 14px;
     color: #E51B23;
 }
+
+#hello-name {
+    font-size: 36px;
+    text-align: left;
+}
+
+#form-add-review{
+    align-items: inherit;
+    min-width: 80%;
+
+}
+
+#form-add-review, input{
+    min-width: 98%;
+    min-height: 45px;
+
+}
+
+#form-add-review, label{
+    font-size: 22px;
+    min-width: 80%;
+}
+
+#review {
+    min-height: 100px;
+}
+
+.select{
+    min-width: 98%;
+    min-height: 45px;
+    margin-top: 5%;
+    font-size: 18px;
+    border-radius: 5px;
+    border: white;
+}
+
+#publish-review{
+    min-width: 200px;
+    min-height: 35px;
+    font-size: 22px;
+    margin-bottom: 5%;
+}
+
+hr{
+    min-width: 100%;
+}
+
+.feed{
+    border-radius: 10px;
+    /* margin: 20px 10px; */
+    max-width: 760px;
+    border: white;
+    background-color: black;
+}
+
+ .feed, li{
+    margin: 0 0px;
+    min-width: 80%;
+}
+
+ .feed, p{
+    font-size: 20px;
+}
+
+.delete-button{
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: 85%;
+}  
+
+#signout-button{
+    position: absolute;
+    left: 82%;
+    top: 22%;
+}
