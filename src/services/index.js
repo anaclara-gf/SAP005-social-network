@@ -23,7 +23,7 @@ export const verifyUser = () => {
 } 
 
 export const InfoProfile = (name, username, bio, favGenres) => {
-    firebase.firestore().collection('users').doc(UserInfoUid()).update({
+    return firebase.firestore().collection('users').doc(UserInfoUid()).update({
         name: name,
         username: username,
         bio: bio,
