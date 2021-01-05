@@ -1,4 +1,4 @@
-import { signUp, InfoProfileEmail } from "../../services/index.js";
+import { signUp, InfoProfileEmail, verifyEmail } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
