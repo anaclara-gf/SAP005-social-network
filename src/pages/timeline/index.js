@@ -1,11 +1,11 @@
 import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, ReviewPost, UserInfoUid, signOut} from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, ReviewPost, } from "../../services/index.js";
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `
     <div class="flex-container">
-        <button class="flex-itens" id="logout-button">Logout</button>
+        <button class="flex-itens" id="signout-button">Sign Out</button> 
         <p class="flex-itens" id="hello-name"></p>
         <p class="flex-itens">Would you like to write a review?</p>
 
@@ -55,9 +55,18 @@ export const Timeline = () => {
     const rating = rootElement.querySelector("#rating-stars");
     const publish = rootElement.querySelector("#publish-review");
     const recentReviews = rootElement.querySelector("#recent-reviews");
+    const signOutButton = rootElement.querySelector('#signout-button');
 
-    logOutButton.addEventListener('click', signOut());
-
+    signOutButton.addEventListener('click', () => {
+        signOut()
+            .then(() => {
+                onNavigate("/");
+            })
+            .catch((error) => {
+                alert(error.code + error.message)
+            })
+    })
+    
     publish.addEventListener('click', (e) => {
         e.preventDefault();
         Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text);
@@ -79,8 +88,8 @@ export const Timeline = () => {
                 <p>Rating: ${post.data().rating}</p>
                 <p>Watched on: ${post.data().plataform}</p>
                 <p>${post.data().review}</p>
-                <button id="agree-button">&#128077; ${post.data().agree>0 ? post.data().agree : ""}</button>
-                <button id="disagree-button">&#128078; ${post.data().disagree>0 ? post.data().disagree : ""}</button>
+                <button id="agree-button">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</button>
+                <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
             </li>
             `;
             recentReviews.innerHTML += postTemplate
