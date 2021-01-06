@@ -77,7 +77,7 @@ export const Review = (movieName, review, platform, rating) => {
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').orderBy('data').orderBy('time', 'desc').get();
+    return firebase.firestore().collection('reviews').orderBy('data', 'desc').orderBy('time', 'desc').get();
 }
 
 export const UserProfileInfo = (userUid) => {
