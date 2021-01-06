@@ -36,7 +36,7 @@ export const signOut = () => {
 };
 
 export const UserInfoUid = () => {
-    const user = firebase.auth().currentUser;
+    let user = firebase.auth().currentUser;
     const uid = user.uid;
     return uid
 }
@@ -45,6 +45,10 @@ export const searchUsername = (username) => {
     const usersRef = firebase.firestore().collection('users');
     return usersRef.where('username', '==', username).get();
 };
+
+/*export const UserPersistence = () => {
+    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+};*/
 
 export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -77,7 +81,7 @@ export const Review = (movieName, review, platform, rating) => {
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').orderBy('data').orderBy('time', 'desc').get();
+    return firebase.firestore().collection('reviews').orderBy('data', 'desc').orderBy('time', 'desc').get();
 }
 
 export const UserProfileInfo = (userUid) => {
@@ -88,17 +92,26 @@ export const ReviewPost = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId);
 };
 
-export const AgreePost = (postId) => {
-    const postLike = firebase.firestore().collection("post").doc(postId);
-    postLike.update({
-      agree: firebase.firestore.FieldValue.increment(1)
+export const AgreePostClick = (postId) => {
+    return firebase.firestore().collection('reviews').doc(postId).update({
+        agree: firebase.firestore.FieldValue.increment(1)
     })
 };
 
-export const DisagreePost = (postId) => {
-    const postLike = firebase.firestore().collection("post").doc(postId);
-    postLike.update({
-      disagree: firebase.firestore.FieldValue.increment(1)
+export const DisagreePostClick = (postId) => {
+    return firebase.firestore().collection('reviews').doc(postId).update({
+        disagree: firebase.firestore.FieldValue.increment(1)
     })
 };
 
+// export const DisagreePostClickOut = (postId) => {
+//     return firebase.firestore().collection('reviews').doc(postId).update({
+//         disagree: firebase.firestore.FieldValue.increment(-1)
+//     })
+// };
+
+// export const AgreePostClickOut = (postId) => {
+//     return firebase.firestore().collection('reviews').doc(postId).update({
+//         agree: firebase.firestore.FieldValue.increment(-1)
+//     })
+// };
