@@ -1,5 +1,5 @@
 export const signUp = (email, password) => {
-    return  firebase.auth().createUserWithEmailAndPassword(email, password)    
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
 };
 
 // export const UserStatus = () => {
@@ -8,19 +8,19 @@ export const signUp = (email, password) => {
 //     })
 // 
 
-export const verifyEmail = () => { 
+export const verifyEmail = () => {
     return firebase.auth().currentUser.sendEmailVerification()
 };
 
 export const InfoProfileEmail = () => {
     firebase.firestore().collection('users').doc(UserInfoUid()).set({
         email: firebase.auth().currentUser.email
-    })   
+    })
 };
 
 export const verifyUser = () => {
     return firebase.firestore().collection('users').where("email", "==", firebase.auth().currentUser.email).get()
-} 
+};
 
 export const InfoProfile = (name, username, bio, favGenres) => {
     return firebase.firestore().collection('users').doc(UserInfoUid()).update({
@@ -28,7 +28,7 @@ export const InfoProfile = (name, username, bio, favGenres) => {
         username: username,
         bio: bio,
         favGenres: favGenres
-    })   
+    })
 };
 
 export const signOut = () => {
@@ -38,32 +38,30 @@ export const signOut = () => {
 export const UserInfoUid = () => {
     let uid;
     let user = firebase.auth().currentUser;
-    if(user !== null){
+    if (user !== null) {
         uid = user.uid;
         return uid;
     }
-}
+};
 
-export const searchUsername = (username) => { 
+export const searchUsername = (username) => {
     let usersRef = firebase.firestore().collection('users');
     return usersRef.where('username', '==', username).get();
 };
 
 export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
-    //firebase.auth().signInWithRedirect(provider);
-
+    return firebase.auth().signInWithRedirect(provider);
 };
 
 export const SignIn = (email, password) => {
-   return firebase.auth().signInWithEmailAndPassword(email, password)
+    return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
 export const Review = (movieName, review, plataform, rating) => {
     firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
-           firebase.firestore().collection('reviews').doc().set({
+            firebase.firestore().collection('reviews').doc().set({
                 userUid: UserInfoUid(),
                 name: doc.data().name,
                 username: doc.data().username,
@@ -81,15 +79,15 @@ export const Review = (movieName, review, plataform, rating) => {
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').get();
-}
+    return firebase.firestore().collection('reviews').get()
+};
 
 export const UserProfileInfo = (userUid) => {
-    return firebase.firestore().collection('users').doc(userUid).get();
-}
+    return firebase.firestore().collection('users').doc(userUid).get()
+};
 
 export const ReviewPost = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId);
-}
+};
 
 
