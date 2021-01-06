@@ -1,5 +1,6 @@
 import { searchUsername, InfoProfile } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
+
 export const Profile = () => {
     const rootElement = document.createElement('div');
     rootElement.innerHTML = `

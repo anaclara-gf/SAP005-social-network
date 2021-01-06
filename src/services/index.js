@@ -36,16 +36,13 @@ export const signOut = () => {
 };
 
 export const UserInfoUid = () => {
-    let uid;
-    let user = firebase.auth().currentUser;
-    if (user !== null) {
-        uid = user.uid;
-        return uid;
-    }
-};
+    const user = firebase.auth().currentUser;
+    const uid = user.uid;
+    return uid
+}
 
 export const searchUsername = (username) => {
-    let usersRef = firebase.firestore().collection('users');
+    const usersRef = firebase.firestore().collection('users');
     return usersRef.where('username', '==', username).get();
 };
 
@@ -58,8 +55,9 @@ export const SignIn = (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
-export const Review = (movieName, review, plataform, rating) => {
-    firebase.firestore().collection('users').doc(UserInfoUid()).get()
+export const Review = (movieName, review, platform, rating) => {
+    const data = new Date();
+    return firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
             firebase.firestore().collection('reviews').doc().set({
                 userUid: UserInfoUid(),
@@ -67,20 +65,20 @@ export const Review = (movieName, review, plataform, rating) => {
                 username: doc.data().username,
                 movieName: movieName,
                 review: review,
-                plataform: plataform,
+                platform: platform,
                 rating: rating,
+                data: data.toLocaleDateString(),
+                time: data.getTime(),
+                dataString: `${data.toLocaleDateString()} ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`,
                 agree: 0,
                 disagree: 0,
             })
         })
-        .then(() => {
-            onNavigate("/timeline");
-        })
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').get()
-};
+    return firebase.firestore().collection('reviews').orderBy('data').orderBy('time', 'desc').get();
+}
 
 export const UserProfileInfo = (userUid) => {
     return firebase.firestore().collection('users').doc(userUid).get()
