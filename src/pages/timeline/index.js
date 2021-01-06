@@ -146,17 +146,19 @@ export const Timeline = () => {
         doc.forEach(post => {
             const postTemplate = `
             <li>
-                <p><strong>${post.data().name}</strong></p>
-                <p>${post.data().username}</p>
-                <div data-id="${post.id}" class="edit-modal flex-container"></div>
-                <p>${post.data().movieName}</p>
-                <p>Rating: ${post.data().rating}</p>
-                <p>Watched on: ${post.data().platform}</p>
+                <p><b>${post.data().name}</b></p>
+                <p><i>${post.data().username}</i></p>
+                <p>${post.data().dataString}</p>
+                <p><b>${post.data().movieName}</b></p>
+                <p><b>Rating:</b> ${post.data().rating}</p>
+                <p><b>Watched on:</b> ${post.data().platform}</p>
                 <p>${post.data().review}</p>
                 <button id="agree-button">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</button>
                 <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
-                <button id="${post.id}" class="delete-button">&#128465;</button>
+                <button data-id="${post.id}" class="delete-button">&#128465;</button>
                 <button data-id="${post.id}" class="edit-button">&#9998;</button>
+
+                <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <hr>
             </li>
             `;
@@ -186,6 +188,7 @@ export const Timeline = () => {
             button.addEventListener('click', (event) => {
                 let editBtn = event.target.parentNode.querySelector('.edit-button');
                 let editMdl = event.target.parentNode.querySelector('.edit-modal');
+                editMdl.style.display = "block";
                 ReviewPost(editMdl.dataset.id).get()
                     .then(post => {
                         if(post.data().userUid === UserInfoUid()){

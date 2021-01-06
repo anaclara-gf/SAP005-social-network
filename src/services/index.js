@@ -55,7 +55,7 @@ export const SignIn = (email, password) => {
    return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
-export const Review = (movieName, review, plataform, rating) => {
+export const Review = (movieName, review, platform, rating) => {
     const data = new Date();
     return firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
@@ -69,6 +69,7 @@ export const Review = (movieName, review, plataform, rating) => {
                 rating: rating,
                 data: data.toLocaleDateString(),
                 time: data.getTime(),
+                dataString: `${data.toLocaleDateString()} ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`,
                 agree: 0,
                 disagree: 0,
             })
