@@ -1,5 +1,5 @@
 export const signUp = (email, password) => {
-    return  firebase.auth().createUserWithEmailAndPassword(email, password)    
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
 };
 
 // export const UserStatus = () => {
@@ -8,19 +8,19 @@ export const signUp = (email, password) => {
 //     })
 // 
 
-export const verifyEmail = () => { 
+export const verifyEmail = () => {
     return firebase.auth().currentUser.sendEmailVerification()
 };
 
 export const InfoProfileEmail = () => {
     firebase.firestore().collection('users').doc(UserInfoUid()).set({
         email: firebase.auth().currentUser.email
-    })   
+    })
 };
 
 export const verifyUser = () => {
     return firebase.firestore().collection('users').where("email", "==", firebase.auth().currentUser.email).get()
-} 
+};
 
 export const InfoProfile = (name, username, bio, favGenres) => {
     return firebase.firestore().collection('users').doc(UserInfoUid()).update({
@@ -28,7 +28,7 @@ export const InfoProfile = (name, username, bio, favGenres) => {
         username: username,
         bio: bio,
         favGenres: favGenres
-    })   
+    })
 };
 
 export const signOut = () => {
@@ -37,22 +37,26 @@ export const signOut = () => {
 
 export const UserInfoUid = () => {
     let user = firebase.auth().currentUser;
-    let uid = user.uid;
+    const uid = user.uid;
     return uid
 }
 
-export const searchUsername = (username) => { 
-    let usersRef = firebase.firestore().collection('users');
+export const searchUsername = (username) => {
+    const usersRef = firebase.firestore().collection('users');
     return usersRef.where('username', '==', username).get();
 };
 
+/*export const UserPersistence = () => {
+    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+};*/
+
 export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provider)
+    return firebase.auth().signInWithPopup(provider);
 };
 
 export const SignIn = (email, password) => {
-   return firebase.auth().signInWithEmailAndPassword(email, password)
+    return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
 export const Review = (movieName, review, platform, rating) => {
@@ -77,15 +81,37 @@ export const Review = (movieName, review, platform, rating) => {
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').orderBy('data').orderBy('time', 'desc').get();
+    return firebase.firestore().collection('reviews').orderBy('data', 'desc').orderBy('time', 'desc').get();
 }
 
 export const UserProfileInfo = (userUid) => {
-    return firebase.firestore().collection('users').doc(userUid).get();
-}
+    return firebase.firestore().collection('users').doc(userUid).get()
+};
 
 export const ReviewPost = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId);
-}
+};
 
+export const AgreePostClick = (postId) => {
+    return firebase.firestore().collection('reviews').doc(postId).update({
+        agree: firebase.firestore.FieldValue.increment(1)
+    })
+};
 
+export const DisagreePostClick = (postId) => {
+    return firebase.firestore().collection('reviews').doc(postId).update({
+        disagree: firebase.firestore.FieldValue.increment(1)
+    })
+};
+
+// export const DisagreePostClickOut = (postId) => {
+//     return firebase.firestore().collection('reviews').doc(postId).update({
+//         disagree: firebase.firestore.FieldValue.increment(-1)
+//     })
+// };
+
+// export const AgreePostClickOut = (postId) => {
+//     return firebase.firestore().collection('reviews').doc(postId).update({
+//         agree: firebase.firestore.FieldValue.increment(-1)
+//     })
+// };
