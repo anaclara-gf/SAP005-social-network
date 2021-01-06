@@ -23,7 +23,7 @@ export const verifyUser = () => {
 } 
 
 export const InfoProfile = (name, username, bio, favGenres) => {
-    firebase.firestore().collection('users').doc(UserInfoUid()).update({
+    return firebase.firestore().collection('users').doc(UserInfoUid()).update({
         name: name,
         username: username,
         bio: bio,
@@ -55,7 +55,8 @@ export const SignIn = (email, password) => {
    return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
-export const Review = (movieName, review, platform, rating) => {
+export const Review = (movieName, review, plataform, rating) => {
+    const data = new Date();
     return firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
             firebase.firestore().collection('reviews').doc().set({
@@ -66,6 +67,8 @@ export const Review = (movieName, review, platform, rating) => {
                 review: review,
                 platform: platform,
                 rating: rating,
+                data: data.toLocaleDateString(),
+                time: data.getTime(),
                 agree: 0,
                 disagree: 0,
             })
@@ -73,7 +76,7 @@ export const Review = (movieName, review, platform, rating) => {
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').get();
+    return firebase.firestore().collection('reviews').orderBy('data').orderBy('time', 'desc').get();
 }
 
 export const UserProfileInfo = (userUid) => {
