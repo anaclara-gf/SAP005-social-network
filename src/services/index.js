@@ -90,4 +90,17 @@ export const ReviewPost = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId);
 };
 
+export const AgreePost = (postId) => {
+    const postLike = firebase.firestore().collection("post").doc(postId);
+    postLike.update({
+      agree: firebase.firestore.FieldValue.increment(1)
+    })
+};
+
+export const DisagreePost = (postId) => {
+    const postLike = firebase.firestore().collection("post").doc(postId);
+    postLike.update({
+      disagree: firebase.firestore.FieldValue.increment(1)
+    })
+};
 
