@@ -36,12 +36,9 @@ export const signOut = () => {
 };
 
 export const UserInfoUid = () => {
-    let uid;
     let user = firebase.auth().currentUser;
-    if(user !== null){
-        uid = user.uid;
-        return uid;
-    }
+    let uid = user.uid;
+    return uid
 }
 
 export const searchUsername = (username) => { 
@@ -58,26 +55,24 @@ export const SignIn = (email, password) => {
    return firebase.auth().signInWithEmailAndPassword(email, password)
 };
 
-export const Review = (movieName, review, plataform, rating) => {
+export const Review = (movieName, review, platform, rating) => {
     const data = new Date();
-    firebase.firestore().collection('users').doc(UserInfoUid()).get()
+    return firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
-           firebase.firestore().collection('reviews').doc().set({
+            firebase.firestore().collection('reviews').doc().set({
                 userUid: UserInfoUid(),
                 name: doc.data().name,
                 username: doc.data().username,
                 movieName: movieName,
                 review: review,
-                plataform: plataform,
+                platform: platform,
                 rating: rating,
                 data: data.toLocaleDateString(),
                 time: data.getTime(),
+                dataString: `${data.toLocaleDateString()} ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`,
                 agree: 0,
                 disagree: 0,
             })
-        })
-        .then(() => {
-            onNavigate("/timeline");
         })
 };
 
