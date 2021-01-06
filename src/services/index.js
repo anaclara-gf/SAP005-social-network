@@ -59,6 +59,7 @@ export const SignIn = (email, password) => {
 };
 
 export const Review = (movieName, review, plataform, rating) => {
+    const data = new Date();
     firebase.firestore().collection('users').doc(UserInfoUid()).get()
         .then(doc => {
            firebase.firestore().collection('reviews').doc().set({
@@ -69,6 +70,8 @@ export const Review = (movieName, review, plataform, rating) => {
                 review: review,
                 plataform: plataform,
                 rating: rating,
+                data: data.toLocaleDateString(),
+                time: data.getTime(),
                 agree: 0,
                 disagree: 0,
             })
@@ -79,7 +82,7 @@ export const Review = (movieName, review, plataform, rating) => {
 };
 
 export const ReviewsData = () => {
-    return firebase.firestore().collection('reviews').get();
+    return firebase.firestore().collection('reviews').orderBy('data').orderBy('time', 'desc').get();
 }
 
 export const UserProfileInfo = (userUid) => {
