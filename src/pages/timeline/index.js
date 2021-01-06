@@ -148,8 +148,6 @@ export const Timeline = () => {
             <li>
                 <p><strong>${post.data().name}</strong></p>
                 <p>${post.data().username}</p>
-                <button data-id="${post.id}" class="delete-button">&#128465;</button>
-                <button data-id="${post.id}" class="edit-button">&#9998;</button>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <p>${post.data().movieName}</p>
                 <p>Rating: ${post.data().rating}</p>
@@ -158,6 +156,7 @@ export const Timeline = () => {
                 <button id="agree-button">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</button>
                 <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
                 <button id="${post.id}" class="delete-button">&#128465;</button>
+                <button data-id="${post.id}" class="edit-button">&#9998;</button>
                 <hr>
             </li>
             `;
