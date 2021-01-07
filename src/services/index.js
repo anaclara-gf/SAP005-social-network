@@ -2,12 +2,6 @@ export const signUp = (email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
 };
 
-// export const UserStatus = () => {
-//     firebase.auth().onAuthStateChanged(user => {
-//         console.log(user)
-//     })
-// 
-
 export const verifyEmail = () => {
     return firebase.auth().currentUser.sendEmailVerification()
 };
@@ -36,19 +30,27 @@ export const signOut = () => {
 };
 
 export const UserInfoUid = () => {
-    let user = firebase.auth().currentUser;
-    const uid = user.uid;
-    return uid
-}
+    // firebase.auth().onAuthStateChanged((user) => {
+    //     if (user !== null) {
+            let useruid = firebase.auth().currentUser;
+            const uid = useruid.uid;
+            return uid
+        // }
+    // })
+};
 
 export const searchUsername = (username) => {
     const usersRef = firebase.firestore().collection('users');
     return usersRef.where('username', '==', username).get();
 };
 
-/*export const UserPersistence = () => {
-    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-};*/
+// export const verifyStateUser = () => {
+//     firebase.auth().onAuthStateChanged((user) => {
+//         if (user !== null) {
+            
+//         }
+//     })
+// };
 
 export const signInGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
