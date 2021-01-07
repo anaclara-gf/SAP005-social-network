@@ -193,6 +193,13 @@ hr{
     top: 22%;
 }
 
+/* input#agree{
+    display: none;
+}
+
+input#disagree{
+    display: none;
+} */
 #signin-button{
     min-width: 100px;
     height: 35px;
