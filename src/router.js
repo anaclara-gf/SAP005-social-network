@@ -8,8 +8,8 @@ const routeRender = () => {
   const rootDiv = document.getElementById('root');
   const routes = {
     '/': Login,
-    '/register' : Register,
-    '/profile' : Profile,
+    '/register': Register,
+    '/profile': Profile,
     '/timeline': Timeline
   };
 
@@ -33,17 +33,27 @@ window.addEventListener('load', () => {
       onNavigate('/register')
     });
   document
-  .getElementById('profile')
-  .addEventListener('click', (e) => {
-    e.preventDefault();
-    onNavigate('/profile')
-  });
+    .getElementById('profile')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/profile')
+    });
   document
-  .getElementById('timeline')
-  .addEventListener('click', (e) => {
-    e.preventDefault();
-    onNavigate('/timeline')
-  });
+    .getElementById('timeline')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+      onNavigate('/timeline')
+    });
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      onNavigate('/timeline')
+      console.log("logado")
+    } else {
+      onNavigate('/')
+      console.log("nao logado")
+    }
+  })
 
   routeRender();
 });
