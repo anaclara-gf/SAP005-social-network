@@ -178,7 +178,14 @@ hr{
     height: 30px;
     position: absolute;
     left: 85%;
-}  
+} 
+
+.edit-button{
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: 80%;
+}
 
 #signout-button{
     position: absolute;
