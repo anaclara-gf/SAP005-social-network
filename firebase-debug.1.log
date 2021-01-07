@@ -1,0 +1,23 @@
+[debug] [2021-01-06T17:15:49.257Z] ----------------------------------------------------------------------
+[debug] [2021-01-06T17:15:49.262Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\NoteMeninas\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only hosting
+[debug] [2021-01-06T17:15:49.263Z] CLI Version:   8.18.1
+[debug] [2021-01-06T17:15:49.263Z] Platform:      win32
+[debug] [2021-01-06T17:15:49.263Z] Node Version:  v12.19.0
+[debug] [2021-01-06T17:15:49.266Z] Time:          Wed Jan 06 2021 14:15:49 GMT-0300 (GMT-03:00)
+[debug] [2021-01-06T17:15:49.266Z] ----------------------------------------------------------------------
+[debug] [2021-01-06T17:15:49.267Z] 
+[debug] [2021-01-06T17:15:49.285Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-06T17:15:49.287Z] > authorizing via signed-in user
+[debug] [2021-01-06T17:15:49.288Z] [iam] checking project rede-social-329c5 for permissions ["firebase.projects.get"]
+[debug] [2021-01-06T17:15:49.295Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/rede-social-329c5:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-01-06T17:15:50.318Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 06 Jan 2021 17:15:49 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=820","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-06T17:15:50.324Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/rede-social-329c5  
+ 
+[debug] [2021-01-06T17:15:51.319Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 06 Jan 2021 17:15:50 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-06T17:15:51.325Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/rede-social-329c5/webApps/-/config  
+ 
+[debug] [2021-01-06T17:15:52.071Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 06 Jan 2021 17:15:51 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[warn] !  hosting: Port 5000 is not available. Trying another port... {"metadata":{"emulator":{"name":"hosting"},"message":"\u001b[33mhosting: \u001b[39mPort 5000 is not available. Trying another port..."}}
+[info] i  hosting: Serving hosting files from: src {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1msrc\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5005 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5005\u001b[22m\u001b[24m"}}

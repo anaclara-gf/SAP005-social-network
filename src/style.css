@@ -22,6 +22,7 @@ ul {
     list-style: none;
     background-color: #E51B23;
     border-radius: 1em;
+    /* display: none; */
 }
 
 nav {
@@ -60,6 +61,7 @@ li {
     align-content: space-around;
     color: #ffffff;
     font-family: Arial;
+    min-width: 55%;
 }
 
 .flex-itens {
@@ -80,7 +82,7 @@ li {
       transform: rotate(1turn);
     }
   }
- input {
+input {
      border-radius: 5px;
      height: 35px;
      border: white;
@@ -102,6 +104,7 @@ button {
     padding: 10px;
     text-align: left;
     line-height: 1.5;
+    max-width: 80%;
 } 
 
 #nonUser {
@@ -157,9 +160,7 @@ hr{
 
 .feed{
     border-radius: 10px;
-    /* margin: 20px 10px; */
     max-width: 760px;
-    border: white;
     background-color: black;
 }
 
@@ -177,11 +178,37 @@ hr{
     height: 30px;
     position: absolute;
     left: 85%;
-}  
+} 
+
+.edit-button{
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: 80%;
+}
 
 #signout-button{
     position: absolute;
-    left: 82%;
+    left: 80%;
     top: 22%;
+}
+
+#signin-button{
+    min-width: 100px;
+    height: 35px;
+    font-size: 20px;
+}
+
+#signingoogle-button{
+    min-width: 100px;
+    height: 35px;
+    font-size: 20px;
+}
+
+#signup-button{
+    min-width: 100px;
+    height: 35px;
+    font-size: 20px;
+    margin-top: 1%;
 }
 
