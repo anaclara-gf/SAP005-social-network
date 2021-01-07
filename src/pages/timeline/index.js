@@ -1,5 +1,7 @@
 import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost} from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut } from "../../services/index.js";
+
+
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');
@@ -62,21 +64,31 @@ export const Timeline = () => {
                 onNavigate("/");
             })
             .catch((error) => {
-                alert(error.code + error.message)
+                alert(error.message)
             })
     })
-    
+
     publish.addEventListener('click', (e) => {
         e.preventDefault();
         Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
             .then(() => {
                 formReview.reset();
-                onNavigate("/timeline");
+                document.location.reload(true);
+                // onNavigate("/timeline");
+            })
+            .catch((error) => {
+                alert(error.message)
             })
     })
 
     const deleteReviews = (postId) => {
-        ReviewPost(postId).delete().then(res => {onNavigate('/timeline')})
+        ReviewPost(postId).delete()
+            .then((res) => {
+                onNavigate('/timeline')
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
     }
 
     const editReviews = (postId, modal) => {
@@ -125,7 +137,7 @@ export const Timeline = () => {
                 let rating = modal.querySelector("#rating-stars");
                 const update = modal.querySelector("#update-review");
 
-                closeButton.addEventListener('click', () => {modal.style.display = "none"});
+                closeButton.addEventListener('click', () => { modal.style.display = "none" });
 
                 update.addEventListener('click', () => {
                     ReviewPost(postId).update({
@@ -134,11 +146,14 @@ export const Timeline = () => {
                         platform: platform.options[platform.selectedIndex].text === post.data().platform ? post.data().platform : platform.options[platform.selectedIndex].text,
                         rating: rating.options[rating.selectedIndex].text === post.data().rating ? post.data().rating : rating.options[rating.selectedIndex].text,
                     })
-                    .then(() => {
-                        modal.style.display = "none";
-                        onNavigate("/timeline");
-                    })
+                        .then(() => {
+                            modal.style.display = "none";
+                            onNavigate("/timeline");
+                        })
                 })
+            })
+            .catch((error) => {
+                alert(error.message)
             })
     }
 
@@ -146,9 +161,7 @@ export const Timeline = () => {
         doc.forEach(post => {
             const postTemplate = `
             <li>
-                <p><b>${post.data().name}</b></p>
-                <p><i>${post.data().username}</i></p>
-                <p>${post.data().dataString}</p>
+                <p><b>${post.data().name}</b> <i>@${post.data().username}</i></p>
                 <p><b>${post.data().movieName}</b></p>
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
@@ -157,6 +170,7 @@ export const Timeline = () => {
                 <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
+                <p>Posted in ${post.data().dataString}</p>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <hr>
             </li>
@@ -166,19 +180,41 @@ export const Timeline = () => {
 
         const deleteButton = recentReviews.querySelectorAll(".delete-button");
         const editButton = recentReviews.querySelectorAll(".edit-button");
-        
+        const agreeButton = recentReviews.querySelectorAll(".agree-button");
+        const disagreeButton = recentReviews.querySelectorAll(".disagree-button");
+        // let OneAgree = true;
+
+        // function CatchOneAgreeState () {
+        //     return OneAgree;
+        // }
+
+        // function SaveOneAgreeState (teste) {
+        //     OneAgree = teste;
+        // }
+
+        // function Agree(state) {
+        //     if (state == true) {
+        //         button_MudaCor.className.add('changeColor');
+        //     } else {
+        //         button_MudaCor.classList.remove('changeColor');
+        //     }
+        // };
+
         deleteButton.forEach(button => {
             button.addEventListener('click', (event) => {
                 let deleteBtn = event.target.parentNode.querySelector('.delete-button');
                 ReviewPost(deleteBtn.dataset.id).get()
                     .then(post => {
-                        if(post.data().userUid === UserInfoUid()){
-                            if(confirm("Are you sure you want to delete it?")){
+                        if (post.data().userUid === UserInfoUid()) {
+                            if (confirm("Are you sure you want to delete it?")) {
                                 deleteReviews(deleteBtn.dataset.id);
                             }
-                        }else {
+                        } else {
                             alert("You can't delete a post from another person!")
                         }
+                    })
+                    .catch((error) => {
+                        alert(error.message)
                     })
             })
         })
@@ -190,14 +226,40 @@ export const Timeline = () => {
                 editMdl.style.display = "block";
                 ReviewPost(editMdl.dataset.id).get()
                     .then(post => {
-                        if(post.data().userUid === UserInfoUid()){
+                        if (post.data().userUid === UserInfoUid()) {
                             editReviews(editBtn.dataset.id, editMdl);
-                        }else {
+                        } else {
                             alert("You can't edit a post from another person!")
                         }
                     })
+                    .catch((error) => {
+                        alert(error.message)
+                    })
             })
-        })    
+        })
+
+        agreeButton.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const agreeBtn = event.target.parentNode.querySelector('.agree-button');
+                // if (CatchOneAgreeValue() == true) {
+                    AgreePostClick(agreeBtn.dataset.id)
+                //     SaveOneAgreeValue(false);
+                    // onNavigate("/timeline")
+                // } else {
+                    AgreePostClickOut(agreeBtn.dataset.id)
+                //     SaveOneAgreeValue(true);
+                //     onNavigate("/timeline")
+                // }
+            })
+        })
+
+        disagreeButton.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
+                DisagreePostClick(disagreeBtn.dataset.id)
+                onNavigate("/timeline")
+            })
+        })
     }
 
     const loadReviews = () => {
@@ -206,7 +268,7 @@ export const Timeline = () => {
             .then(doc => {
                 recentReviews.innerHTML = '';
                 addPost(doc);
-            }) 
+            })
     }
 
     const headerName = () => {
