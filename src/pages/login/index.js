@@ -39,15 +39,14 @@ export const Login = () => {
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
     SignIn(email.value, password.value)
-    .then(() => {
+      .then(() => {
         onNavigate("/timeline");
-    })
-    .catch((error) => {
-      alert("Error "+ error.message)
-      newUser.innerHTML = "Email and password not found."
-    })
+      })
+      .catch((error) => {
+        newUser.innerHTML = error.message
+      })
   });
-     
+
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
     signInGoogle()
