@@ -155,9 +155,8 @@ export const Timeline = () => {
                 <p>${post.data().review}</p>
                 <button id="agree-button">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</button>
                 <button id="disagree-button">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</button>
-                <button data-id="${post.id}" class="delete-button">&#128465;</button>
-                <button data-id="${post.id}" class="edit-button">&#9998;</button>
-
+                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
+                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <hr>
             </li>
@@ -211,11 +210,14 @@ export const Timeline = () => {
     }
 
     const headerName = () => {
-        UserProfileInfo(UserInfoUid())
-            .then(user => {
-                titleHello.innerHTML = `Hello, ${user.data().name}`;
-            })
+        firebase.auth().onAuthStateChanged(user => {
+            UserProfileInfo(user.uid)
+                .then(doc => {
+                    titleHello.innerHTML = `Hello, ${doc.data().name}`;
+                })
+        })
     }
+        
 
     loadReviews();
     headerName();
