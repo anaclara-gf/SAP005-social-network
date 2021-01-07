@@ -104,14 +104,14 @@ export const DisagreePostClick = (postId) => {
     })
 };
 
-// export const DisagreePostClickOut = (postId) => {
-//     return firebase.firestore().collection('reviews').doc(postId).update({
-//         disagree: firebase.firestore.FieldValue.increment(-1)
-//     })
-// };
+export const DisagreePostClickOut = (postId) => {
+    return firebase.firestore().collection('reviews').doc(postId).update({
+        disagree: firebase.firestore.FieldValue.increment(-1)
+    })
+};
 
-// export const AgreePostClickOut = (postId) => {
-//     return firebase.firestore().collection('reviews').doc(postId).update({
-//         agree: firebase.firestore.FieldValue.increment(-1)
-//     })
-// };
+export const AgreePostClickOut = (postId) => {
+    return firebase.firestore().collection('reviews').doc(postId).update({
+        agree: firebase.firestore.FieldValue.increment(-1)
+    })
+};
