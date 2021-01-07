@@ -8,7 +8,7 @@ export const Register = () => {
             <section class="registerText">
                  <h1>Register: join our community!</h1>
                  </section>
-            <form class="flex-container">
+            <form class="register">
 
                 <label class="flex-itens" for="email">E-mail:</label>
                 <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
