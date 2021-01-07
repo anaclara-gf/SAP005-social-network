@@ -68,30 +68,19 @@ export const Timeline = () => {
 
     publish.addEventListener('click', (e) => {
         e.preventDefault();
-<<<<<<< HEAD
         if (reviewText.value === "" | movieName.value === "") {
             alert("Preencha todos os campos!")
         } else {
             Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
                 .then(() => {
                     formReview.reset();
-                    onNavigate("/timeline");
+                    document.location.reload(true);
+                    // onNavigate("/timeline");
                 })
                 .catch((error) => {
                     alert(error.code + error.message)
                 })
         }
-=======
-        Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
-            .then(() => {
-                formReview.reset();
-                document.location.reload(true);
-                // onNavigate("/timeline");
-            })
-            .catch((error) => {
-                alert(error.message)
-            })
->>>>>>> master
     })
 
     const deleteReviews = (postId) => {
@@ -179,14 +168,13 @@ export const Timeline = () => {
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
                 <p>${post.data().review}</p>
-                    <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class="agree-button">
-                    <label for="agree">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</label>
-                    <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
-                    <label for="disagree">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</label>
-                <button data-id="${post.id}" class="delete-button">&#128465;</button>
-                <button data-id="${post.id}" class="edit-button">&#9998;</button>
+                <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class="agree-button">
+                <label for="agree">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</label>
+                <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
+                <label for="disagree">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</label>
+                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
+                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                 <p>Posted in ${post.data().dataString}</p>
-
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <hr>
             </li>
@@ -243,14 +231,9 @@ export const Timeline = () => {
                 const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
                 if(agreeBtn.checked){
                     AgreePostClick(agreeBtn.dataset.id)
-<<<<<<< HEAD
-                    disagreeBtn.checked=false;
-                }else{
-=======
                 //     SaveOneAgreeValue(false);
                     // onNavigate("/timeline")
                 // } else {
->>>>>>> master
                     AgreePostClickOut(agreeBtn.dataset.id)
                 }
             })
@@ -280,11 +263,14 @@ export const Timeline = () => {
     }
 
     const headerName = () => {
-        UserProfileInfo(UserInfoUid())
-            .then(user => {
-                titleHello.innerHTML = `Hello, ${user.data().name}`;
-            })
+        firebase.auth().onAuthStateChanged(user => {
+            UserProfileInfo(user.uid)
+                .then(doc => {
+                    titleHello.innerHTML = `Hello, ${doc.data().name}`;
+                })
+        })
     }
+        
 
     loadReviews();
     headerName();
