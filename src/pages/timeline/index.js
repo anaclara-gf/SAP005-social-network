@@ -74,8 +74,7 @@ export const Timeline = () => {
             Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
                 .then(() => {
                     formReview.reset();
-                    document.location.reload(true);
-                    // onNavigate("/timeline");
+                    onNavigate("/timeline");
                 })
                 .catch((error) => {
                     alert(error.code + error.message)
@@ -168,27 +167,34 @@ export const Timeline = () => {
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
                 <p>${post.data().review}</p>
-<<<<<<< HEAD
-                    <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class="agree-button">
-                    <label for="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : ""}</label>
-                    <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
-                    <label for="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : ""}</label>
-                <button data-id="${post.id}" class="delete-button">&#128465;</button>
-                <button data-id="${post.id}" class="edit-button">&#9998;</button>
-=======
                 <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class="agree-button">
-                <label for="agree">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</label>
+                <label for="agree" class="agree-disagree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : ""}</label>
                 <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
-                <label for="disagree">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</label>
+                <label for="disagree" class="agree-disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : ""}</label>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
->>>>>>> master
                 <p>Posted in ${post.data().dataString}</p>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <hr>
             </li>
             `;
             recentReviews.innerHTML += postTemplate
+            
+            if (post.data().agree.includes(UserInfoUid())){
+                recentReviews.querySelectorAll(".agree-button").forEach(button => {
+                    const agreeBtn = button.parentNode.querySelector('.agree-button');
+                    console.log(agreeBtn.checked)
+                    agreeBtn.checked=true;
+                    console.log(agreeBtn.checked)
+                })
+            }
+
+            /*if (post.data().disagree.includes(UserInfoUid())){
+                recentReviews.querySelectorAll(".disagree-button").forEach(button => {
+                    const disagreeBtn = button.parentNode.querySelector('.disagree-button');
+                    disagreeBtn.checked=true;
+                })
+            }*/
         })
 
         const deleteButton = recentReviews.querySelectorAll(".delete-button");
@@ -234,29 +240,15 @@ export const Timeline = () => {
             })
         })
 
-        console.log(SearchAgreeClicks(UserInfoUid()))
-        /*SearchAgreeClicks(UserInfoUid())
-        .then(post => {
-            if (post.data().agree === UserInfoUid()){
-                
-            }
-        })   */
-
         agreeButton.forEach(button => {
             button.addEventListener('click', (event) => {
                 const agreeBtn = event.target.parentNode.querySelector('.agree-button');
                 const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
                 if(agreeBtn.checked){
                     AgreePostClick(agreeBtn.dataset.id)
-<<<<<<< HEAD
                     disagreeBtn.checked=false;
                     DisagreePostClickOut(agreeBtn.dataset.id)
                 }else{
-=======
-                //     SaveOneAgreeValue(false);
-                    // onNavigate("/timeline")
-                // } else {
->>>>>>> master
                     AgreePostClickOut(agreeBtn.dataset.id)
                 }
             })
@@ -298,6 +290,5 @@ export const Timeline = () => {
 
     loadReviews();
     headerName();
-
     return rootElement
 }

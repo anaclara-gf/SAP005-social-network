@@ -40,7 +40,6 @@ export const Login = () => {
     e.preventDefault();
     SignIn(email.value, password.value)
       .then(() => {
-        //onNavigate("/timeline");
       })
       .catch((error) => {
         newUser.innerHTML = error.message
