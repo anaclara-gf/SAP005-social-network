@@ -108,7 +108,7 @@ export const Timeline = () => {
                         <input class="flex-itens" id="review" type="text" value="${post.data().review}" maxLength="500" required>
                         
                         <label class="flex-itens">I saw it on:</label>
-                        <select class="flex-itens" id="platform-choices">
+                        <select class="select" id="platform-choices">
                         <option value="netflix" ${post.data().platform === "Netflix" ? "selected" : ""}>Netflix</option>
                         <option value="prime-video" ${post.data().platform === "Prime Video" ? "selected" : ""}>Prime Video</option>
                         <option value="hbo-go"${post.data().platform === "HBO Go" ? "selected" : ""}>HBO Go</option>
@@ -118,7 +118,7 @@ export const Timeline = () => {
                         </select>
             
                         <label class="flex-itens">Rating:</label>
-                        <select class="flex-itens" id="rating-stars">
+                        <select class="select" id="rating-stars">
                         <option value="zero" ${post.data().rating === "0 stars" ? "selected" : ""}>0 stars</option>
                         <option value="one" ${post.data().rating === "1 star" ? "selected" : ""}>1 star</option>
                         <option value="two" ${post.data().rating === "2 stars" ? "selected" : ""}>2 stars</option>
@@ -172,9 +172,9 @@ export const Timeline = () => {
                 <label for="agree">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</label>
                 <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
                 <label for="disagree">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</label>
+                <p>Posted in ${post.data().dataString}</p>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
-                <p>Posted in ${post.data().dataString}</p>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
                 <hr>
             </li>
