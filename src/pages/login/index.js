@@ -1,9 +1,9 @@
-import { onNavigate } from "../../utils/history.js";
-import { signInGoogle, SignIn, InfoProfileEmail, verifyUser } from "../../services/index.js";
+import { onNavigate } from '../../utils/history.js';
+import { signInGoogle, SignIn, InfoProfileEmail, verifyUser, stayLogged } from '../../services/index.js';
 
 export const Login = () => {
-  const rootElement = document.createElement('div');
-  rootElement.innerHTML = `
+	const rootElement = document.createElement('div');
+	rootElement.innerHTML = `
       <div class="flex-container">
 
         <article class="introText">
@@ -29,50 +29,56 @@ export const Login = () => {
       </div>
   `;
 
-  const email = rootElement.querySelector("#email");
-  const password = rootElement.querySelector("#password");
-  const newUser = rootElement.querySelector("#nonUser")
-  const signInButton = rootElement.querySelector("#signin-button");
-  const signInGoogleButton = rootElement.querySelector("#signingoogle-button");
-  const signUpButton = rootElement.querySelector("#signup-button");
+	const email = rootElement.querySelector('#email');
+	const password = rootElement.querySelector('#password');
+	const newUser = rootElement.querySelector('#nonUser');
+	const signInButton = rootElement.querySelector('#signin-button');
+	const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
+	const signUpButton = rootElement.querySelector('#signup-button');
 
-  signInButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    SignIn(email.value, password.value)
-      .then(() => {
-        //onNavigate("/timeline");
-      })
-      .catch((error) => {
-        newUser.innerHTML = error.message
-      })
-  });
+	signInButton.addEventListener('click', (e) => {
+		e.preventDefault();
+		SignIn(email.value, password.value)
+			.then(() => {
+				//onNavigate("/timeline");
+			})
+			.catch((error) => {
+				newUser.innerHTML = error.message;
+			});
+	});
 
-  signInGoogleButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    signInGoogle()
-      .then(() => {
-        verifyUser()
-          .then((result) => {
-            if (result.size < 1) {
-              InfoProfileEmail();
-              onNavigate("/profile")
-            } else {
-              onNavigate("/timeline")
-            }
-          })
-          .catch((error) => {
-            alert(error.message);
-          })
-      })
-      .catch((error) => {
-        alert(error.message)
-      })
-  })
+	signInGoogleButton.addEventListener('click', (e) => {
+		e.preventDefault();
+		signInGoogle()
+			.then(() => {
+				verifyUser()
+					.then((result) => {
+						if (result.size < 1) {
+							InfoProfileEmail();
+							onNavigate('/profile');
+						} else {
+							onNavigate('/timeline');
+						}
+					})
+					.catch((error) => {
+						alert(error.message);
+					});
+				stayLogged()
+					.then(() => {
+						SignIn(email.value, password.value);
+					})
+					.catch((error) => {
+						alert(error.message);
+					});
+			})
+			.catch((error) => {
+				alert(error.message);
+			});
+	});
 
-  signUpButton.addEventListener('click', () => {
-    onNavigate("/register");
-  })
+	signUpButton.addEventListener('click', () => {
+		onNavigate('/register');
+	});
 
-  return rootElement;
+	return rootElement;
 };
-

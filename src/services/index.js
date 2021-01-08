@@ -117,3 +117,7 @@ export const AgreePostClickOut = (postId) => {
         agree: firebase.firestore.FieldValue.increment(-1)
     })
 };
+
+export const stayLogged = () => {
+   return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+}
