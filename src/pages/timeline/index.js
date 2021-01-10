@@ -7,7 +7,7 @@ export const Timeline = () => {
     <div class="flex-container">
         <button class="flex-itens" id="signout-button">Sign Out</button> 
         <p class="flex-itens" id="hello-name"></p>
-        <p class="flex-itens">Would you like to write a review?</p>
+        <p class="userReview">Would you like to write a review?</p>
 
         <form id="form-add-review" class="flex-container">
 
@@ -163,16 +163,17 @@ export const Timeline = () => {
         doc.forEach(post => {
             const postTemplate = `
             <li>
-                <p><b>${post.data().name}</b> <i>@${post.data().username}</i></p>
-                <p><b>${post.data().movieName}</b></p>
+                
+                <h1><b>${post.data().movieName}</b></h1>
+                <p>${post.data().name} <i>@${post.data().username}</i></p>
+                <p>${post.data().review}</p>
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
-                <p>${post.data().review}</p>
                 <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class="agree-button">
                 <label for="agree">&#128077; ${post.data().agree > 0 ? post.data().agree : ""}</label>
                 <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
                 <label for="disagree">&#128078; ${post.data().disagree > 0 ? post.data().disagree : ""}</label>
-                <p>Posted in ${post.data().dataString}</p>
+                <p class="data">Posted in ${post.data().dataString}</p>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>

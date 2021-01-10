@@ -115,6 +115,10 @@ button {
     text-align: left;
 }
 
+.userReview {
+    margin-top: 10px;
+}
+
 #form-add-review{
     align-items: inherit;
     min-width: 80%;
@@ -150,6 +154,7 @@ button {
     min-height: 35px;
     font-size: 22px;
     margin-bottom: 5%;
+    cursor: pointer;
 }
 
 hr{
@@ -159,58 +164,57 @@ hr{
 .feed{
     border-radius: 10px;
     max-width: 760px;
-    /* background-color: black; */
 }
 
  .feed li{
     margin: 0 0px;
     min-width: 82%;
-    background-color: black;
+    background-color:#0a0a0ad2;
     margin-bottom: 3%;
     border-radius: 30px;
 }
 
  .feed p{
     font-size: 20px;
+    line-height: 1.5;
 }
 
-.delete-button{
+.feed button {
     width: 35px;
     height: 30px;
-    /* position: absolute;
-    left: 85%; */
-} 
+    margin-bottom: 25px;
+    cursor: pointer;
+}
 
-.edit-button{
-    width: 35px;
-    height: 30px;
-    /* position: absolute;
-    left: 80%; */
+.feed h1{
+    font-size: 24px;
+    margin-top: 28px;
+}
+
+.data{
+    opacity: 70%;
+    font-size: 18px;
 }
 
 #signout-button{
     position: absolute;
     left: 80%;
     top: 22%;
+    cursor: pointer;
 }
 
-/* input#agree{
-    display: none;
-}
-
-input#disagree{
-    display: none;
-} */
 #signin-button {
     min-width: 100px;
     height: 35px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 #signingoogle-button {
     min-width: 100px;
     height: 35px;
     font-size: 20px;
+    cursor: pointer;
 }
 
 #signup-button {
@@ -219,12 +223,14 @@ input#disagree{
     font-size: 20px;
     margin-top: 1%;
     margin-bottom: 8%;
+    cursor: pointer;
 }
 
 #saveprofile-button {
     min-width: 150px;
     height: 35px;
     margin-bottom: 8%;
+    cursor: pointer;
 
 }
 .none {
@@ -241,4 +247,5 @@ input#disagree{
 
 .link {
     color: #E51B23;
+    cursor: pointer;
 }
