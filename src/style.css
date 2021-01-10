@@ -18,17 +18,14 @@ body {
     background-attachment: fixed;
 }
 
-ul {
+.menu {
     list-style: none;
     background-color: #E51B23;
     border-radius: 1em;
-    /* display: none; */
-}
-
-nav {
     text-align: center;
     max-width: 100%;
     font-size: 18px;
+    /* display: none; */
 }
 
 li {
@@ -162,12 +159,15 @@ hr{
 .feed{
     border-radius: 10px;
     max-width: 760px;
-    background-color: black;
+    /* background-color: black; */
 }
 
  .feed li{
     margin: 0 0px;
-    min-width: 80%;
+    min-width: 82%;
+    background-color: black;
+    margin-bottom: 3%;
+    border-radius: 30px;
 }
 
  .feed p{

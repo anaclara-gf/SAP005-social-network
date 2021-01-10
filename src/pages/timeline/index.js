@@ -176,7 +176,6 @@ export const Timeline = () => {
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
-                <hr>
             </li>
             `;
             recentReviews.innerHTML += postTemplate
