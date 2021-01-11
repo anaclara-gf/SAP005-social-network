@@ -18,14 +18,17 @@ body {
     background-attachment: fixed;
 }
 
-.menu {
+ul {
     list-style: none;
     background-color: #E51B23;
     border-radius: 1em;
+    /* display: none; */
+}
+
+nav {
     text-align: center;
     max-width: 100%;
     font-size: 18px;
-    /* display: none; */
 }
 
 li {
@@ -72,14 +75,13 @@ li {
     border-top-color: black;
     height: 50px;
     width: 50px;
-}
+  }
   
-@keyframes is-rotating {
+  @keyframes is-rotating {
     to {
       transform: rotate(1turn);
     }
-}
-
+  }
 input {
      border-radius: 5px;
      height: 35px;
@@ -96,6 +98,7 @@ button {
      border-radius: 8px;
      height: 26px;
      border: #E51B23;
+     cursor: pointer;
 }
 
 .introText {
@@ -113,10 +116,6 @@ button {
 #hello-name {
     font-size: 36px;
     text-align: left;
-}
-
-.userReview {
-    margin-top: 10px;
 }
 
 #form-add-review{
@@ -164,37 +163,32 @@ hr{
 .feed{
     border-radius: 10px;
     max-width: 760px;
-    /* padding: 0px; */
+    background-color: black;
 }
 
- .feed li{
+ .feed, li{
     margin: 0 0px;
-    min-width: 82%;
-    background-color:#0a0a0ad2;
-    margin-bottom: 3%;
-    border-radius: 30px;
+    min-width: 80%;
 }
 
- .feed p{
+ .feed, p{
     font-size: 20px;
-    line-height: 1.5;
 }
 
-.feed button {
+.delete-button{
     width: 35px;
     height: 30px;
-    margin-bottom: 25px;
+    position: absolute;
+    left: 85%;
     cursor: pointer;
-}
+} 
 
-.feed h1{
-    font-size: 24px;
-    margin-top: 28px;
-}
-
-.data{
-    opacity: 70%;
-    font-size: 18px;
+.edit-button{
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    left: 80%;
+    cursor: pointer;
 }
 
 #signout-button{
@@ -204,7 +198,7 @@ hr{
     cursor: pointer;
 }
 
-#signin-button {
+#signin-button { 
     min-width: 100px;
     height: 35px;
     font-size: 20px;
@@ -223,28 +217,27 @@ hr{
     height: 35px;
     font-size: 20px;
     margin-top: 1%;
-    margin-bottom: 8%;
     cursor: pointer;
+    margin-bottom: 5%;
 }
 
 #saveprofile-button {
-    min-width: 150px;
+    min-width: 100px;
     height: 35px;
-    margin-bottom: 8%;
+    font-size: 20px;
+    margin-top: 5%;
     cursor: pointer;
-
 }
+
 .none {
     display: none;
 }
 
 .footer {
     color: #ffffff;
-    font-size: 18px;
-    margin-bottom: 5px;
-    padding: 10px;
+    font-size: 16px;
     text-align: center;
-}    
+}
 
 .link {
     color: #E51B23;
