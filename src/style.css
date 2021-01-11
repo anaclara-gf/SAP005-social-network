@@ -180,17 +180,13 @@ hr{
 .delete-button{
     width: 35px;
     height: 30px;
-    /* position: absolute;
-    left: 85%;
-    cursor: pointer; */
+    margin-bottom: 10px;
 } 
 
 .edit-button{
     width: 35px;
     height: 30px;
-    /* position: absolute;
-    left: 80%;
-    cursor: pointer; */
+    margin-bottom: 10px;
 }
 
 #signout-button{
@@ -244,4 +240,9 @@ hr{
 .link {
     color: #E51B23;
     cursor: pointer;
+}
+
+.data{
+    font-size: 18px;
+    opacity: 90%;
 }
