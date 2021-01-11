@@ -164,6 +164,7 @@ hr{
 .feed{
     border-radius: 10px;
     max-width: 760px;
+    /* padding: 0px; */
 }
 
  .feed li{
