@@ -1,5 +1,5 @@
 import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut } from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut, SearchAgreeClicks } from "../../services/index.js";
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');
@@ -225,6 +225,14 @@ export const Timeline = () => {
             })
         })
 
+        console.log(SearchAgreeClicks(UserInfoUid()))
+        /*SearchAgreeClicks(UserInfoUid())
+        .then(post => {
+            if (post.data().agree === UserInfoUid()){
+                
+            }
+        })   */
+
         agreeButton.forEach(button => {
             button.addEventListener('click', (event) => {
                 const agreeBtn = event.target.parentNode.querySelector('.agree-button');
@@ -246,6 +254,7 @@ export const Timeline = () => {
                 if(disagreeBtn.checked){
                     DisagreePostClick(disagreeBtn.dataset.id)
                     agreeBtn.checked=false;
+                    AgreePostClickOut(disagreeBtn.dataset.id)
                 }else{
                     DisagreePostClickOut(disagreeBtn.dataset.id)
                 }

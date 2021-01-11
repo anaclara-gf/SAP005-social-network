@@ -76,8 +76,8 @@ export const Review = (movieName, review, platform, rating) => {
                 data: data.toLocaleDateString(),
                 time: data.getTime(),
                 dataString: `${data.toLocaleDateString()} ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`,
-                agree: 0,
-                disagree: 0,
+                agree: [],
+                disagree: [],
             })
         })
 };
@@ -96,28 +96,32 @@ export const ReviewPost = (postId) => {
 
 export const AgreePostClick = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId).update({
-        agree: firebase.firestore.FieldValue.increment(1)
+        agree: firebase.firestore.FieldValue.arrayUnion(UserInfoUid())
     })
 };
 
 export const DisagreePostClick = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId).update({
-        disagree: firebase.firestore.FieldValue.increment(1)
+        disagree: firebase.firestore.FieldValue.arrayUnion(UserInfoUid())
     })
 };
 
 export const DisagreePostClickOut = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId).update({
-        disagree: firebase.firestore.FieldValue.increment(-1)
+        disagree: firebase.firestore.FieldValue.arrayRemove(UserInfoUid())
     })
 };
 
 export const AgreePostClickOut = (postId) => {
     return firebase.firestore().collection('reviews').doc(postId).update({
-        agree: firebase.firestore.FieldValue.increment(-1)
+        agree: firebase.firestore.FieldValue.arrayRemove(UserInfoUid())
     })
 };
 
 export const stayLogged = () => {
    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 }
+export const SearchAgreeClicks = () => {
+    const usersRef = firebase.firestore().collection('reviews');
+    return usersRef.where('agree', "array-contains", UserInfoUid()).get();
+};
