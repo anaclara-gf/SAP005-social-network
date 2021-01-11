@@ -179,15 +179,28 @@ export const Timeline = () => {
             </li>
             `;
             recentReviews.innerHTML += postTemplate
-            
-            if (post.data().agree.includes(UserInfoUid())){
+
+            console.log(SearchAgreeClicks())
+
+            SearchAgreeClicks()
+            .then(()=> {
                 recentReviews.querySelectorAll(".agree-button").forEach(button => {
                     const agreeBtn = button.parentNode.querySelector('.agree-button');
                     console.log(agreeBtn.checked)
                     agreeBtn.checked=true;
                     console.log(agreeBtn.checked)
                 })
-            }
+            })
+            
+            /*if (post.data().filter(indice => indice.agree.includes(UserInfoUid()))){
+                console.log(post.data().filter(indice => indice.agree.includes(UserInfoUid())))
+                recentReviews.querySelectorAll(".agree-button").forEach(button => {
+                    const agreeBtn = button.parentNode.querySelector('.agree-button');
+                    console.log(agreeBtn.checked)
+                    agreeBtn.checked=true;
+                    console.log(agreeBtn.checked)
+                })
+            }*/
 
             /*if (post.data().disagree.includes(UserInfoUid())){
                 recentReviews.querySelectorAll(".disagree-button").forEach(button => {
