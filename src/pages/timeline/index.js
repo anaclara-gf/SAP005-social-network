@@ -58,12 +58,6 @@ export const Timeline = () => {
 
     signOutButton.addEventListener('click', () => {
         signOut()
-            .then(() => {
-                onNavigate("/");
-            })
-            .catch((error) => {
-                alert(error.message)
-            })
     })
 
     publish.addEventListener('click', (e) => {
@@ -84,8 +78,8 @@ export const Timeline = () => {
 
     const deleteReviews = (postId) => {
         ReviewPost(postId).delete()
-            .then((res) => {
-                onNavigate('/timeline')
+            .then(() => {
+                window.location = '/timeline'
             })
             .catch((error) => {
                 alert(error.message)
@@ -149,7 +143,7 @@ export const Timeline = () => {
                     })
                         .then(() => {
                             modal.style.display = "none";
-                            onNavigate("/timeline");
+                            window.location = '/timeline'
                         })
                 })
             })
@@ -167,10 +161,10 @@ export const Timeline = () => {
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
                 <p>${post.data().review}</p>
-                <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class="agree-button">
-                <label for="agree" class="agree-disagree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : ""}</label>
-                <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button">
-                <label for="disagree" class="agree-disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : ""}</label>
+                <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class=" ${post.data().agree.includes(UserInfoUid()) ? "agree-button none vermelho" : "agree-button none"}" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""} >
+                <label for="agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : "0"}</label>
+                <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
+                <label for="disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                 <p>Posted in ${post.data().dataString}</p>
@@ -179,41 +173,28 @@ export const Timeline = () => {
             </li>
             `;
             recentReviews.innerHTML += postTemplate
-
-            console.log(SearchAgreeClicks())
-
-            SearchAgreeClicks()
-            .then(()=> {
-                recentReviews.querySelectorAll(".agree-button").forEach(button => {
-                    const agreeBtn = button.parentNode.querySelector('.agree-button');
-                    console.log(agreeBtn.checked)
-                    agreeBtn.checked=true;
-                    console.log(agreeBtn.checked)
-                })
-            })
-            
-            /*if (post.data().filter(indice => indice.agree.includes(UserInfoUid()))){
-                console.log(post.data().filter(indice => indice.agree.includes(UserInfoUid())))
-                recentReviews.querySelectorAll(".agree-button").forEach(button => {
-                    const agreeBtn = button.parentNode.querySelector('.agree-button');
-                    console.log(agreeBtn.checked)
-                    agreeBtn.checked=true;
-                    console.log(agreeBtn.checked)
-                })
-            }*/
-
-            /*if (post.data().disagree.includes(UserInfoUid())){
-                recentReviews.querySelectorAll(".disagree-button").forEach(button => {
-                    const disagreeBtn = button.parentNode.querySelector('.disagree-button');
-                    disagreeBtn.checked=true;
-                })
-            }*/
         })
 
         const deleteButton = recentReviews.querySelectorAll(".delete-button");
         const editButton = recentReviews.querySelectorAll(".edit-button");
         const agreeButton = recentReviews.querySelectorAll(".agree-button");
         const disagreeButton = recentReviews.querySelectorAll(".disagree-button");
+       
+        agreeButton.forEach(button => {
+            const agreeBtn = button.parentNode.querySelector('.agree-button');
+            const agreeLabel = button.parentNode.querySelector('.agree')
+            if (agreeBtn.checked) {
+                agreeLabel.classList.add("vermelho")
+            }
+        })
+
+        disagreeButton.forEach(button => {
+            const disagreeBtn = button.parentNode.querySelector('.disagree-button');
+            const disagreeLabel = button.parentNode.querySelector('.disagree')
+            if (disagreeBtn.checked) {
+                disagreeLabel.classList.add("vermelho")
+            }
+        })
 
         deleteButton.forEach(button => {
             button.addEventListener('click', (event) => {
@@ -257,12 +238,15 @@ export const Timeline = () => {
             button.addEventListener('click', (event) => {
                 const agreeBtn = event.target.parentNode.querySelector('.agree-button');
                 const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
-                if(agreeBtn.checked){
+                const agreeLabel = event.target.parentNode.querySelector('.agree')
+                if (agreeBtn.checked) {
                     AgreePostClick(agreeBtn.dataset.id)
-                    disagreeBtn.checked=false;
+                    disagreeBtn.checked = false;
                     DisagreePostClickOut(agreeBtn.dataset.id)
-                }else{
+                    agreeLabel.classList.add("vermelho")
+                } else {
                     AgreePostClickOut(agreeBtn.dataset.id)
+
                 }
             })
         })
@@ -271,11 +255,11 @@ export const Timeline = () => {
             button.addEventListener('click', (event) => {
                 const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
                 const agreeBtn = event.target.parentNode.querySelector('.agree-button');
-                if(disagreeBtn.checked){
+                if (disagreeBtn.checked) {
                     DisagreePostClick(disagreeBtn.dataset.id)
-                    agreeBtn.checked=false;
+                    agreeBtn.checked = false;
                     AgreePostClickOut(disagreeBtn.dataset.id)
-                }else{
+                } else {
                     DisagreePostClickOut(disagreeBtn.dataset.id)
                 }
             })
@@ -299,7 +283,7 @@ export const Timeline = () => {
                 })
         })
     }
-        
+
 
     loadReviews();
     headerName();

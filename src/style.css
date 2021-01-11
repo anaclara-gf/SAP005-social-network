@@ -193,11 +193,7 @@ hr{
     top: 22%;
 }
 
-/*input#agree:checked{
-    display: none;
-}*/
-
-label.agree-disagree{
+.vermelho{
     background-color: #E51B23;
 }
 
