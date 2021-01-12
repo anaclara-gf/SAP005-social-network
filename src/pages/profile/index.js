@@ -66,10 +66,10 @@ export const Profile = () => {
                 onNavigate("/timeline");
             })
             .catch((error) => {
-                alert(error.message)
+                alert(error.message);
             })
         }else {
-            alert("Username already in use!")
+            alert("Username already in use!");
         }    
     })
 

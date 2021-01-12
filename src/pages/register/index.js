@@ -1,4 +1,4 @@
-import { signUp, InfoProfileEmail, verifyEmail } from "../../services/index.js";
+import { signUp, verifyEmail } from "../../services/index.js";
 import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
@@ -6,8 +6,8 @@ export const Register = () => {
     rootElement.innerHTML = `
         <div class="flex-container">
             <section class="registerText">
-                 <h1>Register: join our community!</h1>
-                 </section>
+                <h1>Register: join our community!</h1>
+                </section>
             <form class="register">
 
                 <label class="flex-itens" for="email">E-mail:</label>
@@ -36,23 +36,24 @@ export const Register = () => {
     const passwordError = rootElement.querySelector("#password-error")
     const signUpButton = rootElement.querySelector("#signup-button");
     const signInButton = rootElement.querySelector("#signin-button");
+    const formRegister = rootElement.querySelector(".register");
 
     const verifyPasswordLength = () => {
-        if(password.value.length < 6){
+        if (password.value.length < 6) {
             passwordRules.style.color = 'red';
             passwordRules.innerHTML = 'Your password must have at least 6 characters!';
-        }else{
+        } else {
             passwordRules.innerHTML = '';
         }
     }
 
     const verifyConfirmPassword = () => {
-        if(password.value !== confirmPassword.value){
+        if (password.value !== confirmPassword.value) {
             passwordError.style.color = 'red';
             passwordError.innerHTML = 'Passwords do not match!';
             return false
         }
-        else{
+        else {
             passwordError.innerHTML = '';
             return true
         }
@@ -63,22 +64,22 @@ export const Register = () => {
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
-        if(verifyConfirmPassword()){
+        if (verifyConfirmPassword()) {
             signUp(email.value, password.value)
-            .then(() => {
-                verifyEmail()
-                    .then(() => {
-                        alert('Email sent. Please check your inbox.')
-                    })
-                    .catch((error) => {
-                        alert(error.message)
-                      })
-                InfoProfileEmail();
-                onNavigate("/profile");
-            })
-            .catch((error) => {
-                alert(error.message)  
-            })
+                .then(() => {
+                    verifyEmail()
+                        .then(() => {
+                            alert('Email sent. Please check your inbox.')
+                        })
+                        .catch((error) => {
+                            alert(error.message)
+                        })
+                    onNavigate("/profile");
+                })
+                .catch((error) => {
+                    alert(error.message)
+                    formRegister.reset();
+                })
         }
     })
 
