@@ -1,5 +1,5 @@
 import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut, SearchAgreeClicks } from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut } from "../../services/index.js";
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');
@@ -21,7 +21,7 @@ export const Timeline = () => {
             <select class="select" id="platform-choices">
               <option value="netflix">Netflix</option>
               <option value="prime-video">Prime Video</option>
-              <option value="hbo-go">HBO Go</option>
+              <option value="hbo-go">HBO GO</option>
               <option value="globoplay">Globoplay</option>
               <option value="disney">Disney+</option>
               <option value="other">Other</option>
@@ -65,13 +65,16 @@ export const Timeline = () => {
         if (reviewText.value === "" | movieName.value === "") {
             alert("Preencha todos os campos!")
         } else {
-            Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
-                .then(() => {
-                    formReview.reset();
-                    onNavigate("/timeline");
-                })
-                .catch((error) => {
-                    alert(error.code + error.message)
+            UserProfileInfo()
+                .then(doc => {
+                    Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text, doc)
+                        .then(() => {
+                            formReview.reset();
+                            onNavigate("/timeline");
+                        })
+                        .catch((error) => {
+                            alert(error.code + error.message)
+                        })
                 })
         }
     })
@@ -179,7 +182,7 @@ export const Timeline = () => {
         const editButton = recentReviews.querySelectorAll(".edit-button");
         const agreeButton = recentReviews.querySelectorAll(".agree-button");
         const disagreeButton = recentReviews.querySelectorAll(".disagree-button");
-       
+
         agreeButton.forEach(button => {
             const agreeBtn = button.parentNode.querySelector('.agree-button');
             const agreeLabel = button.parentNode.querySelector('.agree')
@@ -276,16 +279,13 @@ export const Timeline = () => {
     }
 
     const headerName = () => {
-        firebase.auth().onAuthStateChanged(user => {
-            UserProfileInfo(user.uid)
-                .then(doc => {
-                    titleHello.innerHTML = `Hello, ${doc.data().name}`;
-                })
-        })
+        UserProfileInfo()
+            .then(doc => {
+                titleHello.innerHTML = `Hello, ${doc.data().name}`;
+            })
     }
-
 
     loadReviews();
     headerName();
-    return rootElement
+    return rootElement;
 }

@@ -1,5 +1,5 @@
 import { onNavigate } from '../../utils/history.js';
-import { signInGoogle, SignIn, InfoProfileEmail, verifyUser, stayLogged } from '../../services/index.js';
+import { signInGoogle, SignIn } from '../../services/index.js';
 
 export const Login = () => {
 	const rootElement = document.createElement('div');
@@ -39,45 +39,22 @@ export const Login = () => {
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
     SignIn(email.value, password.value)
-      .then(() => {
-      })
       .catch((error) => {
         newUser.innerHTML = error.message
       })
   });
 
-	signInGoogleButton.addEventListener('click', (e) => {
-		e.preventDefault();
-		signInGoogle()
-			.then(() => {
-				verifyUser()
-					.then((result) => {
-						if (result.size < 1) {
-							InfoProfileEmail();
-							onNavigate('/profile');
-						} else {
-							onNavigate('/timeline');
-						}
-					})
-					.catch((error) => {
-						alert(error.message);
-					});
-				stayLogged()
-					.then(() => {
-						SignIn(email.value, password.value);
-					})
-					.catch((error) => {
-						alert(error.message);
-					});
-			})
-			.catch((error) => {
-				alert(error.message);
-			});
-	});
+  signInGoogleButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    signInGoogle()
+      .catch((error) => {
+        alert(error.message);
+      });
+  });
 
-	signUpButton.addEventListener('click', () => {
-		onNavigate('/register');
-	});
+  signUpButton.addEventListener('click', () => {
+    onNavigate('/register');
+  });
 
 	return rootElement;
 };
