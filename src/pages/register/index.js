@@ -3,6 +3,7 @@ import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
     const rootElement = document.createElement('div');
+    rootElement.classList.add("root-element");
     rootElement.innerHTML = `
         <div class="flex-container">
             <section class="registerText">

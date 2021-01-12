@@ -3,6 +3,7 @@ import { signInGoogle, SignIn, InfoProfileEmail, verifyUser, stayLogged } from '
 
 export const Login = () => {
 	const rootElement = document.createElement('div');
+	rootElement.classList.add("root-element");
 	rootElement.innerHTML = `
       <div class="flex-container">
 
@@ -13,18 +14,20 @@ export const Login = () => {
 
         <form class="login">
 
-          <label class="flex-itens" for="email">E-mail:</label>
-          <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
+			<label class="flex-itens" for="email">E-mail:</label>
+			<input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
 
-          <label class="flex-itens" for="password">Password:</label>
-          <input class="flex-itens" id="password" type="password" placeholder="Password" required>
-          <p class= "flex-itens" id= "nonUser"></p>
+			<label class="flex-itens" for="password">Password:</label>
+			<input class="flex-itens" id="password" type="password" placeholder="Password" required>
+			<p class= "flex-itens" id= "nonUser"></p>
 
-          <button id="signin-button" class="flex-itens">Sign in</button>
-          <button id="signingoogle-button" class="flex-itens">Sign in with Google</button>
+			<div class="signin-buttons">
+				<button id="signin-button" class="flex-itens">Sign in</button>
+				<button id="signingoogle-button" class="flex-itens">Sign in with Google</button>
+			</div>
         </form>
 
-        <p class="flex-itens">Don't have an account yet?</p>
+        <p class="flex-itens signup">Don't have an account yet?</p>
         <button id="signup-button" class="flex-itens">Sign up</button>
       </div>
   `;

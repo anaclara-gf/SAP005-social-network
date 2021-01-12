@@ -1,8 +1,8 @@
-import { onNavigate } from "../../utils/history.js";
-import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut, SearchAgreeClicks } from "../../services/index.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut } from "../../services/index.js";
 
 export const Timeline = () => {
     const rootElement = document.createElement('div');
+    rootElement.classList.add("root-element");
     rootElement.innerHTML = `
     <div class="flex-container">
         <button class="flex-itens" id="signout-button">Sign Out</button> 
@@ -37,7 +37,10 @@ export const Timeline = () => {
               <option value="five">5 stars</option>
             </select>
 
-            <button class="flex-itens" id="publish-review">Publish</button>
+            <div class="publish-cancel-buttons">
+                <button class="flex-itens" id="publish-review">Publish</button>
+                <button class="flex-itens" id="cancel-review">Cancel</button>
+            </div>
         
         </form>
         <hr>
@@ -53,11 +56,17 @@ export const Timeline = () => {
     const platform = rootElement.querySelector("#platform-choices");
     const rating = rootElement.querySelector("#rating-stars");
     const publish = rootElement.querySelector("#publish-review");
+    const cancel = rootElement.querySelector("#cancel-review");
     const recentReviews = rootElement.querySelector("#recent-reviews");
     const signOutButton = rootElement.querySelector('#signout-button');
 
     signOutButton.addEventListener('click', () => {
         signOut()
+    })
+
+    cancel.addEventListener('click', (e) => {
+        e.preventDefault();
+        formReview.reset();
     })
 
     publish.addEventListener('click', (e) => {
@@ -68,7 +77,7 @@ export const Timeline = () => {
             Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
                 .then(() => {
                     formReview.reset();
-                    onNavigate("/timeline");
+                    loadReviews();
                 })
                 .catch((error) => {
                     alert(error.code + error.message)
@@ -77,16 +86,10 @@ export const Timeline = () => {
     })
 
     const deleteReviews = (postId) => {
-        ReviewPost(postId).delete()
-            .then(() => {
-                window.location = '/timeline'
-            })
-            .catch((error) => {
-                alert(error.message)
-            })
+        ReviewPost(postId).delete();
     }
 
-    const editReviews = (postId, modal) => {
+    const editReviews = (postId, modal, postMovieName, postReview, postRating, postPlatform) => {
         ReviewPost(postId).get()
             .then(post => {
                 const modalTemplate = `
@@ -143,7 +146,10 @@ export const Timeline = () => {
                     })
                         .then(() => {
                             modal.style.display = "none";
-                            window.location = '/timeline'
+                            postMovieName.innerHTML = `<b>${movieName.value}</b>`;
+                            postReview.innerHTML = `${reviewText.value}`;
+                            postPlatform.innerHTML = `<b>Watched on:</b> ${platform.options[platform.selectedIndex].text}`;
+                            postRating.innerHTML = `<b>Rating:</b> ${rating.options[rating.selectedIndex].text}`;
                         })
                 })
             })
@@ -155,20 +161,28 @@ export const Timeline = () => {
     const addPost = (doc) => {
         doc.forEach(post => {
             const postTemplate = `
-            <li>
-                
-                <h1><b>${post.data().movieName}</b></h1>
+            <li data-id="${post.id}">
+                <h1 class="movie-name"><b>${post.data().movieName}</b></h1>
                 <p>${post.data().name} <i>@${post.data().username}</i></p>
-                <p>${post.data().review}</p>
-                <p><b>Rating:</b> ${post.data().rating}</p>
-                <p><b>Watched on:</b> ${post.data().platform}</p>
-                <p>${post.data().review}</p>
-                <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class=" ${post.data().agree.includes(UserInfoUid()) ? "agree-button none vermelho" : "agree-button none"}" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""} >
-                <label for="agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : "0"}</label>
-                <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
-                <label for="disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
-                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
-                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
+                <p class="review">${post.data().review}</p>
+                <p class="rating"><b>Rating:</b> ${post.data().rating}</p>
+                <p class="platform"><b>Watched on:</b> ${post.data().platform}</p>
+
+                <div class="user-actions">
+                    <div class="agree-disagree-buttons">
+                        <input type="checkbox" data-id="${post.id}" id="${post.id}-agree" name="agree" class="agree-button none" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""}>
+                        <label for="${post.id}-agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : "0"}</label>
+                    
+                        <input type="checkbox" data-id="${post.id}" id="${post.id}-disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
+                        <label for="${post.id}-disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
+                    </div>
+
+                    <div class="edit-delete-buttons">
+                        <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
+                        <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
+                    </div>
+                </div>
+
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
             </li>
             `;
@@ -179,32 +193,18 @@ export const Timeline = () => {
         const editButton = recentReviews.querySelectorAll(".edit-button");
         const agreeButton = recentReviews.querySelectorAll(".agree-button");
         const disagreeButton = recentReviews.querySelectorAll(".disagree-button");
-       
-        agreeButton.forEach(button => {
-            const agreeBtn = button.parentNode.querySelector('.agree-button');
-            const agreeLabel = button.parentNode.querySelector('.agree')
-            if (agreeBtn.checked) {
-                agreeLabel.classList.add("vermelho")
-            }
-        })
-
-        disagreeButton.forEach(button => {
-            const disagreeBtn = button.parentNode.querySelector('.disagree-button');
-            const disagreeLabel = button.parentNode.querySelector('.disagree')
-            if (disagreeBtn.checked) {
-                disagreeLabel.classList.add("vermelho")
-            }
-        })
 
         deleteButton.forEach(button => {
             button.addEventListener('click', (event) => {
-                let deleteBtn = event.target.parentNode.querySelector('.delete-button');
-                console.log(deleteBtn.dataset.id)
+                const deleteBtn = event.target.parentNode.querySelector('.delete-button');
+                const post = event.target.parentNode;
+                const allPosts = post.parentNode;
                 ReviewPost(deleteBtn.dataset.id).get()
-                    .then(post => {
-                        if (post.data().userUid === UserInfoUid()) {
+                    .then(doc => {
+                        if (doc.data().userUid === UserInfoUid()) {
                             if (confirm("Are you sure you want to delete it?")) {
                                 deleteReviews(deleteBtn.dataset.id);
+                                allPosts.removeChild(post);
                             }
                         } else {
                             alert("You can't delete a post from another person!")
@@ -220,11 +220,15 @@ export const Timeline = () => {
             button.addEventListener('click', (event) => {
                 let editBtn = event.target.parentNode.querySelector('.edit-button');
                 let editMdl = event.target.parentNode.querySelector('.edit-modal');
+                const movieName = event.target.parentNode.querySelector(".movie-name");
+                const review = event.target.parentNode.querySelector(".review");
+                const rating = event.target.parentNode.querySelector(".rating");
+                const platform = event.target.parentNode.querySelector(".platform");
                 editMdl.style.display = "block";
                 ReviewPost(editMdl.dataset.id).get()
                     .then(post => {
                         if (post.data().userUid === UserInfoUid()) {
-                            editReviews(editBtn.dataset.id, editMdl);
+                            editReviews(editBtn.dataset.id, editMdl, movieName, review, rating, platform);
                         } else {
                             alert("You can't edit a post from another person!")
                         }
@@ -239,16 +243,21 @@ export const Timeline = () => {
             button.addEventListener('click', (event) => {
                 const agreeBtn = event.target.parentNode.querySelector('.agree-button');
                 const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
-                const agreeLabel = event.target.parentNode.querySelector('.agree')
-                if (agreeBtn.checked) {
-                    AgreePostClick(agreeBtn.dataset.id)
-                    disagreeBtn.checked = false;
-                    DisagreePostClickOut(agreeBtn.dataset.id)
-                    agreeLabel.classList.add("vermelho")
-                } else {
-                    AgreePostClickOut(agreeBtn.dataset.id)
-
-                }
+                const agreeLabel = event.target.parentNode.querySelector('.agree');
+                const disagreeLabel = event.target.parentNode.querySelector('.disagree');
+                ReviewPost(agreeBtn.dataset.id).get()
+                    .then(doc => {
+                        if (agreeBtn.checked) {
+                            agreeLabel.innerHTML = "&#128077;" + parseInt(++doc.data().agree.length);
+                            AgreePostClick(agreeBtn.dataset.id)
+                            disagreeBtn.checked === true ? disagreeLabel.innerHTML = "&#128078;" + parseInt(--doc.data().disagree.length) : "";
+                            disagreeBtn.checked = false;
+                            DisagreePostClickOut(agreeBtn.dataset.id)
+                        } else {
+                            agreeLabel.innerHTML = "&#128077;" + parseInt(--doc.data().agree.length);
+                            AgreePostClickOut(agreeBtn.dataset.id)
+                        }
+                    })
             })
         })
 
@@ -256,13 +265,21 @@ export const Timeline = () => {
             button.addEventListener('click', (event) => {
                 const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
                 const agreeBtn = event.target.parentNode.querySelector('.agree-button');
-                if (disagreeBtn.checked) {
-                    DisagreePostClick(disagreeBtn.dataset.id)
-                    agreeBtn.checked = false;
-                    AgreePostClickOut(disagreeBtn.dataset.id)
-                } else {
-                    DisagreePostClickOut(disagreeBtn.dataset.id)
-                }
+                const agreeLabel = event.target.parentNode.querySelector('.agree');
+                const disagreeLabel = event.target.parentNode.querySelector('.disagree');
+                ReviewPost(disagreeBtn.dataset.id).get()
+                    .then(doc => {
+                        if (disagreeBtn.checked) {
+                            disagreeLabel.innerHTML = "&#128078;" + parseInt(++doc.data().disagree.length);
+                            DisagreePostClick(disagreeBtn.dataset.id)
+                            agreeBtn.checked === true ? agreeLabel.innerHTML = "&#128077;" + parseInt(--doc.data().agree.length) : "";
+                            agreeBtn.checked = false;
+                            AgreePostClickOut(disagreeBtn.dataset.id)
+                        } else {
+                            disagreeLabel.innerHTML = "&#128078;" + parseInt(--doc.data().disagree.length);
+                            DisagreePostClickOut(disagreeBtn.dataset.id)
+                        }
+                    })
             })
         })
     }

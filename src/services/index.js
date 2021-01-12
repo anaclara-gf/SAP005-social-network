@@ -107,6 +107,7 @@ export const DisagreePostClickOut = (postId) => {
 export const stayLogged = () => {
    return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 }
+
 export const SearchAgreeClicks = () => {
     const usersRef = firebase.firestore().collection('reviews');
     return usersRef.where('agree', "array-contains", UserInfoUid()).get();

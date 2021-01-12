@@ -3,9 +3,10 @@ import { onNavigate } from "../../utils/history.js";
 
 export const Profile = () => {
     const rootElement = document.createElement('div');
+    rootElement.classList.add("root-element");
     rootElement.innerHTML = `
     <div class="flex-container">
-        <form class="flex-container">
+        <form class=" profile flex-container">
             <label class="flex-itens" for="name">Full name:</label>
             <input class="flex-itens" id="name" type="text" placeholder="" required>
             

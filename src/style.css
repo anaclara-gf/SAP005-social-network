@@ -2,6 +2,7 @@ html {
     width: 100%;
     height: 100%;
 }
+
 body {
     width: 100%;
     height: 100%;
@@ -10,6 +11,7 @@ body {
     font-family: Arial;
     font-size: 20px;
 }
+
 .backgroundImage {
     background-image: linear-gradient(to bottom, transparent 0%, black 75%), url("images/background.jpg");
     background-repeat: no-repeat;
@@ -54,6 +56,26 @@ li {
     text-align: center;
 }
 
+.login input, .profile input {
+    margin: 10px 0 20px 0;
+}
+
+.signin-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.signin-buttons button {
+    width: 200px;
+}
+
+.signup {
+    margin-top: 100px;
+}
+
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -62,10 +84,6 @@ li {
     color: #ffffff;
     font-family: Arial;
     min-width: 55%;
-}
-
-.flex-itens {
-    margin-top: 5%;
 }
 
 .loader {
@@ -82,14 +100,11 @@ li {
       transform: rotate(1turn);
     }
   }
+  
 input {
      border-radius: 5px;
      height: 35px;
      border: white;
-}
-
-label {
-     width: 100%;
 }
 
 button {
@@ -103,9 +118,9 @@ button {
 
 .introText {
     padding: 10px;
-    text-align: left;
+    text-align: justify;
     line-height: 1.5;
-    max-width: 80%;
+    width: 100%;
 } 
 
 #nonUser {
@@ -120,19 +135,14 @@ button {
 
 #form-add-review{
     align-items: inherit;
-    min-width: 80%;
+    width: 100%;
 
 }
 
 #form-add-review, input{
-    min-width: 98%;
+    width: 100%;
     min-height: 45px;
 
-}
-
-#form-add-review, label{
-    font-size: 22px;
-    min-width: 80%;
 }
 
 #review {
@@ -140,7 +150,7 @@ button {
 }
 
 .select{
-    min-width: 98%;
+    min-width: 100%;
     min-height: 45px;
     margin-top: 5%;
     font-size: 18px;
@@ -148,7 +158,13 @@ button {
     border: white;
 }
 
-#publish-review{
+.publish-cancel-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+#publish-review, #cancel-review{
     min-width: 200px;
     min-height: 35px;
     font-size: 22px;
@@ -177,16 +193,40 @@ hr{
     font-size: 20px;
 }
 
-.delete-button{
-    width: 35px;
-    height: 30px;
+.delete-button, .edit-button{
+    width: 50px;
+    height: 40px;
     margin-bottom: 10px;
-} 
+    font-size: 22px;
+}
 
-.edit-button{
-    width: 35px;
-    height: 30px;
-    margin-bottom: 10px;
+.agree-button:checked+label, .disagree-button:checked+label {
+    background: #E51B23;
+    border-radius: 8px;
+    flex-grow: 1;
+    margin: 0 15px 10px 0;
+    line-height: 40.6px;
+    cursor: pointer;
+    text-align: center;
+    align-self: center;
+}
+
+.agree-disagree-buttons {
+    display: flex;
+    width: 200px;
+    height: 50px;
+}
+
+label.agree, label.disagree {
+    flex-grow: 1;
+    margin: 0 15px 10px 0;
+    width: 85px;
+    border-radius: 8px;
+    line-height: 40.6px;
+    background: gray;
+    cursor: pointer;
+    text-align: center;
+    align-self: center;
 }
 
 #signout-button{
@@ -195,17 +235,6 @@ hr{
     top: 22%;
     cursor: pointer;
 }
-/* input#agree{
-    display: none;
-.vermelho{
-    background-color: #E51B23;
-}
-
-input#disagree{
-/*input#disagree{
-    display: none;
-} */
-
 
 #signin-button { 
     min-width: 100px;
@@ -242,6 +271,11 @@ input#disagree{
     display: none;
 }
 
+.user-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
 .footer {
     color: #ffffff;
     font-size: 16px;
@@ -256,4 +290,11 @@ input#disagree{
 .data{
     font-size: 18px;
     opacity: 90%;
+}
+
+@media screen and (min-width: 768px) {
+    .root-element {
+        width: 670px;
+        margin: 0 auto;
+    }
 }
