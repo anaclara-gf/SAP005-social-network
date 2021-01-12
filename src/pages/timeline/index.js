@@ -7,7 +7,7 @@ export const Timeline = () => {
     <div class="flex-container">
         <button class="flex-itens" id="signout-button">Sign Out</button> 
         <p class="flex-itens" id="hello-name"></p>
-        <p class="flex-itens">Would you like to write a review?</p>
+        <p class="userReview">Would you like to write a review?</p>
 
         <form id="form-add-review" class="flex-container">
 
@@ -104,7 +104,7 @@ export const Timeline = () => {
                         <input class="flex-itens" id="review" type="text" value="${post.data().review}" maxLength="500" required>
                         
                         <label class="flex-itens">I saw it on:</label>
-                        <select class="flex-itens" id="platform-choices">
+                        <select class="select" id="platform-choices">
                         <option value="netflix" ${post.data().platform === "Netflix" ? "selected" : ""}>Netflix</option>
                         <option value="prime-video" ${post.data().platform === "Prime Video" ? "selected" : ""}>Prime Video</option>
                         <option value="hbo-go"${post.data().platform === "HBO Go" ? "selected" : ""}>HBO Go</option>
@@ -114,7 +114,7 @@ export const Timeline = () => {
                         </select>
             
                         <label class="flex-itens">Rating:</label>
-                        <select class="flex-itens" id="rating-stars">
+                        <select class="select" id="rating-stars">
                         <option value="zero" ${post.data().rating === "0 stars" ? "selected" : ""}>0 stars</option>
                         <option value="one" ${post.data().rating === "1 star" ? "selected" : ""}>1 star</option>
                         <option value="two" ${post.data().rating === "2 stars" ? "selected" : ""}>2 stars</option>
@@ -159,8 +159,10 @@ export const Timeline = () => {
         doc.forEach(post => {
             const postTemplate = `
             <li>
-                <p><b>${post.data().name}</b> <i>@${post.data().username}</i></p>
-                <p><b>${post.data().movieName}</b></p>
+                
+                <h1><b>${post.data().movieName}</b></h1>
+                <p>${post.data().name} <i>@${post.data().username}</i></p>
+                <p>${post.data().review}</p>
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
                 <p>${post.data().review}</p>
@@ -170,9 +172,7 @@ export const Timeline = () => {
                 <label for="disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
-                <p>Posted in ${post.data().dataString}</p>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
-                <hr>
             </li>
             `;
             recentReviews.innerHTML += postTemplate
