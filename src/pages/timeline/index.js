@@ -190,6 +190,7 @@ export const Timeline = () => {
         deleteButton.forEach(button => {
             button.addEventListener('click', (event) => {
                 let deleteBtn = event.target.parentNode.querySelector('.delete-button');
+                console.log(deleteBtn.dataset.id)
                 ReviewPost(deleteBtn.dataset.id).get()
                     .then(post => {
                         if (post.data().userUid === UserInfoUid()) {
