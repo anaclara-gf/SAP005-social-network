@@ -18,7 +18,7 @@ body {
     background-attachment: fixed;
 }
 
-ul {
+.menu {
     list-style: none;
     background-color: #E51B23;
     border-radius: 1em;
@@ -98,6 +98,7 @@ button {
      border-radius: 8px;
      height: 26px;
      border: #E51B23;
+     cursor: pointer;
 }
 
 .introText {
@@ -152,6 +153,7 @@ button {
     min-height: 35px;
     font-size: 22px;
     margin-bottom: 5%;
+    cursor: pointer;
 }
 
 hr{
@@ -161,65 +163,97 @@ hr{
 .feed{
     border-radius: 10px;
     max-width: 760px;
-    background-color: black;
 }
 
- .feed, li{
+.feed li{
     margin: 0 0px;
     min-width: 80%;
+    margin-bottom: 10px;
+    background-color: rgba(8, 8, 8, 0.918);
+    border-radius: 30px;
 }
 
- .feed, p{
+.feed, p{
     font-size: 20px;
 }
 
 .delete-button{
     width: 35px;
     height: 30px;
-    position: absolute;
-    left: 85%;
+    margin-bottom: 10px;
 } 
 
 .edit-button{
     width: 35px;
     height: 30px;
-    position: absolute;
-    left: 80%;
+    margin-bottom: 10px;
 }
 
 #signout-button{
     position: absolute;
     left: 80%;
     top: 22%;
+    cursor: pointer;
 }
-
 /* input#agree{
     display: none;
+.vermelho{
+    background-color: #E51B23;
 }
 
 input#disagree{
+/*input#disagree{
     display: none;
 } */
-#signin-button{
+
+
+#signin-button { 
     min-width: 100px;
     height: 35px;
     font-size: 20px;
+    cursor: pointer;
 }
 
-#signingoogle-button{
+#signingoogle-button {
     min-width: 100px;
     height: 35px;
     font-size: 20px;
+    cursor: pointer;
 }
 
-#signup-button{
+#signup-button {
     min-width: 100px;
     height: 35px;
     font-size: 20px;
     margin-top: 1%;
+    cursor: pointer;
+    margin-bottom: 5%;
+}
+
+#saveprofile-button {
+    min-width: 100px;
+    height: 35px;
+    font-size: 20px;
+    margin-top: 5%;
+    cursor: pointer;
 }
 
 .none {
     display: none;
 }
 
+.footer {
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+}
+
+.link {
+    color: #E51B23;
+    cursor: pointer;
+}
+
+.data{
+    font-size: 18px;
+    opacity: 90%;
+}
