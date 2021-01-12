@@ -20,41 +20,39 @@ const routeRender = () => {
 window.addEventListener('popstate', routeRender);
 
 window.addEventListener('load', () => {
-  document
-    .getElementById('login')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-      onNavigate('/')
-    });
-  document
-    .getElementById('register')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-      onNavigate('/register')
-    });
-  document
-    .getElementById('profile')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-      onNavigate('/profile')
-    });
-  document
-    .getElementById('timeline')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-      onNavigate('/timeline')
-    });
+  // document
+  //   .getElementById('login')
+  //   .addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     onNavigate('/')
+  //   });
+  // document
+  //   .getElementById('register')
+  //   .addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     onNavigate('/register')
+  //   });
+  // document
+  //   .getElementById('profile')
+  //   .addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     onNavigate('/profile')
+  //   });
+  // document
+  //   .getElementById('timeline')
+  //   .addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //     onNavigate('/timeline')
+  //   });
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       onNavigate('/timeline')
-      console.log("logado")
     } else {
       onNavigate('/')
-      console.log("nao logado")
     }
   })
 
-  routeRender();
+  /*routeRender();*/
 });
 

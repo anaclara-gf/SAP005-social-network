@@ -195,6 +195,17 @@ hr{
     top: 22%;
     cursor: pointer;
 }
+/* input#agree{
+    display: none;
+.vermelho{
+    background-color: #E51B23;
+}
+
+input#disagree{
+/*input#disagree{
+    display: none;
+} */
+
 
 #signin-button { 
     min-width: 100px;

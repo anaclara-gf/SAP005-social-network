@@ -36,6 +36,7 @@ export const Login = () => {
 	const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
 	const signUpButton = rootElement.querySelector('#signup-button');
 
+<<<<<<< HEAD
 	signInButton.addEventListener('click', (e) => {
 		e.preventDefault();
 		SignIn(email.value, password.value)
@@ -46,6 +47,17 @@ export const Login = () => {
 				newUser.innerHTML = error.message;
 			});
 	});
+=======
+  signInButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    SignIn(email.value, password.value)
+      .then(() => {
+      })
+      .catch((error) => {
+        newUser.innerHTML = error.message
+      })
+  });
+>>>>>>> master
 
 	signInGoogleButton.addEventListener('click', (e) => {
 		e.preventDefault();
