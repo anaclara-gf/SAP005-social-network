@@ -169,7 +169,7 @@ hr{
     margin: 0 0px;
     min-width: 80%;
     margin-bottom: 10px;
-    background-color: black;
+    background-color: rgba(8, 8, 8, 0.918);
     border-radius: 30px;
 }
 
