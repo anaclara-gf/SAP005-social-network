@@ -1,9 +1,5 @@
 import { onNavigate } from '../../utils/history.js';
-<<<<<<< HEAD
 import { signInGoogle, SignIn } from '../../services/index.js';
-=======
-import { signInGoogle, SignIn, InfoProfileEmail, verifyUser, stayLogged } from '../../services/index.js';
->>>>>>> master
 
 export const Login = () => {
 	const rootElement = document.createElement('div');
@@ -33,21 +29,12 @@ export const Login = () => {
       </div>
   `;
 
-<<<<<<< HEAD
-  const email = rootElement.querySelector('#email');
-  const password = rootElement.querySelector('#password');
-  const newUser = rootElement.querySelector('#nonUser');
-  const signInButton = rootElement.querySelector('#signin-button');
-  const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
-  const signUpButton = rootElement.querySelector('#signup-button');
-=======
 	const email = rootElement.querySelector('#email');
 	const password = rootElement.querySelector('#password');
 	const newUser = rootElement.querySelector('#nonUser');
 	const signInButton = rootElement.querySelector('#signin-button');
 	const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
 	const signUpButton = rootElement.querySelector('#signup-button');
->>>>>>> master
 
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -57,7 +44,6 @@ export const Login = () => {
       })
   });
 
-<<<<<<< HEAD
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
     signInGoogle()
@@ -69,45 +55,6 @@ export const Login = () => {
   signUpButton.addEventListener('click', () => {
     onNavigate('/register');
   });
-=======
-	signInGoogleButton.addEventListener('click', (e) => {
-		e.preventDefault();
-		signInGoogle()
-			.then(() => {
-				verifyUser()
-					.then((result) => {
-						if (result.size < 1) {
-							InfoProfileEmail();
-							onNavigate('/profile');
-						} else {
-							onNavigate('/timeline');
-						}
-					})
-					.catch((error) => {
-						alert(error.message);
-					});
-				stayLogged()
-					.then(() => {
-						SignIn(email.value, password.value);
-					})
-					.catch((error) => {
-						alert(error.message);
-					});
-			})
-			.catch((error) => {
-				alert(error.message);
-			});
-	});
-
-	signUpButton.addEventListener('click', () => {
-		onNavigate('/register');
-	});
->>>>>>> master
 
 	return rootElement;
 };
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
