@@ -3,6 +3,7 @@ import { Register } from './pages/register/index.js';
 import { Profile } from './pages/profile/index.js';
 import { Timeline } from './pages/timeline/index.js';
 import { onNavigate } from './utils/history.js';
+import { verifyUser, InfoProfileEmail } from './services/index.js';
 
 const routeRender = () => {
   const rootDiv = document.getElementById('root');
@@ -20,38 +21,19 @@ const routeRender = () => {
 window.addEventListener('popstate', routeRender);
 
 window.addEventListener('load', () => {
-  // document
-  //   .getElementById('login')
-  //   .addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     onNavigate('/')
-  //   });
-  // document
-  //   .getElementById('register')
-  //   .addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     onNavigate('/register')
-  //   });
-  // document
-  //   .getElementById('profile')
-  //   .addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     onNavigate('/profile')
-  //   });
-  // document
-  //   .getElementById('timeline')
-  //   .addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //     onNavigate('/timeline')
-  //   });
-
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      onNavigate('/timeline');
-    } else {
-      onNavigate('/');
+      verifyUser()
+        .then((result) => {
+          if (result.size < 1) {
+            InfoProfileEmail();
+            onNavigate('/profile');
+          } else {
+            onNavigate('/timeline')
+          }
+        })
+    }else{
+      onNavigate('/')
     }
-  });
-
-  /* routeRender(); */
+  })
 });

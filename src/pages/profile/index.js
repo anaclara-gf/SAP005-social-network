@@ -58,21 +58,21 @@ export const Profile = () => {
 
   username.addEventListener('change', verifyUsername);
 
-  saveProfileButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (usernameAvailable) {
-      e.preventDefault();
-      InfoProfile(name.value, username.value, bio.value, favGenres.value)
-        .then(() => {
-          onNavigate('/timeline');
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    } else {
-      alert('Username already in use!');
-    }
-  });
+    saveProfileButton.addEventListener('click', (e) => {
+        e.preventDefault();       
+        if(usernameAvailable){
+            e.preventDefault();
+            InfoProfile(name.value, username.value, bio.value, favGenres.value)
+            .then(() => {
+                onNavigate("/timeline");
+            })
+            .catch((error) => {
+                alert(error.message);
+            })
+        }else {
+            alert("Username already in use!");
+        }    
+    })
 
   return rootElement;
 };

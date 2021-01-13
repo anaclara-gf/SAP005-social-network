@@ -1,15 +1,5 @@
-/* eslint-disable no-shadow */
-/* eslint-disable prefer-const */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable no-param-reassign */
-/* eslint-disable arrow-parens */
-/* eslint-disable no-alert */
-/* eslint-disable max-len */
-/* eslint-disable no-bitwise */
-/* eslint-disable object-curly-newline */
-import { onNavigate } from '../../utils/history.js';
-import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut } from '../../services/index.js';
-// SearchAgreeClicks
+import { onNavigate } from "../../utils/history.js";
+import { Review, ReviewsData, UserProfileInfo, signOut, UserInfoUid, ReviewPost, AgreePostClick, DisagreePostClick, AgreePostClickOut, DisagreePostClickOut } from "../../services/index.js";
 
 export const Timeline = () => {
   const rootElement = document.createElement('div');
@@ -17,7 +7,7 @@ export const Timeline = () => {
     <div class="flex-container">
         <button class="flex-itens" id="signout-button">Sign Out</button> 
         <p class="flex-itens" id="hello-name"></p>
-        <p class="flex-itens">Would you like to write a review?</p>
+        <p class="userReview">Would you like to write a review?</p>
 
         <form id="form-add-review" class="flex-container">
 
@@ -31,7 +21,7 @@ export const Timeline = () => {
             <select class="select" id="platform-choices">
               <option value="netflix">Netflix</option>
               <option value="prime-video">Prime Video</option>
-              <option value="hbo-go">HBO Go</option>
+              <option value="hbo-go">HBO GO</option>
               <option value="globoplay">Globoplay</option>
               <option value="disney">Disney+</option>
               <option value="other">Other</option>
@@ -70,19 +60,33 @@ export const Timeline = () => {
     signOut();
   });
 
-  publish.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (reviewText.value === '' | movieName.value === '') {
-      alert('Preencha todos os campos!');
-    } else {
-      Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text)
-        .then(() => {
-          formReview.reset();
-          onNavigate('/timeline');
-        })
-        .catch((error) => {
-          alert(error.code + error.message);
-        });
+    publish.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (reviewText.value === "" | movieName.value === "") {
+            alert("Preencha todos os campos!")
+        } else {
+            UserProfileInfo()
+                .then(doc => {
+                    Review(movieName.value, reviewText.value, platform.options[platform.selectedIndex].text, rating.options[rating.selectedIndex].text, doc)
+                        .then(() => {
+                            formReview.reset();
+                            onNavigate("/timeline");
+                        })
+                        .catch((error) => {
+                            alert(error.code + error.message)
+                        })
+                })
+        }
+    })
+
+    const deleteReviews = (postId) => {
+        ReviewPost(postId).delete()
+            .then(() => {
+                window.location = '/timeline'
+            })
+            .catch((error) => {
+                alert(error.message)
+            })
     }
   });
 
@@ -111,23 +115,23 @@ export const Timeline = () => {
                         <input class="flex-itens" id="review" type="text" value="${post.data().review}" maxLength="500" required>
                         
                         <label class="flex-itens">I saw it on:</label>
-                        <select class="flex-itens" id="platform-choices">
-                        <option value="netflix" ${post.data().platform === 'Netflix' ? 'selected' : ''}>Netflix</option>
-                        <option value="prime-video" ${post.data().platform === 'Prime Video' ? 'selected' : ''}>Prime Video</option>
-                        <option value="hbo-go"${post.data().platform === 'HBO Go' ? 'selected' : ''}>HBO Go</option>
-                        <option value="globoplay" ${post.data().platform === 'Globoplay' ? 'selected' : ''}>Globoplay</option>
-                        <option value="disney" ${post.data().platform === 'Disney+' ? 'selected' : ''}>Disney+</option>
-                        <option value="other" ${post.data().platform === 'Other' ? 'selected' : ''}>Other</option>
+                        <select class="select" id="platform-choices">
+                        <option value="netflix" ${post.data().platform === "Netflix" ? "selected" : ""}>Netflix</option>
+                        <option value="prime-video" ${post.data().platform === "Prime Video" ? "selected" : ""}>Prime Video</option>
+                        <option value="hbo-go"${post.data().platform === "HBO Go" ? "selected" : ""}>HBO Go</option>
+                        <option value="globoplay" ${post.data().platform === "Globoplay" ? "selected" : ""}>Globoplay</option>
+                        <option value="disney" ${post.data().platform === "Disney+" ? "selected" : ""}>Disney+</option>
+                        <option value="other" ${post.data().platform === "Other" ? "selected" : ""}>Other</option>
                         </select>
             
                         <label class="flex-itens">Rating:</label>
-                        <select class="flex-itens" id="rating-stars">
-                        <option value="zero" ${post.data().rating === '0 stars' ? 'selected' : ''}>0 stars</option>
-                        <option value="one" ${post.data().rating === '1 star' ? 'selected' : ''}>1 star</option>
-                        <option value="two" ${post.data().rating === '2 stars' ? 'selected' : ''}>2 stars</option>
-                        <option value="three" ${post.data().rating === '3 stars' ? 'selected' : ''}>3 stars</option>
-                        <option value="four" ${post.data().rating === '4 stars' ? 'selected' : ''}>4 stars</option>
-                        <option value="five" ${post.data().rating === '5 stars' ? 'selected' : ''}>5 stars</option>
+                        <select class="select" id="rating-stars">
+                        <option value="zero" ${post.data().rating === "0 stars" ? "selected" : ""}>0 stars</option>
+                        <option value="one" ${post.data().rating === "1 star" ? "selected" : ""}>1 star</option>
+                        <option value="two" ${post.data().rating === "2 stars" ? "selected" : ""}>2 stars</option>
+                        <option value="three" ${post.data().rating === "3 stars" ? "selected" : ""}>3 stars</option>
+                        <option value="four" ${post.data().rating === "4 stars" ? "selected" : ""}>4 stars</option>
+                        <option value="five" ${post.data().rating === "5 stars" ? "selected" : ""}>5 stars</option>
                         </select>
                     </form>
                     <button class="flex-itens" id="update-review">Update</button>
@@ -166,29 +170,45 @@ export const Timeline = () => {
     doc.forEach(post => {
       const postTemplate = `
             <li>
-                <p><b>${post.data().name}</b> <i>@${post.data().username}</i></p>
-                <p><b>${post.data().movieName}</b></p>
+                
+                <h1><b>${post.data().movieName}</b></h1>
+                <p>${post.data().name} <i>@${post.data().username}</i></p>
+                <p>${post.data().review}</p>
                 <p><b>Rating:</b> ${post.data().rating}</p>
                 <p><b>Watched on:</b> ${post.data().platform}</p>
                 <p>${post.data().review}</p>
-                <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class=" ${post.data().agree.includes(UserInfoUid()) ? 'agree-button none vermelho' : 'agree-button none'}" ${post.data().agree.includes(UserInfoUid()) ? 'checked' : ''} >
-                <label for="agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : '0'}</label>
-                <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? 'checked' : ''}> 
-                <label for="disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : '0'}</label>
-                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? 'delete-button' : 'none'}">&#128465;</button>
-                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? 'edit-button' : 'none'}">&#9998;</button>
-                <p>Posted in ${post.data().dataString}</p>
+                <input type="checkbox" data-id="${post.id}" id="agree" name="agree" class=" ${post.data().agree.includes(UserInfoUid()) ? "agree-button none vermelho" : "agree-button none"}" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""} >
+                <label for="agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : "0"}</label>
+                <input type="checkbox" data-id="${post.id}" id ="disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
+                <label for="disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
+                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
+                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                 <div data-id="${post.id}" class="edit-modal flex-container"></div>
-                <hr>
             </li>
             `;
       recentReviews.innerHTML += postTemplate;
     });
 
-    const deleteButton = recentReviews.querySelectorAll('.delete-button');
-    const editButton = recentReviews.querySelectorAll('.edit-button');
-    const agreeButton = recentReviews.querySelectorAll('.agree-button');
-    const disagreeButton = recentReviews.querySelectorAll('.disagree-button');
+        const deleteButton = recentReviews.querySelectorAll(".delete-button");
+        const editButton = recentReviews.querySelectorAll(".edit-button");
+        const agreeButton = recentReviews.querySelectorAll(".agree-button");
+        const disagreeButton = recentReviews.querySelectorAll(".disagree-button");
+
+        agreeButton.forEach(button => {
+            const agreeBtn = button.parentNode.querySelector('.agree-button');
+            const agreeLabel = button.parentNode.querySelector('.agree')
+            if (agreeBtn.checked) {
+                agreeLabel.classList.add("vermelho")
+            }
+        })
+
+        disagreeButton.forEach(button => {
+            const disagreeBtn = button.parentNode.querySelector('.disagree-button');
+            const disagreeLabel = button.parentNode.querySelector('.disagree')
+            if (disagreeBtn.checked) {
+                disagreeLabel.classList.add("vermelho")
+            }
+        })
 
     agreeButton.forEach(button => {
       const agreeBtn = button.parentNode.querySelector('.agree-button');
@@ -206,24 +226,18 @@ export const Timeline = () => {
       }
     });
 
-    deleteButton.forEach(button => {
-      button.addEventListener('click', (event) => {
-        let deleteBtn = event.target.parentNode.querySelector('.delete-button');
-        ReviewPost(deleteBtn.dataset.id).get()
-          .then(post => {
-            if (post.data().userUid === UserInfoUid()) {
-              if (confirm('Are you sure you want to delete it?')) {
-                deleteReviews(deleteBtn.dataset.id);
-              }
-            } else {
-              alert("You can't delete a post from another person!");
-            }
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-      });
-    });
+        agreeButton.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const agreeBtn = event.target.parentNode.querySelector('.agree-button');
+                const disagreeBtn = event.target.parentNode.querySelector('.disagree-button');
+                const agreeLabel = event.target.parentNode.querySelector('.agree')
+                if (agreeBtn.checked) {
+                    AgreePostClick(agreeBtn.dataset.id)
+                    disagreeBtn.checked = false;
+                    DisagreePostClickOut(agreeBtn.dataset.id)
+                    agreeLabel.classList.add("vermelho")
+                } else {
+                    AgreePostClickOut(agreeBtn.dataset.id)
 
     editButton.forEach(button => {
       button.addEventListener('click', (event) => {
@@ -275,25 +289,14 @@ export const Timeline = () => {
     });
   };
 
-  const loadReviews = () => {
-    recentReviews.innerHTML = 'Carregando...';
-    ReviewsData()
-      .then(doc => {
-        recentReviews.innerHTML = '';
-        addPost(doc);
-      });
-  };
+    const headerName = () => {
+        UserProfileInfo()
+            .then(doc => {
+                titleHello.innerHTML = `Hello, ${doc.data().name}`;
+            })
+    }
 
-  const headerName = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      UserProfileInfo(user.uid)
-        .then(doc => {
-          titleHello.innerHTML = `Hello, ${doc.data().name}`;
-        });
-    });
-  };
-
-  loadReviews();
-  headerName();
-  return rootElement;
-};
+    loadReviews();
+    headerName();
+    return rootElement;
+}
