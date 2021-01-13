@@ -5,4 +5,3 @@ describe('Profile', () => {
     expect(typeof Profile).toBe('function');
   });
 });
-

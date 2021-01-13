@@ -10,7 +10,7 @@ const routeRender = () => {
     '/': Login,
     '/register': Register,
     '/profile': Profile,
-    '/timeline': Timeline
+    '/timeline': Timeline,
   };
 
   rootDiv.innerHTML = '';
@@ -47,12 +47,11 @@ window.addEventListener('load', () => {
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      onNavigate('/timeline')
+      onNavigate('/timeline');
     } else {
-      onNavigate('/')
+      onNavigate('/');
     }
-  })
+  });
 
-  /*routeRender();*/
+  /* routeRender(); */
 });
-
