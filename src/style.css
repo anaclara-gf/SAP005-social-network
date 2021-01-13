@@ -7,7 +7,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     font-size: 20px;
 }
 .backgroundImage {
@@ -60,7 +60,7 @@ li {
     align-items: center;
     align-content: space-around;
     color: #ffffff;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     min-width: 55%;
 }
 

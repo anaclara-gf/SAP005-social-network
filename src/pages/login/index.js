@@ -1,9 +1,10 @@
+/* eslint-disable no-alert */
 import { onNavigate } from '../../utils/history.js';
 import { signInGoogle, SignIn } from '../../services/index.js';
 
 export const Login = () => {
-	const rootElement = document.createElement('div');
-	rootElement.innerHTML = `
+  const rootElement = document.createElement('div');
+  rootElement.innerHTML = `
       <div class="flex-container">
 
         <article class="introText">
@@ -29,19 +30,19 @@ export const Login = () => {
       </div>
   `;
 
-	const email = rootElement.querySelector('#email');
-	const password = rootElement.querySelector('#password');
-	const newUser = rootElement.querySelector('#nonUser');
-	const signInButton = rootElement.querySelector('#signin-button');
-	const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
-	const signUpButton = rootElement.querySelector('#signup-button');
+  const email = rootElement.querySelector('#email');
+  const password = rootElement.querySelector('#password');
+  const newUser = rootElement.querySelector('#nonUser');
+  const signInButton = rootElement.querySelector('#signin-button');
+  const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
+  const signUpButton = rootElement.querySelector('#signup-button');
 
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
     SignIn(email.value, password.value)
       .catch((error) => {
-        newUser.innerHTML = error.message
-      })
+        newUser.innerHTML = error.message;
+      });
   });
 
   signInGoogleButton.addEventListener('click', (e) => {
@@ -56,5 +57,5 @@ export const Login = () => {
     onNavigate('/register');
   });
 
-	return rootElement;
+  return rootElement;
 };

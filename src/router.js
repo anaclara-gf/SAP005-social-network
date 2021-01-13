@@ -11,7 +11,7 @@ const routeRender = () => {
     '/': Login,
     '/register': Register,
     '/profile': Profile,
-    '/timeline': Timeline
+    '/timeline': Timeline,
   };
 
   rootDiv.innerHTML = '';
@@ -29,11 +29,11 @@ window.addEventListener('load', () => {
             InfoProfileEmail();
             onNavigate('/profile');
           } else {
-            onNavigate('/timeline')
+            onNavigate('/timeline');
           }
-        })
-    }else{
-      onNavigate('/')
+        });
+    } else {
+      onNavigate('/');
     }
-  })
+  });
 });
