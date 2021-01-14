@@ -11,7 +11,7 @@ body {
     font-size: 20px;
 }
 .backgroundImage {
-    background-image: linear-gradient(to bottom, transparent 0%, black 75%), url("images/background.jpg");
+    background-image: linear-gradient(to bottom, transparent 0%, black 75%), url('images/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
