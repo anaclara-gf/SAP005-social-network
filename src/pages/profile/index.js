@@ -33,7 +33,7 @@ export const Profile = () => {
   const saveProfileButton = rootElement.querySelector('#saveprofile-button');
   let usernameAvailable = false;
 
-  const verifyUsername = () => {
+  function verifyUsername() {
     if (username.value !== '' && username.value !== undefined) {
       usernameError.innerHTML = '';
       usernameError.classList.add('loader');
@@ -54,9 +54,10 @@ export const Profile = () => {
     } else {
       usernameError.innerHTML = '';
     }
-  };
+  }
 
   username.addEventListener('change', verifyUsername);
+  // module.exports = { verifyUsername };
 
   saveProfileButton.addEventListener('click', (e) => {
     e.preventDefault();

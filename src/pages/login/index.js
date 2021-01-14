@@ -22,7 +22,7 @@ export const Login = () => {
           <p class= "flex-itens" id= "nonUser"></p>
 
           <button id="signin-button" class="flex-itens">Sign in</button>
-          <button id="signingoogle-button" class="flex-itens">Sign in with Google</button>
+          <button id="signingoogle-button" class="flex-itens"><img class="google" src="../images/icone-google.png">    Sign in with Google</button>
         </form>
 
         <p class="flex-itens">Don't have an account yet?</p>

@@ -209,14 +209,14 @@ input#disagree{
 
 #signin-button { 
     min-width: 100px;
-    height: 35px;
+    height: 40px;
     font-size: 20px;
     cursor: pointer;
 }
 
 #signingoogle-button {
-    min-width: 100px;
-    height: 35px;
+    min-width: 214.89px;
+    height: 40px;
     font-size: 20px;
     cursor: pointer;
 }
@@ -256,4 +256,12 @@ input#disagree{
 .data{
     font-size: 18px;
     opacity: 90%;
+}
+
+.google {
+    vertical-align: baseline;
+    max-width: 90px;
+    max-height: 25px;
+    /* position: absolute; */
+    text-align: end;
 }
