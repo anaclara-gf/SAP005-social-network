@@ -1,6 +1,9 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable newline-per-chained-call */
 /* eslint-disable object-shorthand */
+/* eslint-disable arrow-parens */
+/* eslint-disable object-shorthand */
+/* eslint-disable no-use-before-define */
 /* eslint-disable arrow-body-style */
 export const signUp = (email, password) => {
   return firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -107,4 +110,34 @@ export const DisagreePostClickOut = (postId) => {
   return firebase.firestore().collection('reviews').doc(postId).update({
     disagree: firebase.firestore.FieldValue.arrayRemove(UserInfoUid()),
   });
+};
+
+export const stayLogged = () => {
+  return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+};
+
+export const SearchAgreeClicks = () => {
+  const usersRef = firebase.firestore().collection('reviews');
+  return usersRef.where('agree', 'array-contains', UserInfoUid()).get();
+};
+
+export const SaveComment = (postId, comment, name, username, userId) => {
+  const data = new Date();
+  return firebase.firestore().collection('comments').doc().set({
+    commentText: comment,
+    postId: postId,
+    name: name,
+    username: username,
+    data: data.toLocaleDateString(),
+    time: data.getTime(),
+    userId: userId,
+  });
+};
+
+export const GetComments = (postId) => {
+  return firebase.firestore().collection('comments').where('postId', '==', postId).orderBy('data', 'desc').orderBy('time', 'desc').get();
+};
+
+export const GetComment = (commentId) => {
+  return firebase.firestore().collection('comments').doc(commentId);
 };

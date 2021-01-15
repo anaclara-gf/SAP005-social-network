@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable object-curly-newline */
+// eslint-disable-next-line import/no-unresolved
 import { Login } from './index.js';
 import * as service from '../../services/index.js';
 import * as util from '../../utils/history.js';

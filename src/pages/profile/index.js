@@ -4,9 +4,9 @@ import { onNavigate } from '../../utils/history.js';
 
 export const Profile = () => {
   const rootElement = document.createElement('div');
+  rootElement.classList.add('flex-contaner', 'profile-page');
   rootElement.innerHTML = `
-    <div class="flex-container">
-        <form class="flex-container">
+        <form class=" profile flex-container">
             <label class="flex-itens" for="name">Full name:</label>
             <input class="flex-itens" id="name" type="text" placeholder="" required>
             
@@ -22,7 +22,6 @@ export const Profile = () => {
             
             <button id="saveprofile-button" class="flex-itens">Finish Register</button>
         </form>
-    </div>
     `;
 
   const name = rootElement.querySelector('#name');
@@ -33,7 +32,7 @@ export const Profile = () => {
   const saveProfileButton = rootElement.querySelector('#saveprofile-button');
   let usernameAvailable = false;
 
-  function verifyUsername() {
+  const verifyUsername = () => {
     if (username.value !== '' && username.value !== undefined) {
       usernameError.innerHTML = '';
       usernameError.classList.add('loader');
@@ -54,10 +53,9 @@ export const Profile = () => {
     } else {
       usernameError.innerHTML = '';
     }
-  }
+  };
 
   username.addEventListener('change', verifyUsername);
-  // module.exports = { verifyUsername };
 
   saveProfileButton.addEventListener('click', (e) => {
     e.preventDefault();
