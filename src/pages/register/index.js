@@ -41,7 +41,6 @@ export const Register = () => {
   const formRegister = rootElement.querySelector('.register');
 
   const verifyPasswordLength = () => {
-    console.log(verifyPasswordLength);
     if (password.value.length < 6) {
       passwordRules.style.color = 'red';
       passwordRules.innerHTML = 'Your password must have at least 6 characters!';
