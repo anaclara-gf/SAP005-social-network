@@ -13,19 +13,19 @@ A pesquisa validou que a nossa ideia inicial tinha potencial porque mais de 80% 
 
 Você sempre sabe o que quer assistir antes de ligar a TV, o computador etc.?|Você passa muito tempo para decidir o que quer assistir?
 :----------------------------------------:|:------------------------------------------:
-![](src\images\grafico-sabe-o-que-assistir.png)|![](src\images\grafico-tempo-escolhendo.png)
+![](src/images/grafico-sabe-o-que-assistir.png)|![](src\images\grafico-tempo-escolhendo.png)
 
 Você tem o costume de assistir séries e filmes no dia-a-dia?|Quantas vezes por semana você assiste séries e filmes?
 :----------------------------------------:|:------------------------------------------:
-![](src\images\grafico-frequencia.png)|![](src\images\grafico-vezes-semana.png)
+![](src/images/grafico-frequencia.png)|![](src/images/grafico-vezes-semana.png)
 
  Você tem interesse em saber o que seus conhecidos estão assistindo?  |Você tem dificuldades em decidir se vale a pena assistir algo só lendo a sinopse?
 :----------------------------------------:|:------------------------------------------:
-![](src\images\grafico-interesse-outros-assistindo.png)|![](src\images\grafico-dificuldade-assistir-sinopse.png)
+![](src/images/grafico-interesse-outros-assistindo.png)|![](src/images/grafico-dificuldade-assistir-sinopse.png)
 
 Você teria interesse em uma rede social focada em saber o que seus conhecidos acharam sobre um filme ou série? | Você consultaria uma rede social para descobrir o que seus conhecidos (ou outras pessoas) acharam de um filme antes de assisti-lo?
 :----------------------------------------:|:------------------------------------------:
-![](src\images\grafico-interesse-rede-social.png)|![](src\images\grafico-consultaria-rede-social.png)
+![](src/images/grafico-interesse-rede-social.png)|![](src/images/grafico-consultaria-rede-social.png)
 
 &nbsp;
 ## 3. Personas
@@ -251,7 +251,7 @@ A pesquisa também ajudou a entender como poderíamos desenhar a rede social:
 Assim, desenhamos um protótipo das páginas:
 Página Login|Página Registro|Página Criar Perfil|Página Timeline
 :----------------------------------------:|:------------------------------------------:|:------------------------------------------:|:------------------------------------------:
-![](src\images\Protótipo_Login.jpg)|![](src\images\Protótipo_CriarConta.jpg)|![](src\images\Protótipo_CriarPerfil.jpg)|![](src\images\Protótipo_PágInicial.jpg)
+![](src/images/Protótipo_Login.jpg)|![](src/images/Protótipo_CriarConta.jpg)|![](src/images/Protótipo_CriarPerfil.jpg)|![](src/images/Protótipo_PágInicial.jpg)
 
 &nbsp;
 ## 6. Funcionalidades
