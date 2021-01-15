@@ -1,3 +1,5 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable max-len */
 import { Login } from './pages/login/index.js';
 import { Register } from './pages/register/index.js';
 import { Profile } from './pages/profile/index.js';
@@ -11,7 +13,7 @@ const routeRender = () => {
     '/': Login,
     '/register': Register,
     '/profile': Profile,
-    '/timeline': Timeline
+    '/timeline': Timeline,
   };
 
   rootDiv.innerHTML = '';
@@ -29,20 +31,19 @@ window.addEventListener('load', () => {
             InfoProfileEmail();
             onNavigate('/profile');
           }
-        })
-      
+        });
+
       UserProfileInfo(user.id)
         .then(doc => {
           const data = doc.data();
-          if(data.name === null || data.username === null || data.bio === null || data.favGenres === null){
+          if (data.name === null || data.username === null || data.bio === null || data.favGenres === null) {
             onNavigate('/profile');
           } else {
             onNavigate('/timeline');
           }
-        })
-        
-    }else{
-      onNavigate('/')
+        });
+    } else {
+      onNavigate('/');
     }
-  })
+  });
 });
