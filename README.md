@@ -13,7 +13,7 @@ A pesquisa validou que a nossa ideia inicial tinha potencial porque mais de 80% 
 
 Você sempre sabe o que quer assistir antes de ligar a TV, o computador etc.?|Você passa muito tempo para decidir o que quer assistir?
 :----------------------------------------:|:------------------------------------------:
-![](src\images\grafico-sabe-o-que-assistir.png)|![](src\images\grafico-tempo-escolhendo.png)
+![](src\images\grafico-sabe-o-que-assistir.png)|![](src/images/grafico-tempo-escolhendo.png)
 
 Você tem o costume de assistir séries e filmes no dia-a-dia?|Quantas vezes por semana você assiste séries e filmes?
 :----------------------------------------:|:------------------------------------------:
