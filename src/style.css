@@ -23,11 +23,12 @@ body {
 .login-page, .register-page, .profile-page {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 182px);
+    min-height: calc(100vh - 155px);
 }
 
 .header {
     background-color: #E51B23;
+    max-height: 110px;
 }
 
 .menu {
@@ -65,6 +66,8 @@ li {
     margin: 0 auto;
     width: 300px;
     display: block;
+    max-height: 90px;
+    max-width: 441.21px;
 }
 
 .registerText {
@@ -221,7 +224,7 @@ button {
     padding: 0;
     margin-bottom: 20px;
     background-color: rgba(8, 8, 8, 0.918);
-    box-shadow: 0 0 20px #3b3d40;
+    box-shadow: 0 0 20px #1c1d1f;
     border-radius: 30px;
 }
 
