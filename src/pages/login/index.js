@@ -2,31 +2,30 @@ import { onNavigate } from '../../utils/history.js';
 import { signInGoogle, SignIn } from '../../services/index.js';
 
 export const Login = () => {
-	const rootElement = document.createElement('div');
+  const rootElement = document.createElement('div');
+  rootElement.classList.add("flex-container", "login-page")
 	rootElement.innerHTML = `
-      <div class="flex-container">
+    <article class="introText">
+      <h1>Welcome to our community!</h1>
+      <p>Tired of spend hours looking at streaming service catalogs to find something interesting to watch? We have the perfect solution for you! Join our community <strong><i>SHOULD I WATCH?</i></strong> and see what your friends are watching and their opinions about series, movies, documentaries and more! You can also write your own reviews and post it for your friends, all you need to do is create an account or login.</p>
+    </article>
 
-        <article class="introText">
-          <h1>Welcome to our community!</h1>
-          <p>Tired of spend hours looking at streaming service catalogs to find something interesting to watch? We have the perfect solution for you! Join our community <strong><i>SHOULD I WATCH?</i></strong> and see what your friends are watching and their opinions about series, movies, documentaries and more! You can also write your own reviews and post it for your friends, all you need to do is create an account or login.</p>
-        </article>
+    <form class="login">
+			<label class="flex-itens" for="email">E-mail:</label>
+			<input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
 
-        <form class="login">
+			<label class="flex-itens" for="password">Password:</label>
+			<input class="flex-itens" id="password" type="password" placeholder="Password" required>
+			<p class= "flex-itens" id= "nonUser"></p>
 
-          <label class="flex-itens" for="email">E-mail:</label>
-          <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
+			<div class="signin-buttons">
+				<button id="signin-button" class="flex-itens">Sign in</button>
+				<button id="signingoogle-button" class="flex-itens">Sign in with Google</button>
+			</div>
+    </form>
 
-          <label class="flex-itens" for="password">Password:</label>
-          <input class="flex-itens" id="password" type="password" placeholder="Password" required>
-          <p class= "flex-itens" id= "nonUser"></p>
-
-          <button id="signin-button" class="flex-itens">Sign in</button>
-          <button id="signingoogle-button" class="flex-itens">Sign in with Google</button>
-        </form>
-
-        <p class="flex-itens">Don't have an account yet?</p>
-        <button id="signup-button" class="flex-itens">Sign up</button>
-      </div>
+    <p class="flex-itens signup">Don't have an account yet?</p>
+    <button id="signup-button" class="flex-itens">Sign up</button>
   `;
 
 	const email = rootElement.querySelector('#email');
@@ -53,7 +52,7 @@ export const Login = () => {
   });
 
   signUpButton.addEventListener('click', () => {
-    onNavigate('/register');
+	onNavigate('/register');
   });
 
 	return rootElement;

@@ -70,6 +70,7 @@ export const Review = (movieName, review, platform, rating, doc) => {
         dataString: `${data.toLocaleDateString()} ${data.getHours()}:${data.getMinutes()}:${data.getSeconds()}`,
         agree: [],
         disagree: [],
+        comments: [],
     })
 };
 
@@ -104,3 +105,33 @@ export const DisagreePostClickOut = (postId) => {
         disagree: firebase.firestore.FieldValue.arrayRemove(UserInfoUid())
     })
 };
+
+export const stayLogged = () => {
+   return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+}
+
+export const SearchAgreeClicks = () => {
+    const usersRef = firebase.firestore().collection('reviews');
+    return usersRef.where('agree', "array-contains", UserInfoUid()).get();
+};
+
+export const SaveComment = (postId, comment, name, username, userId) => {
+    const data = new Date();
+    return firebase.firestore().collection('comments').doc().set({
+        commentText: comment,
+        postId: postId,
+        name: name,
+        username: username,
+        data: data.toLocaleDateString(),
+        time: data.getTime(),
+        userId: userId,
+    })
+};
+
+export const GetComments = (postId) => {
+    return firebase.firestore().collection('comments').where("postId", "==", postId).orderBy('data', 'desc').orderBy('time', 'desc').get();
+};
+
+export const GetComment = (commentId) => {
+    return firebase.firestore().collection('comments').doc(commentId);
+}
