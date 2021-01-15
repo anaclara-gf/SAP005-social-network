@@ -251,39 +251,42 @@ export const Timeline = () => {
     const addPost = (doc) => {
         doc.forEach(post => {
             const postTemplate = `
-            <li class="post" data-id="${post.id}">
-                <div class="post-header">
-                    <h1 class="movie-name"><b>${post.data().movieName}</b></h1>
-                    <div class="edit-delete-buttons">
-                            <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
-                            <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
-                    </div>
-                </div>
-                <p>${post.data().name} <i>@${post.data().username}</i></p>
-                <p class="review">${post.data().review}</p>
-                <p class="rating"><b>Rating:</b> ${post.data().rating}</p>
-                <p class="platform"><b>Watched on:</b> ${post.data().platform}</p>
+            <li class="post-li" data-id="${post.id}">
+                <div class="post">
 
-                <div class="user-actions">
-                    <div class="agree-disagree-buttons">
-                        <input type="checkbox" data-id="${post.id}" id="${post.id}-agree" name="agree" class="agree-button none" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""}>
-                        <label for="${post.id}-agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : "0"}</label>
-                    
-                        <input type="checkbox" data-id="${post.id}" id="${post.id}-disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
-                        <label for="${post.id}-disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
-
-                        <button data-id="${post.id}" class="comment-button"></button>
+                    <div class="post-header">
+                        <h1 class="movie-name"><b>${post.data().movieName}</b></h1>
+                        <div class="edit-delete-buttons">
+                                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "delete-button" : "none"}">&#128465;</button>
+                                <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
+                        </div>
                     </div>
 
+                    <p>${post.data().name} <i>@${post.data().username}</i></p>
+                    <p class="review">${post.data().review}</p>
+                    <p class="rating"><b>Rating:</b> ${post.data().rating}</p>
+                    <p class="platform"><b>Watched on:</b> ${post.data().platform}</p>
+
+                    <div class="user-actions">
+                        <div class="agree-disagree-buttons">
+                            <input type="checkbox" data-id="${post.id}" id="${post.id}-agree" name="agree" class="agree-button none" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""}>
+                            <label for="${post.id}-agree" class="agree">&#128077; ${post.data().agree.length > 0 ? post.data().agree.length : "0"}</label>
+                        
+                            <input type="checkbox" data-id="${post.id}" id="${post.id}-disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
+                            <label for="${post.id}-disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
+
+                            <button data-id="${post.id}" class="comment-button"></button>
+                        </div>
+                    </div>
+
+                    <div data-id="${post.id}" class="open-comments none">
+                        <div data-id="${post.id}" class="comment-modal"></div>
+                        <ul data-id="${post.id}" class="comments-list"></ul>
+                    </div>
                 </div>
-                <div data-id="${post.id}" class="open-comments none">
-                    <div data-id="${post.id}" class="comment-modal"></div>
-                    <ul data-id="${post.id}" class="comments-list"></ul>
-                </div>
+
+                <div data-id="${post.id}" class="edit-modal none"></div>
             </li>
-            
-
-            <div data-id="${post.id}" class="edit-modal none"></div>
             `;
             recentReviews.innerHTML += postTemplate
         })
@@ -297,8 +300,8 @@ export const Timeline = () => {
         deleteButton.forEach(button => {
             button.addEventListener('click', (event) => {
                 const deleteBtn = event.target.parentNode.querySelector('.delete-button');
-                const post = deleteBtn.parentNode.parentNode.parentNode.parentNode.querySelector('.post');
-                const allPosts = post.parentNode.parentNode.querySelector('.feed');
+                const post = deleteBtn.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.post-li');
+                const allPosts = post.parentNode.parentNode.parentNode.querySelector('.feed');
 
                 ReviewPost(deleteBtn.dataset.id).get()
                     .then(doc => {
@@ -321,15 +324,17 @@ export const Timeline = () => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 let editBtn = e.target.parentNode.querySelector('.edit-button');
-                let editMdl = editBtn.parentNode.parentNode.parentNode.parentNode.querySelector('.edit-modal');
-                let post = editBtn.parentNode.parentNode.parentNode.parentNode.querySelector('.post');
+                let editMdl = e.target.parentNode.parentNode.parentNode.parentNode.querySelector('.edit-modal');
+                let post = e.target.parentNode.parentNode.parentNode.parentNode.querySelector('.post');
                 const movieName = recentReviews.querySelector(".movie-name");
                 const review = recentReviews.querySelector(".review");
                 const rating = recentReviews.querySelector(".rating");
                 const platform = recentReviews.querySelector(".platform");
-                editMdl.classList.remove("none");
+
                 post.classList.add('none');
-                ReviewPost(editMdl.dataset.id).get()
+                editMdl.classList.remove('none');
+                
+                ReviewPost(editBtn.dataset.id).get()
                     .then(doc => {
                         if (doc.data().userUid === UserInfoUid()) {
                             editReviews(post, editBtn.dataset.id, editMdl, movieName, review, rating, platform);
