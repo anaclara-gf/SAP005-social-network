@@ -4,16 +4,10 @@
 /* eslint no-duplicate-imports: "error" */
 import { Profile } from './index.js';
 import * as service from '../../services/index.js';
-// import * as util from '../../utils/history.js';
-// import * as profile from './index.js';
+import * as util from '../../utils/history.js';
 
-// const verify = verifyUsername();
-// verifyUsername = jest.fn(() => Promise.resolve(true));
 jest.mock('../../services/index.js');
-// service.searchUsername = jest.fn(() => Promise.resolve(true));
-// service.InfoProfile = jest.fn(() => Promise.resolve(true));
-// util.onNavigate = jest.fn(() => Promise.resolve(true));
-// profile.verifyUsername = jest.fn(() => Promise.resolve(true));
+jest.mock('../../utils/history.js');
 
 describe('Profile', () => {
   it('should be a function', () => {
@@ -34,7 +28,6 @@ describe('Profile', () => {
     await service.searchUsername.mockResolvedValueOnce(true);
     profile.querySelector('#saveprofile-button').dispatchEvent(new Event('click'));
     expect(service.InfoProfile).toHaveBeenCalled();
-    // expect(util.onNavigate).toHaveBeenCalledWith('/timeline');
+    expect(util.onNavigate).toHaveBeenCalledWith('/timeline');
   });
 });
-// "type": "module",
