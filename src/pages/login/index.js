@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-/* eslint-disable no-alert */
-/* eslint-disable object-curly-newline */
-import { onNavigate } from '../../utils/history.js';
-import { signInGoogle, SignIn, InfoProfileEmail, verifyUser } from '../../services/index.js';
-=======
 import { onNavigate } from '../../utils/history.js';
 import { signInGoogle, SignIn } from '../../services/index.js';
->>>>>>> 1e0e53e96d0bb97c935689142c619d15ce23585f
 
 export const Login = () => {
   const rootElement = document.createElement('div');
@@ -35,21 +28,12 @@ export const Login = () => {
     <button id="signup-button" class="flex-itens">Sign up</button>
   `;
 
-<<<<<<< HEAD
-  const email = rootElement.querySelector('#email');
-  const password = rootElement.querySelector('#password');
-  const newUser = rootElement.querySelector('#nonUser');
-  const signInButton = rootElement.querySelector('#signin-button');
-  const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
-  const signUpButton = rootElement.querySelector('#signup-button');
-=======
 	const email = rootElement.querySelector('#email');
 	const password = rootElement.querySelector('#password');
 	const newUser = rootElement.querySelector('#nonUser');
 	const signInButton = rootElement.querySelector('#signin-button');
 	const signInGoogleButton = rootElement.querySelector('#signingoogle-button');
 	const signUpButton = rootElement.querySelector('#signup-button');
->>>>>>> 1e0e53e96d0bb97c935689142c619d15ce23585f
 
   signInButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -62,23 +46,6 @@ export const Login = () => {
   signInGoogleButton.addEventListener('click', (e) => {
     e.preventDefault();
     signInGoogle()
-<<<<<<< HEAD
-      .then(() => {
-        verifyUser()
-          .then((result) => {
-            if (result.size < 1) {
-              InfoProfileEmail();
-              onNavigate('/profile');
-            } else {
-              onNavigate('/timeline');
-            }
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-      })
-=======
->>>>>>> 1e0e53e96d0bb97c935689142c619d15ce23585f
       .catch((error) => {
         alert(error.message);
       });
@@ -88,10 +55,5 @@ export const Login = () => {
 	onNavigate('/register');
   });
 
-<<<<<<< HEAD
-  return rootElement;
-};
-=======
 	return rootElement;
 };
->>>>>>> 1e0e53e96d0bb97c935689142c619d15ce23585f

@@ -11,12 +11,9 @@ export const Timeline = () => {
         </div>
         
         <button class="userReview">Would you like to write a review?</button>
-
         <form id="form-add-review" class="flex-container form-review none">
-
             <label class="flex-itens" for="movie-serie-name">Movie/serie name:</label>
             <input class="flex-itens" id="movie-serie-name" type="text" placeholder="" required>
-
             <label class="flex-itens" for="review">Review in 400 charactes:</label>
             <input class="flex-itens" id="review" type="text" placeholder="" maxLength="500" required>
             
@@ -29,7 +26,6 @@ export const Timeline = () => {
               <option value="disney">Disney+</option>
               <option value="other">Other</option>
             </select>
-
             <label class="flex-itens">Rating:</label>
             <select class="select" id="rating-stars">
               <option value="zero">0 stars</option>
@@ -39,7 +35,6 @@ export const Timeline = () => {
               <option value="four">4 stars</option>
               <option value="five">5 stars</option>
             </select>
-
             <div class="publish-cancel-buttons">
                 <button class="flex-itens" id="publish-review">Publish</button>
                 <button class="flex-itens" id="cancel-review">Cancel</button>
@@ -72,9 +67,9 @@ export const Timeline = () => {
         }
     })
 
-  signOutButton.addEventListener('click', () => {
-    signOut();
-  });
+    signOutButton.addEventListener('click', () => {
+        signOut()
+    })
 
     cancel.addEventListener('click', (e) => {
         e.preventDefault();
@@ -109,17 +104,6 @@ export const Timeline = () => {
     function deleteReviews(postId) {
         ReviewPost(postId).delete();
     }
-  });
-
-  const deleteReviews = (postId) => {
-    ReviewPost(postId).delete()
-      .then(() => {
-        window.location = '/timeline';
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
 
     function editReviews(postAfter, postId, modal, postMovieName, postReview, postRating, postPlatform) {
         ReviewPost(postId).get()
@@ -161,14 +145,14 @@ export const Timeline = () => {
                     </form>
                 `;
 
-        modal.innerHTML = modalTemplate;
+                modal.innerHTML = modalTemplate;
 
-        const closeButton = modal.querySelector('#close-button');
-        let movieName = modal.querySelector('#movie-serie-name');
-        let reviewText = modal.querySelector('#review');
-        let platform = modal.querySelector('#platform-choices');
-        let rating = modal.querySelector('#rating-stars');
-        const update = modal.querySelector('#update-review');
+                const closeButton = modal.querySelector("#close-button");
+                let movieName = modal.querySelector("#movie-serie-name");
+                let reviewText = modal.querySelector("#review");
+                let platform = modal.querySelector("#platform-choices");
+                let rating = modal.querySelector("#rating-stars");
+                const update = modal.querySelector("#update-review");
 
                 closeButton.addEventListener('click', () => {
                     modal.classList.add('none');
@@ -264,7 +248,6 @@ export const Timeline = () => {
             const postTemplate = `
             <li class="post-li" data-id="${post.id}">
                 <div class="post">
-
                     <div class="post-header">
                         <h1 class="movie-name"><b>${post.data().movieName}</b></h1>
                         <div class="edit-delete-buttons">
@@ -272,12 +255,10 @@ export const Timeline = () => {
                                 <button data-id="${post.id}" class="${post.data().userUid === UserInfoUid() ? "edit-button" : "none"}">&#9998;</button>
                         </div>
                     </div>
-
                     <p>${post.data().name} <i>@${post.data().username}</i></p>
                     <p class="review">${post.data().review}</p>
                     <p class="rating"><b>Rating:</b> ${post.data().rating}</p>
                     <p class="platform"><b>Watched on:</b> ${post.data().platform}</p>
-
                     <div class="user-actions">
                         <div class="agree-disagree-buttons">
                             <input type="checkbox" data-id="${post.id}" id="${post.id}-agree" name="agree" class="agree-button none" ${post.data().agree.includes(UserInfoUid()) ? "checked" : ""}>
@@ -285,22 +266,19 @@ export const Timeline = () => {
                         
                             <input type="checkbox" data-id="${post.id}" id="${post.id}-disagree" name="disagree" class="disagree-button none" ${post.data().disagree.includes(UserInfoUid()) ? "checked" : ""}> 
                             <label for="${post.id}-disagree" class="disagree">&#128078; ${post.data().disagree.length > 0 ? post.data().disagree.length : "0"}</label>
-
                             <button data-id="${post.id}" class="comment-button"></button>
                         </div>
                     </div>
-
                     <div data-id="${post.id}" class="open-comments none">
                         <div data-id="${post.id}" class="comment-modal"></div>
                         <ul data-id="${post.id}" class="comments-list"></ul>
                     </div>
                 </div>
-
                 <div data-id="${post.id}" class="edit-modal none"></div>
             </li>
             `;
-      recentReviews.innerHTML += postTemplate;
-    });
+            recentReviews.innerHTML += postTemplate
+        })
 
         const deleteButton = recentReviews.querySelectorAll(".delete-button");
         const editButton = recentReviews.querySelectorAll(".edit-button");

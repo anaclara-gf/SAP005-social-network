@@ -9,23 +9,18 @@ export const Register = () => {
             <h1>Register: join our community!</h1>
         </section>
         <form class="register">
-
             <label class="flex-itens" for="email">E-mail:</label>
             <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
-
             <label class="flex-itens" for="password">Password:</label>
             <input class="flex-itens" id="password" type="password" placeholder="Password" required>
             <p class="flex-itens" id="password-rules"></p> 
-
             <label class="flex-itens" for="confirm-password">Confirm password:</label>
             <input class="flex-itens" id="confirm-password" type="password" placeholder="Password" required>
             <p class="flex-itens" id="password-error"></p>
-
             <div class="signup-button-register">
                 <button id="signup-button-register" class="flex-itens">Sign up</button>
             </div>
         </form>
-
         <p class="flex-itens signin">Already have an account?</p>
         <button id="signin-button-register" class="flex-itens">Sign in</button>
     `;
@@ -47,7 +42,6 @@ export const Register = () => {
             passwordRules.innerHTML = '';
         }
     }
-  };
 
     const verifyConfirmPassword = () => {
         if (password.value !== confirmPassword.value) {
@@ -60,10 +54,9 @@ export const Register = () => {
             return true
         }
     }
-  };
 
-  confirmPassword.addEventListener('input', verifyConfirmPassword);
-  password.addEventListener('input', verifyPasswordLength);
+    confirmPassword.addEventListener('input', verifyConfirmPassword);
+    password.addEventListener('input', verifyPasswordLength);
 
     signUpButton.addEventListener('click', (e) => {
         e.preventDefault();
@@ -86,9 +79,9 @@ export const Register = () => {
         }
     })
 
-  signInButton.addEventListener('click', () => {
-    onNavigate('/');
-  });
+    signInButton.addEventListener('click', () => {
+        onNavigate("/")
+    })
 
-  return rootElement;
+    return rootElement;
 };
