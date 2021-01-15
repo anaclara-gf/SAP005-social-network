@@ -23,7 +23,7 @@ body {
 .login-page, .register-page, .profile-page {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 155px);
+    min-height: calc(100vh - 165px);
 }
 
 .header {
