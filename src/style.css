@@ -221,6 +221,7 @@ button {
     padding: 0;
     margin-bottom: 20px;
     background-color: rgba(8, 8, 8, 0.918);
+    box-shadow: 0 0 20px #3b3d40;
     border-radius: 30px;
 }
 
