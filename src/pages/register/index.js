@@ -3,31 +3,31 @@ import { onNavigate } from "../../utils/history.js";
 
 export const Register = () => {
     const rootElement = document.createElement('div');
-    rootElement.classList.add("root-element");
+    rootElement.classList.add("flex-container", "register-page")
     rootElement.innerHTML = `
-        <div class="flex-container">
-            <section class="registerText">
-                <h1>Register: join our community!</h1>
-                </section>
-            <form class="register">
+        <section class="registerText">
+            <h1>Register: join our community!</h1>
+        </section>
+        <form class="register">
 
-                <label class="flex-itens" for="email">E-mail:</label>
-                <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
+            <label class="flex-itens" for="email">E-mail:</label>
+            <input class="flex-itens" id="email" type="email" placeholder="E-mail" required>
 
-                <label class="flex-itens" for="password">Password:</label>
-                <input class="flex-itens" id="password" type="password" placeholder="Password" required>
-                <p class="flex-itens" id="password-rules"></p> 
+            <label class="flex-itens" for="password">Password:</label>
+            <input class="flex-itens" id="password" type="password" placeholder="Password" required>
+            <p class="flex-itens" id="password-rules"></p> 
 
-                <label class="flex-itens" for="confirm-password">Confirm password:</label>
-                <input class="flex-itens" id="confirm-password" type="password" placeholder="Password" required>
-                <p class="flex-itens" id="password-error"></p>
+            <label class="flex-itens" for="confirm-password">Confirm password:</label>
+            <input class="flex-itens" id="confirm-password" type="password" placeholder="Password" required>
+            <p class="flex-itens" id="password-error"></p>
 
-                <button id="signup-button" class="flex-itens">Sign up</button>
-            </form>
+            <div class="signup-button-register">
+                <button id="signup-button-register" class="flex-itens">Sign up</button>
+            </div>
+        </form>
 
-            <p class="flex-itens">Already have an account?</p>
-            <button id ="signin-button" class="flex-itens">Sign in</button>
-        </div>
+        <p class="flex-itens signin">Already have an account?</p>
+        <button id="signin-button-register" class="flex-itens">Sign in</button>
     `;
 
     const email = rootElement.querySelector("#email");
@@ -35,8 +35,8 @@ export const Register = () => {
     const passwordRules = rootElement.querySelector('#password-rules');
     const confirmPassword = rootElement.querySelector("#confirm-password");
     const passwordError = rootElement.querySelector("#password-error")
-    const signUpButton = rootElement.querySelector("#signup-button");
-    const signInButton = rootElement.querySelector("#signin-button");
+    const signUpButton = rootElement.querySelector("#signup-button-register");
+    const signInButton = rootElement.querySelector("#signin-button-register");
     const formRegister = rootElement.querySelector(".register");
 
     const verifyPasswordLength = () => {
