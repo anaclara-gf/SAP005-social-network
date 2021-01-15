@@ -396,7 +396,7 @@ export const Timeline = () => {
 
     commentButton.forEach(button => {
       GetComments(button.dataset.id)
-        .then(doc => {button.innerHTML = `${doc.docs.length} ${doc.docs.length > 1 ? 'Comments' : 'Comment'}`;});
+        .then(doc => { button.innerHTML = `${doc.docs.length} ${doc.docs.length > 1 ? 'Comments' : 'Comment'}`; });
       button.addEventListener('click', (event) => {
         const commentBtn = event.target.parentNode.querySelector('.comment-button');
         const openComments = event.target.parentNode.parentNode.parentNode.querySelector('.open-comments');
@@ -408,7 +408,7 @@ export const Timeline = () => {
           commentBtn.innerHTML = 'Close';
         } else {
           GetComments(button.dataset.id)
-            .then(doc => {button.innerHTML = `${doc.docs.length} ${doc.docs.length > 1 ? 'Comments' : 'Comment'}`;});
+            .then(doc => { button.innerHTML = `${doc.docs.length} ${doc.docs.length > 1 ? 'Comments' : 'Comment'}`; });
         }
 
         commentsList.innerHTML = '';
